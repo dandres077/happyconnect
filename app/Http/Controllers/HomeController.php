@@ -28,15 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = DB::select("select count(id) AS invoiced, 
-                                        marcas.nombre customer
-                                        from marcas
-                                        where status = 1 and
-                                        user_create = ?
-                                        group by nombre", [Auth::id()]);
-        
-        $permiso = $this->permisos(Auth::id());
 
-        return view('home')->with(compact('data', 'permiso'));
+
+        return view('home');
     }
 }

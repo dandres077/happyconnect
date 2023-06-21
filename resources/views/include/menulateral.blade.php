@@ -78,6 +78,51 @@
                             </svg></span><span class="kt-menu__link-text">Sistema</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
+
+                            @can('paises.index')
+                            <li class="kt-menu__item {{ request()->is('admin/paises*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/paises/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Países</span></a></li>            
+                            @endcan
+
+                            @can('departamentos.index')
+                            <li class="kt-menu__item {{ request()->is('admin/departamentos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/departamentos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Departamentos</span></a></li>            
+                            @endcan
+
+                            @can('ciudades.index')
+                            <li class="kt-menu__item {{ request()->is('admin/ciudades*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/ciudades/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Ciudades</span></a></li>            
+                            @endcan
+
+                            @can('empresas.index')
+                            <li class="kt-menu__item {{ request()->is('admin/empresas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/empresas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Empresas</span></a></li>            
+                            @endcan
+
+                            @can('sedes.index')
+                            <li class="kt-menu__item {{ request()->is('admin/sedes*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/sedes/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Sedes</span></a></li>            
+                            @endcan
+
+                            @can('areas.index')
+                            <li class="kt-menu__item {{ request()->is('admin/areas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/areas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Áreas</span></a></li>            
+                            @endcan
+
+                            @can('asignaturas.index')
+                            <li class="kt-menu__item {{ request()->is('admin/asignaturas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/asignaturas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Asignaturas</span></a></li>            
+                            @endcan
+
+                            @can('grados.index')
+                            <li class="kt-menu__item {{ request()->is('admin/grados*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/grados/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Grados</span></a></li>            
+                            @endcan
+
+                            @can('niveles.index')
+                            <li class="kt-menu__item {{ request()->is('admin/niveles*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/niveles/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Niveles</span></a></li>            
+                            @endcan
+
+                            @can('temporadas.index')
+                            <li class="kt-menu__item {{ request()->is('admin/temporadas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/temporadas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Temporadas</span></a></li>            
+                            @endcan
+
+                            @can('periodos.index')
+                            <li class="kt-menu__item {{ request()->is('admin/periodos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/periodos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Periodos</span></a></li>            
+                            @endcan
+
                             @can('roles.index')
                             <li class="kt-menu__item {{ request()->is('admin/roles*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/roles/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Roles</span></a></li>
                             @endcan

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Ciudades;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CiudadesRequest;
 use DB;
 
 class CiudadesController extends Controller
@@ -27,8 +26,7 @@ class CiudadesController extends Controller
             ->select(
                 'ciudades.*',
                 'departamentos.nombre AS nomdepartamento',
-                DB::raw('CONCAT(users.name, " ", users.last) AS creo'),
-                DB::raw('CONCAT(users2.name, " ", users2.last) AS actualizo'))
+                DB::raw('(CASE WHEN ciudades.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
             ->where('ciudades.status', '<>', 3 )
             ->orderByRaw('ciudades.id ASC')
             ->get();
@@ -60,7 +58,7 @@ class CiudadesController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function store(CiudadesRequest $request)
+    public function store(Request $request)
     {
 
         $request['user_create'] = Auth::id();
@@ -95,7 +93,7 @@ class CiudadesController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function update(CiudadesRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         $data = Ciudades::find($id);

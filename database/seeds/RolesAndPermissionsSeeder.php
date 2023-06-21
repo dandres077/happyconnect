@@ -21,12 +21,14 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'roles.edit']); 
 		Permission::create(['name' => 'roles.active']); 
 		Permission::create(['name' => 'roles.inactive']); 
+
 		Permission::create(['name' => 'permisos.store']); 
 		Permission::create(['name' => 'permisos.index']); 
 		Permission::create(['name' => 'permisos.create']);  
 		Permission::create(['name' => 'permisos.edit']); 
 		Permission::create(['name' => 'permisos.show']);  
-		Permission::create(['name' => 'permisos.destroy']); 
+		Permission::create(['name' => 'permisos.destroy']);
+
 		Permission::create(['name' => 'usuarios.store']);  
 		Permission::create(['name' => 'usuarios.index']); 
 		Permission::create(['name' => 'usuarios.create']);
@@ -39,6 +41,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'usuarios.editarperfil']); 
 		Permission::create(['name' => 'usuarios.updateperfil']); 
 		Permission::create(['name' => 'usuarios.pwd']); 
+
 		Permission::create(['name' => 'paises.store']);
 		Permission::create(['name' => 'paises.index']);
 		Permission::create(['name' => 'paises.create']);
@@ -48,6 +51,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'paises.edit']);
 		Permission::create(['name' => 'paises.active']);
 		Permission::create(['name' => 'paises.inactive']);
+
 		Permission::create(['name' => 'departamentos.store']); 
 		Permission::create(['name' => 'departamentos.index']); 
 		Permission::create(['name' => 'departamentos.create']); 
@@ -57,6 +61,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'departamentos.edit']); 
 		Permission::create(['name' => 'departamentos.active']); 
 		Permission::create(['name' => 'departamentos.inactive']); 
+
 		Permission::create(['name' => 'ciudades.store']); 
 		Permission::create(['name' => 'ciudades.index']); 
 		Permission::create(['name' => 'ciudades.create']); 
@@ -65,7 +70,17 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'ciudades.destroy']); 
 		Permission::create(['name' => 'ciudades.edit']); 
 		Permission::create(['name' => 'ciudades.active']); 
-		Permission::create(['name' => 'ciudades.inactive']); 
+		Permission::create(['name' => 'ciudades.inactive']);
+
+		Permission::create(['name' => 'generalidades.store']); 
+		Permission::create(['name' => 'generalidades.index']); 
+		Permission::create(['name' => 'generalidades.create']); 
+		Permission::create(['name' => 'generalidades.update']); 
+		Permission::create(['name' => 'generalidades.destroy']); 
+		Permission::create(['name' => 'generalidades.edit']); 
+		Permission::create(['name' => 'generalidades.active']); 
+		Permission::create(['name' => 'generalidades.inactive']); 
+
 		Permission::create(['name' => 'catalogos.store']); 
 		Permission::create(['name' => 'catalogos.index']); 
 		Permission::create(['name' => 'catalogos.create']); 
@@ -74,24 +89,80 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'catalogos.edit']); 
 		Permission::create(['name' => 'catalogos.active']); 
 		Permission::create(['name' => 'catalogos.inactive']); 
-		Permission::create(['name' => 'marcas.store']);
-		Permission::create(['name' => 'marcas.index']);
-		Permission::create(['name' => 'marcas.create']);
-		Permission::create(['name' => 'marcas.update']);
-		Permission::create(['name' => 'marcas.show']);
-		Permission::create(['name' => 'marcas.destroy']);
-		Permission::create(['name' => 'marcas.edit']);
-		Permission::create(['name' => 'marcas.active']);
-		Permission::create(['name' => 'marcas.inactive']);
-		Permission::create(['name' => 'modelos.store']);
-		Permission::create(['name' => 'modelos.index']);
-		Permission::create(['name' => 'modelos.create']);
-		Permission::create(['name' => 'modelos.update']);
-		Permission::create(['name' => 'modelos.show']);
-		Permission::create(['name' => 'modelos.destroy']);
-		Permission::create(['name' => 'modelos.edit']);
-		Permission::create(['name' => 'modelos.active']);
-		Permission::create(['name' => 'modelos.inactive']);
+
+		Permission::create(['name' => 'empresas.store']); 
+		Permission::create(['name' => 'empresas.index']); 
+		Permission::create(['name' => 'empresas.create']); 
+		Permission::create(['name' => 'empresas.update']); 
+		Permission::create(['name' => 'empresas.destroy']); 
+		Permission::create(['name' => 'empresas.edit']); 
+		Permission::create(['name' => 'empresas.active']); 
+		Permission::create(['name' => 'empresas.inactive']); 
+
+		Permission::create(['name' => 'sedes.store']); 
+		Permission::create(['name' => 'sedes.index']); 
+		Permission::create(['name' => 'sedes.create']); 
+		Permission::create(['name' => 'sedes.update']); 
+		Permission::create(['name' => 'sedes.destroy']); 
+		Permission::create(['name' => 'sedes.edit']); 
+		Permission::create(['name' => 'sedes.active']); 
+		Permission::create(['name' => 'sedes.inactive']); 
+
+		Permission::create(['name' => 'areas.store']); 
+		Permission::create(['name' => 'areas.index']); 
+		Permission::create(['name' => 'areas.create']); 
+		Permission::create(['name' => 'areas.update']); 
+		Permission::create(['name' => 'areas.destroy']); 
+		Permission::create(['name' => 'areas.edit']); 
+		Permission::create(['name' => 'areas.active']); 
+		Permission::create(['name' => 'areas.inactive']); 
+
+		Permission::create(['name' => 'asignaturas.store']); 
+		Permission::create(['name' => 'asignaturas.index']); 
+		Permission::create(['name' => 'asignaturas.create']); 
+		Permission::create(['name' => 'asignaturas.update']); 
+		Permission::create(['name' => 'asignaturas.destroy']); 
+		Permission::create(['name' => 'asignaturas.edit']); 
+		Permission::create(['name' => 'asignaturas.active']); 
+		Permission::create(['name' => 'asignaturas.inactive']); 
+
+		Permission::create(['name' => 'niveles.store']); 
+		Permission::create(['name' => 'niveles.index']); 
+		Permission::create(['name' => 'niveles.create']); 
+		Permission::create(['name' => 'niveles.update']); 
+		Permission::create(['name' => 'niveles.destroy']); 
+		Permission::create(['name' => 'niveles.edit']); 
+		Permission::create(['name' => 'niveles.active']); 
+		Permission::create(['name' => 'niveles.inactive']); 
+
+		Permission::create(['name' => 'grados.store']); 
+		Permission::create(['name' => 'grados.index']); 
+		Permission::create(['name' => 'grados.create']); 
+		Permission::create(['name' => 'grados.update']); 
+		Permission::create(['name' => 'grados.destroy']); 
+		Permission::create(['name' => 'grados.edit']); 
+		Permission::create(['name' => 'grados.active']); 
+		Permission::create(['name' => 'grados.inactive']); 
+
+		Permission::create(['name' => 'temporadas.store']); 
+		Permission::create(['name' => 'temporadas.index']); 
+		Permission::create(['name' => 'temporadas.create']); 
+		Permission::create(['name' => 'temporadas.update']); 
+		Permission::create(['name' => 'temporadas.destroy']); 
+		Permission::create(['name' => 'temporadas.edit']); 
+		Permission::create(['name' => 'temporadas.active']); 
+		Permission::create(['name' => 'temporadas.inactive']); 
+
+		Permission::create(['name' => 'periodos.store']); 
+		Permission::create(['name' => 'periodos.index']); 
+		Permission::create(['name' => 'periodos.create']); 
+		Permission::create(['name' => 'periodos.update']); 
+		Permission::create(['name' => 'periodos.destroy']); 
+		Permission::create(['name' => 'periodos.edit']); 
+		Permission::create(['name' => 'periodos.active']); 
+		Permission::create(['name' => 'periodos.inactive']); 
+
+
 		Permission::create(['name' => 'administracion.index']);
 		
 
@@ -101,26 +172,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $role->givePermissionTo(Permission::all());
 
 		// or may be done by chaining
-        $role = Role::create(['name' => 'Piloto'])
+        $role = Role::create(['name' => 'Docente'])
             ->givePermissionTo([
-								'marcas.store',
-								'marcas.index',
-								'marcas.create',
-								'marcas.update',
-								'marcas.show',
-								'marcas.destroy',
-								'marcas.edit',
-								'marcas.active',
-								'marcas.inactive',
-								'modelos.store',
-								'modelos.index',
-								'modelos.create',
-								'modelos.update',
-								'modelos.show',
-								'modelos.destroy',
-								'modelos.edit',
-								'modelos.active',
-								'modelos.inactive',
+								
 			]);
 
         DB::table('model_has_roles')->insert([

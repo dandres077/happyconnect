@@ -93,26 +93,47 @@
                     <td>{{$ciudades->nomdepartamento}}</td>
                     <td>{{$ciudades->nombre}}</td>
                     <td>       
-                    @can('ciudades.active')                      
-                    @if ($ciudades->status==1)
-                        <form method="post" action="{{ url('admin/ciudades/'.$ciudades->id.'/inactive')}}">
-                            {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-warning btn-elevate btn-pill btn-elevate-air btn-sm"> Inactivar <i class="fa fa-repeat"></i></button>
-                        </form>
-                    @else
-                        <form method="post" action="{{ url('admin/ciudades/'.$ciudades->id.'/active')}}">
-                            {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm"> Activar <i class="fa fa-repeat"></i></button>
-                        </form>
-                    @endif     
-                    @endcan                   
+                        @if($ciudades->estado_elemento == 'Activo')
+                            <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
+                        @else
+                            <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Inactivo</span>
+                        @endif
                     </td>
-                    <td>
-                    @can('ciudades.edit')
-                        <a href="{{ url('admin/ciudades/'.$ciudades->id.'/edit')}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit">
-                          <i class="la la-edit"></i>
-                        </a>
-                    @endcan
+                    <td>   
+                        <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="flaticon-more-1"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                @can('ciudades.edit') 
+                                <a class="dropdown-item" href="{{ url('admin/ciudades/'.$ciudades->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
+                                @endcan
+
+                                @can('ciudades.delete')       
+                                <form method="post" action="{{ url('admin/ciudades/'.$ciudades->id)}}">
+                                    {{ csrf_field() }}
+                                    <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
+                                </form>  
+                                @endcan
+
+                                @if ($ciudades->status == 1)
+                                    @can('ciudades.inactive')         
+                                    <form method="post" action="{{ url('admin/ciudades/'.$ciudades->id.'/inactive')}}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
+                                    </form>            
+                                    @endcan
+                                @else    
+                                    @can('ciudades.active')       
+                                    <form method="post" action="{{ url('admin/ciudades/'.$ciudades->id.'/active')}}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
+                                    </form>
+                                    @endcan
+                                @endif
+
+                            </div>
+                        </div>  
                     </td>
 
                 </tr>

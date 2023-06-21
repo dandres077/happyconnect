@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Paises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\PaisesRequest;
 use DB;
 
 class PaisesController extends Controller
@@ -21,7 +20,8 @@ class PaisesController extends Controller
     public function index()
     {
         $data = DB::table('paises')
-                    ->select('paises.*')
+                    ->select('paises.*', 
+                              DB::raw('(CASE WHEN status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
                     ->where('status', '<>', 3 )
                     ->orderByRaw('id ASC')
                     ->get();
@@ -54,7 +54,7 @@ class PaisesController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function store(PaisesRequest $request)
+    public function store(Request $request)
     {
 
         $request['user_create'] = Auth::id();
@@ -88,7 +88,7 @@ class PaisesController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function update(PaisesRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
         $data = Paises::find($id);

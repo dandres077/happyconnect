@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',  'Paises'  .' | '.config('app.name'))
+@section('title',  $titulo  .' | '.config('app.name'))
 
 @section('style')
 <link href="{{ asset('assets/css/pages/tables/style.css')}}" rel="stylesheet" type="text/css" />
@@ -59,11 +59,11 @@
                    {{ $titulo }}
                 </h3>
             </div>
-            @can('paises.create')
+            @can('paisess.create')
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{ url ('admin/paises/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{ url ('admin/modelos/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Crear
                         </a>
@@ -81,9 +81,7 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Estado</th>
-
-                    <th></th>
-
+                    <th>Opciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,29 +89,49 @@
                 <tr class="gradeX">
                     <td>{{$paises->id}}</td>
                     <td>{{$paises->nombre}}</td>
-                    <td>          
-                    @can('paises.active')                   
-                    @if ($paises->status==1)
-                        <form method="post" action="{{ url('admin/paises/'.$paises->id.'/inactive')}}">
-                            {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-warning btn-elevate btn-pill btn-elevate-air btn-sm"> Inactivar <i class="fa fa-repeat"></i></button>
-                        </form>
-                    @else
-                        <form method="post" action="{{ url('admin/paises/'.$paises->id.'/active')}}">
-                            {{ csrf_field() }}
-                            <button type="submit" rel="tooltip" title="Cambiar" class="btn btn-success btn-elevate btn-pill btn-elevate-air btn-sm"> Activar <i class="fa fa-repeat"></i></button>
-                        </form>
-                    @endif     
-                    @endcan                   
-                    </td>
                     <td>
-                    @can('paises.edit')
-                        <a href="{{ url('admin/paises/'.$paises->id.'/edit')}}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Edit">
-                          <i class="la la-edit"></i>
-                        </a>
-                    @endcan
+                        @if($paises->estado_elemento == 'Activo')
+                            <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
+                        @else
+                            <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Inactivo</span>
+                        @endif
                     </td>
+                    <td>   
+                        <div class="dropdown dropdown-inline">
+                            <button type="button" class="btn btn-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="flaticon-more-1"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                @can('paises.edit') 
+                                <a class="dropdown-item" href="{{ url('admin/paises/'.$paises->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
+                                @endcan
 
+                                @can('paises.delete')       
+                                <form method="post" action="{{ url('admin/paises/'.$paises->id)}}">
+                                    {{ csrf_field() }}
+                                    <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
+                                </form>  
+                                @endcan
+
+                                @if ($paises->status == 1)
+                                    @can('paises.inactive')         
+                                    <form method="post" action="{{ url('admin/paises/'.$paises->id.'/inactive')}}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
+                                    </form>            
+                                    @endcan
+                                @else    
+                                    @can('paises.active')       
+                                    <form method="post" action="{{ url('admin/paises/'.$paises->id.'/active')}}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
+                                    </form>
+                                    @endcan
+                                @endif
+
+                            </div>
+                        </div>    
+                    </td>
                 </tr>
                 @endforeach 
                 </tbody>
@@ -122,9 +140,7 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Estado</th>
-                    <!--@can ('paises.edit')-->
-                    <th></th>
-                    <!--@endcan-->
+                    <th>Opciones</th>
                 </tr>
                 </tfoot>
                 </table>
@@ -144,6 +160,41 @@
 @section('scripts')
 
 <script src="{{ asset('plugins/dataTables/datatables.min.js')}}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+@if(session('eliminar')=='ok')
+<script>
+    Swal.fire(
+      '¡Eliminado!',
+      'Registro eliminado exitosamente.',
+      'success'
+    )
+</script>
+
+@endif
+
+<script>
+
+    $('.formulario-eliminar').submit(function(e){
+        e.preventDefault();
+        Swal.fire({
+          title: '¿Esta seguro?',
+          text: "¡No podra revertir esta acción!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, estoy seguro',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+              this.submit();
+            }          
+        })
+    });
+    
+</script>
 
 <!-- Page-Level Scripts -->
 <script>
@@ -172,12 +223,12 @@ $(document).ready(function(){
         ],
         "language":{
             "info": "_TOTAL_ registros",
-            "search": "Search",
+            "search": "Buscar",
             "paginate":{
                 "next": "Siguiente",
                 "previous": "Anterior",
             },
-            "lengthMenu": 'Show <select>'+
+            "lengthMenu": 'Ver <select>'+
                         '<option value="10">10</option>'+
                         '<option value="30">30</option>'+
                         '<option value="-1">Todo</option>'+

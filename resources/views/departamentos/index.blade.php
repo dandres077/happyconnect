@@ -80,7 +80,7 @@
                 <tr>
                     <th>Id</th>
                     <th>País</th>
-                    <th>Nombre</th>
+                    <th>Departamento</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
@@ -91,44 +91,48 @@
                     <td>{{$departamentos->id}}</td>
                     <td>{{$departamentos->nompais}}</td>
                     <td>{{$departamentos->nombre}}</td>
-                    <td>{{$departamentos->estado_elemento}}</td>
+                    <td>
+                        @if($departamentos->estado_elemento == 'Activo')
+                            <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
+                        @else
+                            <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Inactivo</span>
+                        @endif
+                    </td>
                     <td>   
                         <div class="dropdown dropdown-inline">
                             <button type="button" class="btn btn-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="flaticon-more-1"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                
+                                @can('departamentos.edit') 
                                 <a class="dropdown-item" href="{{ url('admin/departamentos/'.$departamentos->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
-                                
+                                @endcan
 
-                                
-                                <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id)}}" class="formulario-eliminar">
-                                    @method('DELETE')
+                                @can('departamentos.delete')       
+                                <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id)}}">
                                     {{ csrf_field() }}
-
                                     <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
                                 </form>  
-                                
+                                @endcan
 
-                                @if ($departamentos->status==1)
-                                    
+                                @if ($departamentos->status == 1)
+                                    @can('departamentos.inactive')         
                                     <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id.'/inactive')}}">
                                         {{ csrf_field() }}
                                         <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
-                                    </form>
-                                    
-                                @else
-                                    
+                                    </form>            
+                                    @endcan
+                                @else    
+                                    @can('departamentos.active')       
                                     <form method="post" action="{{ url('admin/departamentos/'.$departamentos->id.'/active')}}">
                                         {{ csrf_field() }}
                                         <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
                                     </form>
-                                    
+                                    @endcan
                                 @endif
 
                             </div>
-                        </div>        
+                        </div>  
                     </td>
                 </tr>
                 @endforeach 
@@ -137,7 +141,7 @@
                 <tr>
                     <th>Id</th>
                     <th>País</th>
-                    <th>Nombre</th>
+                    <th>Departamento</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
