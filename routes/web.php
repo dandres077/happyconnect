@@ -188,7 +188,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/areas', 'AreasController@index')->middleware('permiso:areas.index'); 
 	Route::get('admin/areas/create', 'AreasController@create')->middleware('permiso:areas.create'); 
 	Route::post('admin/areas/{id}/edit', 'AreasController@update')->middleware('permiso:areas.update'); 
-	Route::delete('admin/areas/{id}', 'AreasController@destroy')->middleware('permiso:areas.destroy'); 
+	Route::post('admin/areas/{id}', 'AreasController@destroy')->middleware('permiso:areas.destroy'); 
 	Route::get('admin/areas/{id}/edit', 'AreasController@edit')->middleware('permiso:areas.edit'); 
 	Route::post('admin/areas/{id}/active', 'AreasController@active')->middleware('permiso:areas.active'); 
 	Route::post('admin/areas/{id}/inactive', 'AreasController@inactive')->middleware('permiso:areas.inactive'); 
@@ -204,7 +204,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/asignaturas', 'AsignaturasController@index')->middleware('permiso:asignaturas.index'); 
 	Route::get('admin/asignaturas/create', 'AsignaturasController@create')->middleware('permiso:asignaturas.create'); 
 	Route::post('admin/asignaturas/{id}/edit', 'AsignaturasController@update')->middleware('permiso:asignaturas.update'); 
-	Route::delete('admin/asignaturas/{id}', 'AsignaturasController@destroy')->middleware('permiso:asignaturas.destroy'); 
+	Route::post('admin/asignaturas/{id}', 'AsignaturasController@destroy')->middleware('permiso:asignaturas.destroy'); 
 	Route::get('admin/asignaturas/{id}/edit', 'AsignaturasController@edit')->middleware('permiso:asignaturas.edit'); 
 	Route::post('admin/asignaturas/{id}/active', 'AsignaturasController@active')->middleware('permiso:asignaturas.active'); 
 	Route::post('admin/asignaturas/{id}/inactive', 'AsignaturasController@inactive')->middleware('permiso:asignaturas.inactive'); 

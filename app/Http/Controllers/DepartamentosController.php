@@ -10,7 +10,7 @@ use DB;
 
 class DepartamentosController extends Controller
 {
-    /*
+/*
 }
 |--------------------------------------------------------------------------
 | index

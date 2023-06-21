@@ -4,82 +4,163 @@ namespace App\Http\Controllers;
 
 use App\Asignaturas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class AsignaturasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+}
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $data = DB::table('asignaturas')
+            ->leftJoin('areas', 'asignaturas.area_id', '=', 'areas.id')
+            ->select(
+                'asignaturas.*',
+                'areas.nombre as nom_area',
+                DB::raw('(CASE WHEN asignaturas.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
+            ->where('asignaturas.status', '<>', 3 )
+            ->orderByRaw('asignaturas.id ASC')
+            ->get();
+
+        $titulo = 'Asignaturas';
+
+        return view('asignaturas.index', compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $areas = DB::table('areas')->where('empresa_id', Auth::user()->empresa_id )->where('status', 1 )->get();
+
+        $titulo = 'Asignaturas';
+
+        return view('asignaturas.create', compact('titulo', 'areas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+
+        $data = Asignaturas::create($request->all());
+
+        return redirect ('admin/asignaturas')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Asignaturas  $asignaturas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Asignaturas $asignaturas)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Asignaturas::find($id); 
+        $areas = DB::table('areas')->where('empresa_id', Auth::user()->empresa_id )->where('status', 1 )->get();   
+        $titulo = 'Asignaturas';
+
+        return view ('asignaturas.edit')->with (compact('data', 'titulo', 'areas'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Asignaturas  $asignaturas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Asignaturas $asignaturas)
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
     {
-        //
+
+        $data = Asignaturas::find($id);
+        $data->area_id = $request->input('area_id');
+        $data->nombre = $request->input('nombre');
+        $data->user_update = Auth::id();
+        $data->save();
+
+        
+        return redirect ('admin/asignaturas')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Asignaturas  $asignaturas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Asignaturas $asignaturas)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Asignaturas::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/asignaturas')->with('eliminar', 'ok');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Asignaturas  $asignaturas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Asignaturas $asignaturas)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Asignaturas::find($id);
+        $data->status = 1;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/asignaturas');
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Asignaturas::find($id);
+        $data->status = 2;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/asignaturas');
     }
 }
