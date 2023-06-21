@@ -11,16 +11,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        //factory(App\Paises::class, 50)->create();
-
         $this->call(UsersSeeder::class);
         $this->call(PaisesSeeder::class);
         $this->call(DepartamentosSeeder::class);
         $this->call(CiudadesSeeder::class);
+        $this->call(GeneralidadesSeeder::class);
         $this->call(CatalogosSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class); 
-        $this->call(MarcasSeeder::class); 
-        $this->call(ModeloSeeder::class); 
+        $this->call(EmpresasSeeder::class); 
+        $this->call(EmpresasSedesSeeder::class); 
+        $this->call(AreasSeeder::class); 
+        $this->call(AsignaturasSeeder::class); 
+        $this->call(NivelesSeeder::class); 
+        $this->call(GradosSeeder::class); 
+        $this->call(TemporadasSeeder::class); 
+        $this->call(PeriodosSeeder::class); 
     }
 }

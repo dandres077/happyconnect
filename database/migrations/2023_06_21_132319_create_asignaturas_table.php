@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCatalogosTable extends Migration
+class CreateAsignaturasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateCatalogosTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalogos', function (Blueprint $table) {
+        Schema::create('asignaturas', function (Blueprint $table) {
             $table->id('id');
-            $table->integer('empresa_id')->nullable();
-            $table->integer('generalidad_id')->nullable();
+            $table->unsignedBigInteger('empresa_id')->index()->nullable(); 
+            $table->unsignedBigInteger('area_id')->index()->nullable();
             $table->string('nombre')->nullable();
-            $table->string('opcion')->nullable();
             $table->integer('status')->default(1); // 1: activo, 2:inactivo: 3: eliminado
             $table->integer('user_create')->nullable();
             $table->integer('user_update')->nullable();
             $table->timestamps();
+
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
@@ -33,6 +36,6 @@ class CreateCatalogosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalogos');
+        Schema::dropIfExists('asignaturas');
     }
 }

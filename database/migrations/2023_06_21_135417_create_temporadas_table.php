@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModelosTable extends Migration
+class CreateTemporadasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateModelosTable extends Migration
      */
     public function up()
     {
-        Schema::create('modelos', function (Blueprint $table) {
+        Schema::create('temporadas', function (Blueprint $table) {
             $table->id('id');
-            $table->unsignedBigInteger('marca_id')->index()->nullable();
+            $table->unsignedBigInteger('empresa_id')->index()->nullable(); 
             $table->string('nombre')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
             $table->integer('status')->default(1); // 1: activo, 2:inactivo: 3: eliminado
             $table->integer('user_create')->nullable();
             $table->integer('user_update')->nullable();
             $table->timestamps();
 
-            $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade'); 
+            
         });
     }
 
@@ -33,6 +36,6 @@ class CreateModelosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modelos');
+        Schema::dropIfExists('temporadas');
     }
 }
