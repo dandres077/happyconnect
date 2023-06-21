@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $titulo .' | '.config('app.name'))
+@section('title',  $titulo  .' | '.config('app.name'))
 
 @section('style')
 
@@ -16,13 +16,13 @@
                 Dashboard </h3>
             <span class="kt-subheader__separator kt-hidden"></span>
             <div class="kt-subheader__breadcrumbs">
-                <a href="{{ url ('admin/catalogos')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                <a href="{{ url ('admin/generalidades')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                <a href="{{ url ('admin/catalogos')}}" class="kt-subheader__breadcrumbs-link">
+                <a href="{{ url ('admin/generalidades')}}" class="kt-subheader__breadcrumbs-link">
                 {{ $titulo }}</a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
                 <a href="" class="kt-subheader__breadcrumbs-link">
-                Crear </a>
+                Editar</a>
             </div>
         </div>
     </div>
@@ -51,38 +51,27 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <form method="post" class="form-horizontal" action="{{ url('admin/catalogos/store')}}" autocomplete="off" onsubmit="return validar(this)">
+                    <form method="post" class="form-horizontal" action="{{ url('admin/generalidades/'.$data->id.'/edit')}}" autocomplete="off">
                     {{ csrf_field()}}
                         <div class="row">
                             <div class="col-xl-3"></div>
                             <div class="col-xl-6">
                                 <div class="kt-section kt-section--first">
-                                    <div class="kt-section__body">  
+                                    <div class="kt-section__body">                                       
 
                                         <div class="form-group row">
-                                            <label class="col-3 col-form-label">Generalidad </label>
+                                            <label class="col-3 col-form-label">Nombre</label>
                                             <div class="col-9">
-                                                <select class="form-control" name="generalidad_id" id="generalidad_id">
-                                                @foreach ($generalidades as $data)
-                                                    <option value="{{ $data->id }}"> {{ $data->nombre }}</option>
-                                                @endforeach                                                  
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-3 col-form-label">Nombre </label>
-                                            <div class="col-9">
-                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required="">
+                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre', $data->nombre) }}" required="">
                                             </div>
                                         </div>
 
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                         <div class="kt-form__actions">
-                                            @can('catalogos.store')
-                                            <button type="submit" class="btn btn-primary" name="enviar">Crear</button>
+                                            @can('generalidades.update')
+                                            <button type="submit" class="btn btn-primary">Actualizar</button>
                                             @endcan
-                                            <a href="{{ url ('admin/catalogos')}}" class="btn btn-secondary">Cancelar</a>
+                                            <a href="{{ url ('admin/generalidades')}}" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

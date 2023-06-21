@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title',  $titulo  .' | '.config('app.name'))
+@section('title', $titulo .' | '.config('app.name'))
 
 @section('style')
 
@@ -57,19 +57,23 @@
                             <div class="col-xl-3"></div>
                             <div class="col-xl-6">
                                 <div class="kt-section kt-section--first">
-                                    <div class="kt-section__body">                                       
+                                    <div class="kt-section__body">   
+
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Generalidad</label>
+                                            <div class="col-9">
+                                                <select class="form-control" name="generalidad_id" id="generalidad_id">
+                                                @foreach ($generalidades as $general)
+                                                <option value="{{$general->id}}" @if($data->generalidad_id==$general->id) selected @endif> {{ $general->nombre, $data->generalidad_id }}</option>
+                                                @endforeach                                                  
+                                                </select>
+                                            </div>
+                                        </div>                                    
 
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Nombre</label>
                                             <div class="col-9">
                                             <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre', $data->nombre) }}" required="">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-3 col-form-label">Opción</label>
-                                            <div class="col-9">
-                                            <input type="text" class="form-control" id="opcion" name="opcion" value="{{ old('opcion', $data->opcion) }}" required="">
                                             </div>
                                         </div>
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $titulo .' | '.config('app.name'))
+@section('title',  $titulo  .' | '.config('app.name'))
 
 @section('style')
 
@@ -16,9 +16,9 @@
                 Dashboard </h3>
             <span class="kt-subheader__separator kt-hidden"></span>
             <div class="kt-subheader__breadcrumbs">
-                <a href="{{ url ('admin/catalogos')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                <a href="{{ url ('admin/generalidades')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
-                <a href="{{ url ('admin/catalogos')}}" class="kt-subheader__breadcrumbs-link">
+                <a href="{{ url ('admin/generalidades')}}" class="kt-subheader__breadcrumbs-link">
                 {{ $titulo }}</a>
                 <span class="kt-subheader__breadcrumbs-separator"></span>
                 <a href="" class="kt-subheader__breadcrumbs-link">
@@ -51,25 +51,13 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <form method="post" class="form-horizontal" action="{{ url('admin/catalogos/store')}}" autocomplete="off" onsubmit="return validar(this)">
+                    <form method="post" class="form-horizontal" action="{{ url('admin/generalidades/store')}}" autocomplete="off" onsubmit="return validar(this)">
                     {{ csrf_field()}}
                         <div class="row">
                             <div class="col-xl-3"></div>
                             <div class="col-xl-6">
                                 <div class="kt-section kt-section--first">
                                     <div class="kt-section__body">  
-
-                                        <div class="form-group row">
-                                            <label class="col-3 col-form-label">Generalidad </label>
-                                            <div class="col-9">
-                                                <select class="form-control" name="generalidad_id" id="generalidad_id">
-                                                @foreach ($generalidades as $data)
-                                                    <option value="{{ $data->id }}"> {{ $data->nombre }}</option>
-                                                @endforeach                                                  
-                                                </select>
-                                            </div>
-                                        </div>
-
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Nombre </label>
                                             <div class="col-9">
@@ -79,10 +67,10 @@
 
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                         <div class="kt-form__actions">
-                                            @can('catalogos.store')
+                                            @can('generalidades.store')
                                             <button type="submit" class="btn btn-primary" name="enviar">Crear</button>
                                             @endcan
-                                            <a href="{{ url ('admin/catalogos')}}" class="btn btn-secondary">Cancelar</a>
+                                            <a href="{{ url ('admin/generalidades')}}" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

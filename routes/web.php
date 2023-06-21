@@ -127,7 +127,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/generalidades', 'GeneralidadesController@index')->middleware('permiso:generalidades.index'); 
 	Route::get('admin/generalidades/create', 'GeneralidadesController@create')->middleware('permiso:generalidades.create'); 
 	Route::post('admin/generalidades/{id}/edit', 'GeneralidadesController@update')->middleware('permiso:generalidades.update'); 
-	Route::delete('admin/generalidades/{id}', 'GeneralidadesController@destroy')->middleware('permiso:generalidades.destroy'); 
+	Route::post('admin/generalidades/{id}', 'GeneralidadesController@destroy')->middleware('permiso:generalidades.destroy'); 
 	Route::get('admin/generalidades/{id}/edit', 'GeneralidadesController@edit')->middleware('permiso:generalidades.edit'); 
 	Route::post('admin/generalidades/{id}/active', 'GeneralidadesController@active')->middleware('permiso:generalidades.active'); 
 	Route::post('admin/generalidades/{id}/inactive', 'GeneralidadesController@inactive')->middleware('permiso:generalidades.inactive'); 
@@ -142,7 +142,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/catalogos', 'CatalogosController@index')->middleware('permiso:catalogos.index'); 
 	Route::get('admin/catalogos/create', 'CatalogosController@create')->middleware('permiso:catalogos.create'); 
 	Route::post('admin/catalogos/{id}/edit', 'CatalogosController@update')->middleware('permiso:catalogos.update'); 
-	Route::delete('admin/catalogos/{id}', 'CatalogosController@destroy')->middleware('permiso:catalogos.destroy'); 
+	Route::post('admin/catalogos/{id}', 'CatalogosController@destroy')->middleware('permiso:catalogos.destroy'); 
 	Route::get('admin/catalogos/{id}/edit', 'CatalogosController@edit')->middleware('permiso:catalogos.edit'); 
 	Route::post('admin/catalogos/{id}/active', 'CatalogosController@active')->middleware('permiso:catalogos.active'); 
 	Route::post('admin/catalogos/{id}/inactive', 'CatalogosController@inactive')->middleware('permiso:catalogos.inactive'); 

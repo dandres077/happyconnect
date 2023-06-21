@@ -18,7 +18,6 @@ class CreateCatalogosTable extends Migration
             $table->integer('empresa_id')->nullable();
             $table->integer('generalidad_id')->nullable();
             $table->string('nombre')->nullable();
-            $table->string('opcion')->nullable();
             $table->integer('status')->default(1); // 1: activo, 2:inactivo: 3: eliminado
             $table->integer('user_create')->nullable();
             $table->integer('user_update')->nullable();

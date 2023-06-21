@@ -10,7 +10,6 @@ class Catalogos extends Model
         'empresa_id', 
         'generalidad_id', 
         'nombre', 
-        'opcion', 
         'status', 
         'user_create', 
         'user_update'

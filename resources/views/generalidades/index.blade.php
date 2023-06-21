@@ -59,11 +59,11 @@
                    {{ $titulo }}
                 </h3>
             </div>
-            @can('catalogos.create')
+            @can('generalidades.create')
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{ url ('admin/catalogos/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{ url ('admin/generalidades/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Crear
                         </a>
@@ -79,20 +79,18 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Generalidad</th>
-                    <th>Catálogo</th>
+                    <th>Nombre</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($data as $catalogos)
+                @foreach ($data as $generalidades)
                 <tr class="gradeX">
-                    <td>{{$catalogos->id}}</td>
-                    <td>{{$catalogos->nom_generalidad}}</td>
-                    <td>{{$catalogos->nombre}}</td>
+                    <td>{{$generalidades->id}}</td>
+                    <td>{{$generalidades->nombre}}</td>
                     <td>
-                        @if($catalogos->estado_elemento == 'Activo')
+                        @if($generalidades->estado_elemento == 'Activo')
                             <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
                         @else
                             <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Inactivo</span>
@@ -104,27 +102,27 @@
                                 <i class="flaticon-more-1"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                @can('catalogos.edit') 
-                                <a class="dropdown-item" href="{{ url('admin/catalogos/'.$catalogos->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
+                                @can('generalidades.edit') 
+                                <a class="dropdown-item" href="{{ url('admin/generalidades/'.$generalidades->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
                                 @endcan
 
-                                @can('catalogos.destroy')       
-                                <form method="post" action="{{ url('admin/catalogos/'.$catalogos->id)}}" class="formulario-eliminar">
+                                @can('generalidades.destroy')       
+                                <form method="post" action="{{ url('admin/generalidades/'.$generalidades->id)}}" class="formulario-eliminar">
                                     {{ csrf_field() }}
                                     <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
                                 </form>  
                                 @endcan
 
-                                @if ($catalogos->status == 1)
-                                    @can('catalogos.inactive')         
-                                    <form method="post" action="{{ url('admin/catalogos/'.$catalogos->id.'/inactive')}}">
+                                @if ($generalidades->status == 1)
+                                    @can('generalidades.inactive')         
+                                    <form method="post" action="{{ url('admin/generalidades/'.$generalidades->id.'/inactive')}}">
                                         {{ csrf_field() }}
                                         <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
                                     </form>            
                                     @endcan
                                 @else    
-                                    @can('catalogos.active')       
-                                    <form method="post" action="{{ url('admin/catalogos/'.$catalogos->id.'/active')}}">
+                                    @can('generalidades.active')       
+                                    <form method="post" action="{{ url('admin/generalidades/'.$generalidades->id.'/active')}}">
                                         {{ csrf_field() }}
                                         <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
                                     </form>
@@ -132,7 +130,7 @@
                                 @endif
 
                             </div>
-                        </div>  
+                        </div>    
                     </td>
                 </tr>
                 @endforeach 
@@ -140,8 +138,7 @@
                 <tfoot>
                 <tr>
                     <th>Id</th>
-                    <th>Generalidad</th>
-                    <th>Catálogo</th>
+                    <th>Nombre</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>

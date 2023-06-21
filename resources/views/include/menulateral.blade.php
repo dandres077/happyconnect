@@ -99,6 +99,14 @@
                             <li class="kt-menu__item {{ request()->is('admin/sedes*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/sedes/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Sedes</span></a></li>            
                             @endcan
 
+                            @can('generalidades.index')
+                            <li class="kt-menu__item {{ request()->is('admin/generalidades*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/generalidades/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Generalidades</span></a></li>            
+                            @endcan
+
+                            @can('catalogos.index')
+                            <li class="kt-menu__item {{ request()->is('admin/catalogos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/catalogos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Catálogos</span></a></li>            
+                            @endcan
+
                             @can('areas.index')
                             <li class="kt-menu__item {{ request()->is('admin/areas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/areas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Áreas</span></a></li>            
                             @endcan

@@ -10,7 +10,6 @@ use DB;
 class CatalogosController extends Controller
 {
 /*
-}
 |--------------------------------------------------------------------------
 | index
 |--------------------------------------------------------------------------
@@ -20,13 +19,16 @@ class CatalogosController extends Controller
     public function index()
     {
         $data = DB::table('catalogos')
-                    ->select('catalogos.*')
-                    ->where('status', '<>', 3 )
-                    ->orderByRaw('id ASC')
-                    ->get();
+            ->leftJoin('generalidades', 'catalogos.generalidad_id', '=', 'generalidades.id')
+            ->select(
+                'catalogos.*',
+                'generalidades.nombre as nom_generalidad',
+                DB::raw('(CASE WHEN catalogos.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
+            ->where('catalogos.status', '<>', 3 )
+            ->orderByRaw('catalogos.id ASC')
+            ->get();
 
         $titulo = 'Catálogos';
-        
 
         return view('catalogos.index', compact('data', 'titulo'));
     }
@@ -41,9 +43,11 @@ class CatalogosController extends Controller
 
     public function create()
     {
+        $generalidades = DB::table('generalidades')->where('empresa_id', Auth::user()->empresa_id )->where('status', 1 )->get();
+
         $titulo = 'Catálogos';
 
-        return view('catalogos.create', compact('titulo'));
+        return view('catalogos.create', compact('titulo', 'generalidades'));
     }
 
 
@@ -56,7 +60,9 @@ class CatalogosController extends Controller
     public function store(Request $request)
     {
 
+        $request['empresa_id'] = Auth::user()->empresa_id;
         $request['user_create'] = Auth::id();
+
         $data = Catalogos::create($request->all());
 
         return redirect ('admin/catalogos')->with('success', 'Registro creado exitosamente');
@@ -74,9 +80,10 @@ class CatalogosController extends Controller
     {
 
         $data = Catalogos::find($id); 
+        $generalidades = DB::table('generalidades')->where('empresa_id', Auth::user()->empresa_id )->where('status', 1 )->get();   
         $titulo = 'Catálogos';
 
-        return view ('catalogos.edit')->with (compact('data', 'titulo'));
+        return view ('catalogos.edit')->with (compact('data', 'titulo', 'generalidades'));
     }
 
 
@@ -91,8 +98,8 @@ class CatalogosController extends Controller
     {
 
         $data = Catalogos::find($id);
+        $data->generalidad_id = $request->input('generalidad_id');
         $data->nombre = $request->input('nombre');
-        $data->opcion = $request->input('opcion');
         $data->user_update = Auth::id();
         $data->save();
 
@@ -115,8 +122,8 @@ class CatalogosController extends Controller
         $data->status = 3;
         $data->user_update = Auth::id();
         $data->save();
-    
-        return redirect ('admin/catalogos');
+  
+        return redirect ('admin/catalogos')->with('eliminar', 'ok');
     }
 
 
@@ -134,7 +141,7 @@ class CatalogosController extends Controller
         $data->status = 1;
         $data->user_update = Auth::id();
         $data->save();
-    
+  
         return redirect ('admin/catalogos');
     }
 
