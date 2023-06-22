@@ -20,6 +20,7 @@ class CreatePeriodosTable extends Migration
             $table->string('nombre')->nullable();
             $table->date('fecha_inicio')->nullable();
             $table->date('fecha_fin')->nullable();
+            $table->string('final', 2)->default('No')->nullable();
             $table->integer('status')->default(1); // 1: activo, 2:inactivo: 3: eliminado
             $table->integer('user_create')->nullable();
             $table->integer('user_update')->nullable();

@@ -14,6 +14,7 @@ class Periodos extends Model
         'nombre',
         'fecha_inicio',
         'fecha_fin',
+        'final',
         'status',
         'user_create',
         'user_update'
@@ -27,6 +28,7 @@ class Periodos extends Model
         'nombre',
         'fecha_inicio',
         'fecha_fin',
+        'final',
         'status',
         'user_create',
         'user_update'

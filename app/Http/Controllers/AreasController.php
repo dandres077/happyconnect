@@ -117,7 +117,7 @@ class AreasController extends Controller
         $data->user_update = Auth::id();
         $data->save();
   
-        return redirect ('admin/areas')->with('eliminar', 'ok');;
+        return redirect ('admin/areas')->with('eliminar', 'ok');
     }
 
 
