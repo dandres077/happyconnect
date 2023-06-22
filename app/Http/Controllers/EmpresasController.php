@@ -148,8 +148,6 @@ class EmpresasController extends Controller
         $generos = DB::table('catalogos')->select('id', 'nombre')->where('status', 1 )->where('generalidad_id', 7 )->orderByRaw('nombre ASC')->get();
         $grados = DB::table('grados')->select('id', 'nombre')->where('status', 1 )->orderByRaw('id ASC')->get();
 
-        $grados = DB::table('grados')->select('id', 'nombre')->where('status', 1 )->orderByRaw('id ASC')->get();
-
         $g_c = DB::table('grados_empresas')
             ->select('empresa_id', 'grado_id')
             ->where('empresa_id', $id)

@@ -36,7 +36,7 @@ class EmpresasSedes extends Model
         'user_update'
     ];
 
-    protected static $logName = 'Empresas';
+    protected static $logName = 'Sedes';
 
     protected static $logAttributes = [
         'empresa_id',

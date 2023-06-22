@@ -169,14 +169,14 @@ Route::middleware(['auth'])->group(function(){
 |--------------------------------------------------------------------------
 |
 */
-	Route::post('admin/sedes/store', 'sedesSedesController@store')->middleware('permiso:sedes.store'); 
-	Route::get('admin/sedes', 'sedesSedesController@index')->middleware('permiso:sedes.index'); 
-	Route::get('admin/sedes/create', 'sedesSedesController@create')->middleware('permiso:sedes.create'); 
-	Route::post('admin/sedes/{id}/edit', 'sedesSedesController@update')->middleware('permiso:sedes.update'); 
-	Route::post('admin/sedes/{id}', 'sedesSedesController@destroy')->middleware('permiso:sedes.destroy'); 
-	Route::get('admin/sedes/{id}/edit', 'sedesSedesController@edit')->middleware('permiso:sedes.edit'); 
-	Route::post('admin/sedes/{id}/active', 'sedesSedesController@active')->middleware('permiso:sedes.active'); 
-	Route::post('admin/sedes/{id}/inactive', 'sedesSedesController@inactive')->middleware('permiso:sedes.inactive'); 
+	Route::post('admin/sedes/store', 'EmpresasSedesController@store')->middleware('permiso:sedes.store'); 
+	Route::get('admin/sedes', 'EmpresasSedesController@index')->middleware('permiso:sedes.index'); 
+	Route::get('admin/sedes/create', 'EmpresasSedesController@create')->middleware('permiso:sedes.create'); 
+	Route::post('admin/sedes/{id}/edit', 'EmpresasSedesController@update')->middleware('permiso:sedes.update'); 
+	Route::post('admin/sedes/{id}', 'EmpresasSedesController@destroy')->middleware('permiso:sedes.destroy'); 
+	Route::get('admin/sedes/{id}/edit', 'EmpresasSedesController@edit')->middleware('permiso:sedes.edit'); 
+	Route::post('admin/sedes/{id}/active', 'EmpresasSedesController@active')->middleware('permiso:sedes.active'); 
+	Route::post('admin/sedes/{id}/inactive', 'EmpresasSedesController@inactive')->middleware('permiso:sedes.inactive'); 
 
 /*
 |--------------------------------------------------------------------------
