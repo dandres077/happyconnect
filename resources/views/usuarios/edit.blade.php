@@ -101,7 +101,7 @@
                                                     @if($rol->id == $user->role_id)
                                                         
                                                     @else
-                                                        <label> <input type="checkbox" value="{{$rol->id}}" name="roles[]" id="roles[]"> {{ $rol->name.' | '.$rol->description }} </label><br>
+                                                        <label> <input type="checkbox" value="{{$rol->id}}" name="roles[]" id="roles[]"> {{ $rol->name }} </label><br>
                                                     @endif
                                             @endforeach                                             
                                             </div>
@@ -164,65 +164,6 @@
     
 @section('scripts')
 
-<!-- Data picker -->
-<script src="{{asset('js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
-
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{asset('js/plugins/fullcalendar/moment.min.js')}}"></script>
-
-<!-- Date range picker -->
-<script src="{{asset('js/plugins/daterangepicker/daterangepicker.js')}}"></script>
-
-<script>
-    $(document).ready(function(){
-
-        $('#data_1 .input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-    });       
-
-</script>
-
-<script type="text/javascript">
-  $('#pais_id').on('change', function(e){
-    console.log(e);
-    var province_id = e.target.value;
-
-    $.get('https://techno-web.app/api/departamento/' + province_id,function(data) {
-      console.log(data);
-
-      $('#departamento_id').empty();
-      $('#ciudad_id').empty();
-
-      $.each(data, function(index, regenciesObj){
-        $('#departamento_id').append('<option value="'+ regenciesObj.id +'">'+ regenciesObj.nombre +'</option>');
-      })
-    });
-  });
-
-</script>
-
-<script type="text/javascript">
-  $('#departamento_id').on('change', function(e){
-    console.log(e);
-    var province_id = e.target.value;
-
-    $.get('https://techno-web.app/api/ciudad/' + province_id,function(data) {
-      console.log(data);
-
-      $('#ciudad_id').empty();
-
-      $.each(data, function(index, regenciesObj){
-        $('#ciudad_id').append('<option value="'+ regenciesObj.id +'">'+ regenciesObj.nombre +'</option>');
-      })
-    });
-  });
-
-</script>
 
 
 @endsection

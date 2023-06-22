@@ -131,6 +131,14 @@
                             <li class="kt-menu__item {{ request()->is('admin/periodos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/periodos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Periodos</span></a></li>            
                             @endcan
 
+                            @can('profesionales.index')
+                            <li class="kt-menu__item {{ request()->is('admin/profesionales*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/profesionales/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Profesionales</span></a></li>            
+                            @endcan
+
+                            @can('paralelos.index')
+                            <li class="kt-menu__item {{ request()->is('admin/paralelos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/paralelos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Paralelos</span></a></li>            
+                            @endcan
+
                             @can('roles.index')
                             <li class="kt-menu__item {{ request()->is('admin/roles*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/roles/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Roles</span></a></li>
                             @endcan

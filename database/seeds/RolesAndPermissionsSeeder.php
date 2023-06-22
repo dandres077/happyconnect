@@ -162,6 +162,24 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'periodos.active']); 
 		Permission::create(['name' => 'periodos.inactive']); 
 
+		Permission::create(['name' => 'paralelos.store']); 
+		Permission::create(['name' => 'paralelos.index']); 
+		Permission::create(['name' => 'paralelos.create']); 
+		Permission::create(['name' => 'paralelos.update']); 
+		Permission::create(['name' => 'paralelos.destroy']); 
+		Permission::create(['name' => 'paralelos.edit']); 
+		Permission::create(['name' => 'paralelos.active']); 
+		Permission::create(['name' => 'paralelos.inactive']); 
+
+		Permission::create(['name' => 'profesionales.store']); 
+		Permission::create(['name' => 'profesionales.index']); 
+		Permission::create(['name' => 'profesionales.create']); 
+		Permission::create(['name' => 'profesionales.update']); 
+		Permission::create(['name' => 'profesionales.destroy']); 
+		Permission::create(['name' => 'profesionales.edit']); 
+		Permission::create(['name' => 'profesionales.active']); 
+		Permission::create(['name' => 'profesionales.inactive']); 
+
 
 		Permission::create(['name' => 'administracion.index']);
 		

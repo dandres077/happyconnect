@@ -27,6 +27,7 @@ class UserController extends Controller
 
         $data = DB::table('users')
                     ->select('users.*')
+                    ->where('empresa_id', Auth::user()->empresa_id)
                     ->orderByRaw('id ASC')
                     ->get();
 

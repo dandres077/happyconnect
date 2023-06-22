@@ -272,4 +272,36 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/periodos/{id}/active', 'PeriodosController@active')->middleware('permiso:periodos.active'); 
 	Route::post('admin/periodos/{id}/inactive', 'PeriodosController@inactive')->middleware('permiso:periodos.inactive'); 
 
+
+/*
+|--------------------------------------------------------------------------
+| Paralelos
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/paralelos/store', 'paralelosController@store')->middleware('permiso:paralelos.store'); 
+	Route::get('admin/paralelos', 'paralelosController@index')->middleware('permiso:paralelos.index'); 
+	Route::get('admin/paralelos/create', 'paralelosController@create')->middleware('permiso:paralelos.create'); 
+	Route::post('admin/paralelos/{id}/edit', 'paralelosController@update')->middleware('permiso:paralelos.update'); 
+	Route::post('admin/paralelos/{id}', 'paralelosController@destroy')->middleware('permiso:paralelos.destroy'); 
+	Route::get('admin/paralelos/{id}/edit', 'paralelosController@edit')->middleware('permiso:paralelos.edit'); 
+	Route::post('admin/paralelos/{id}/active', 'paralelosController@active')->middleware('permiso:paralelos.active'); 
+	Route::post('admin/paralelos/{id}/inactive', 'paralelosController@inactive')->middleware('permiso:paralelos.inactive'); 
+
+
+/*
+|--------------------------------------------------------------------------
+| Profesionales
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/profesionales/store', 'ProfesionalesController@store')->middleware('permiso:profesionales.store'); 
+	Route::get('admin/profesionales', 'ProfesionalesController@index')->middleware('permiso:profesionales.index'); 
+	Route::get('admin/profesionales/create', 'ProfesionalesController@create')->middleware('permiso:profesionales.create'); 
+	Route::post('admin/profesionales/{id}/edit', 'ProfesionalesController@update')->middleware('permiso:profesionales.update'); 
+	Route::post('admin/profesionales/{id}', 'ProfesionalesController@destroy')->middleware('permiso:profesionales.destroy'); 
+	Route::get('admin/profesionales/{id}/edit', 'ProfesionalesController@edit')->middleware('permiso:profesionales.edit'); 
+	Route::post('admin/profesionales/{id}/active', 'ProfesionalesController@active')->middleware('permiso:profesionales.active'); 
+	Route::post('admin/profesionales/{id}/inactive', 'ProfesionalesController@inactive')->middleware('permiso:profesionales.inactive'); 
+
 });

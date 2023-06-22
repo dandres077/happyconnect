@@ -86,7 +86,13 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '18','nombre' => 'Problemas auditivos']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '18','nombre' => 'Discapacidad intelectual']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '18','nombre' => 'Transtornos del desarrollo']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '18','nombre' => 'Enfermedades raras y crónicas']); //75
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '18','nombre' => 'Enfermedades raras y crónicas']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Soltero(a)']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Casado(a)']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Viudo(a)']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Separado(a)']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Divorciado(a)']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Unión libre']);
 
     }
 }

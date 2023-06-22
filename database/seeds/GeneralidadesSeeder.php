@@ -30,5 +30,6 @@ class GeneralidadesSeeder extends Seeder
         Generalidades::create(['empresa_id' => '1', 'nombre' => 'Paralelos']);
         Generalidades::create(['empresa_id' => '1', 'nombre' => 'Tipo documento interno colegio']);
         Generalidades::create(['empresa_id' => '1', 'nombre' => 'Tipo discapacidad']);
+        Generalidades::create(['empresa_id' => '1', 'nombre' => 'Estado civil']);
     }
 }
