@@ -4,82 +4,158 @@ namespace App\Http\Controllers;
 
 use App\Niveles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class NivelesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+/*
+|--------------------------------------------------------------------------
+| index
+|--------------------------------------------------------------------------
+|
+*/
+
     public function index()
     {
-        //
+        $data = DB::table('niveles')
+                    ->select('niveles.*', 
+                              DB::raw('(CASE WHEN status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
+                    ->where('empresa_id', Auth::id())
+                    ->where('status', '<>', 3 )
+                    ->orderByRaw('id ASC')
+                    ->get();
+
+        $titulo = 'Niveles';
+        
+
+        return view('niveles.index', compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| create
+|--------------------------------------------------------------------------
+|
+*/
+
     public function create()
     {
-        //
+        $titulo = 'Niveles';
+
+        return view('niveles.create', compact('titulo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+/*
+|--------------------------------------------------------------------------
+| store
+|--------------------------------------------------------------------------
+|
+*/
     public function store(Request $request)
     {
-        //
+
+        $request['empresa_id'] = Auth::user()->empresa_id;
+        $request['user_create'] = Auth::id();
+        $data = Niveles::create($request->all());
+
+        return redirect ('admin/niveles')->with('success', 'Registro creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Niveles  $niveles
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Niveles $niveles)
+
+/*
+|--------------------------------------------------------------------------
+| edit
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function edit($id)
     {
-        //
+
+        $data = Niveles::find($id); 
+        $titulo = 'Niveles';
+
+        return view ('niveles.edit')->with (compact('data', 'titulo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Niveles  $niveles
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Niveles $niveles)
+
+
+/*
+|--------------------------------------------------------------------------
+| update
+|--------------------------------------------------------------------------
+|
+*/
+    public function update(Request $request, $id)
     {
-        //
+
+        $data = Niveles::find($id);
+        $data->nombre = $request->input('nombre');
+        $data->user_update = Auth::id();
+        $data->save();
+
+        
+        return redirect ('admin/niveles')->with('success', 'Registro actualizado exitosamente');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Niveles  $niveles
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Niveles $niveles)
+
+
+/*
+|--------------------------------------------------------------------------
+| destroy
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function destroy($id)
     {
-        //
+        $data = Niveles::find($id);
+        $data->status = 3;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/niveles')->with('eliminar', 'ok');;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Niveles  $niveles
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Niveles $niveles)
+
+/*
+|--------------------------------------------------------------------------
+| Activar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function active($id)
     {
-        //
+
+        $data = Niveles::find($id);
+        $data->status = 1;
+        $data->user_update = Auth::id();
+        $data->save();
+  
+        return redirect ('admin/niveles');
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Desactivar publicación
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function inactive($id)
+    {
+        $data = Niveles::find($id);
+        $data->status = 2;
+        $data->user_update = Auth::id();
+        $data->save();
+
+        return redirect ('admin/niveles');
     }
 }
+
+
