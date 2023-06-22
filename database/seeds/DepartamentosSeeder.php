@@ -44,6 +44,7 @@ class DepartamentosSeeder extends Seeder
 		Departamentos::create(['pais_id' => '5', 'nombre' => 'Valle del Cauca']);
 		Departamentos::create(['pais_id' => '5', 'nombre' => 'Vaupés']);
 		Departamentos::create(['pais_id' => '5', 'nombre' => 'Vichada']);
+		Departamentos::create(['pais_id' => '8', 'nombre' => 'Guayas']);
     }
 }
 

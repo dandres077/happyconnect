@@ -27,9 +27,9 @@ class GradosSeeder extends Seeder
         Grados::create(['empresa_id' => '1' , 'nivel_id' => '5','nombre' => '7', 'edad' => '12-13']);
         Grados::create(['empresa_id' => '1' , 'nivel_id' => '5','nombre' => '8', 'edad' => '13-14']);
         Grados::create(['empresa_id' => '1' , 'nivel_id' => '5','nombre' => '9', 'edad' => '14-15']);
-        Grados::create(['empresa_id' => '1' , 'nivel_id' => '4','nombre' => '1', 'edad' => '15-16']);
-        Grados::create(['empresa_id' => '1' , 'nivel_id' => '4','nombre' => '1', 'edad' => '16-17']);
-        Grados::create(['empresa_id' => '1' , 'nivel_id' => '4','nombre' => '1', 'edad' => '17-18']);
+        Grados::create(['empresa_id' => '1' , 'nivel_id' => '4','nombre' => '10', 'edad' => '15-16']);
+        Grados::create(['empresa_id' => '1' , 'nivel_id' => '4','nombre' => '11', 'edad' => '16-17']);
+        Grados::create(['empresa_id' => '1' , 'nivel_id' => '4','nombre' => '12', 'edad' => '17-18']);
     }
 }
 

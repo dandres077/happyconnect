@@ -44,6 +44,7 @@ class CiudadesSeeder extends Seeder
 		Ciudades::create(['pais_id' => '5', 'departamento_id' => '30', 'nombre' => 'Cali']);
 		Ciudades::create(['pais_id' => '5', 'departamento_id' => '31', 'nombre' => 'Mitú']);
 		Ciudades::create(['pais_id' => '5', 'departamento_id' => '32', 'nombre' => 'Puerto Carreño']);
+		Ciudades::create(['pais_id' => '8', 'departamento_id' => '33', 'nombre' => 'Guayaquil']);
 
     }
 }

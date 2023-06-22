@@ -18,7 +18,7 @@ class Grados extends Model
         'user_update'
     ];
 
-    protected static $logName = 'GRADOS';
+    protected static $logName = 'Grados';
 
     protected static $logAttributes = [
         'empresa_id',
@@ -29,6 +29,10 @@ class Grados extends Model
         'user_create',
         'user_update'
     ];
+
+    public function empresas(){
+        return $this->belongsToMany(Empresas::class, 'grados_colegios','empresa_id', 'grado_id');
+    }
 }
 
 

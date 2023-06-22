@@ -63,6 +63,10 @@ class Empresas extends Model
         'user_create',
         'user_update'
     ];
+
+    public function grados(){
+         return $this->belongsToMany(Grados::class, 'grados_empresas','empresa_id', 'grado_id');
+    }
 }
 
 
