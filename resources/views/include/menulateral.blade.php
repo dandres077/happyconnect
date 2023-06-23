@@ -150,6 +150,14 @@
                             @can('usuarios.index')
                             <li class="kt-menu__item {{ request()->is('admin/usuarios*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/usuarios/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Usuarios</span></a></li>            
                             @endcan
+
+                            @can('matriculas.index')
+                            <li class="kt-menu__item {{ request()->is('admin/matriculas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/matriculas/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Matriculas</span></a></li>            
+                            @endcan
+
+                            @can('alumnos.index')
+                            <li class="kt-menu__item {{ request()->is('admin/alumnos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/alumnos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Alumnos</span></a></li>            
+                            @endcan
                         </ul>
                     </div>
                 </li> 

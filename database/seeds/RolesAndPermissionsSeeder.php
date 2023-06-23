@@ -180,6 +180,34 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'profesionales.active']); 
 		Permission::create(['name' => 'profesionales.inactive']); 
 
+		Permission::create(['name' => 'alumnos.store']); 
+		Permission::create(['name' => 'alumnos.index']); 
+		Permission::create(['name' => 'alumnos.create']); 
+		Permission::create(['name' => 'alumnos.update']); 
+		Permission::create(['name' => 'alumnos.show']); 
+		Permission::create(['name' => 'alumnos.destroy']); 
+		Permission::create(['name' => 'alumnos.edit']); 
+		Permission::create(['name' => 'alumnos.active']); 
+		Permission::create(['name' => 'alumnos.inactive']); 
+		Permission::create(['name' => 'alumnos.view']); 
+		Permission::create(['name' => 'alumnos.padre_alumno']); 
+		Permission::create(['name' => 'alumnos.padres']); 
+		Permission::create(['name' => 'alumnos.padre_create']); 
+		Permission::create(['name' => 'alumnos.padres_store']); 
+
+		Permission::create(['name' => 'matriculas.index']);
+		Permission::create(['name' => 'matriculas.create']);
+		Permission::create(['name' => 'matriculas.store']);
+		Permission::create(['name' => 'matriculas.edit']);
+		Permission::create(['name' => 'matriculas.update']);
+		Permission::create(['name' => 'matriculas.destroy']);
+		Permission::create(['name' => 'matriculas.active']);
+		Permission::create(['name' => 'matriculas.inactive']);
+		Permission::create(['name' => 'matriculas.store2']);
+		Permission::create(['name' => 'matriculas.store3']);
+		Permission::create(['name' => 'matriculas.reporte']);
+		Permission::create(['name' => 'matriculas.validar']);
+		Permission::create(['name' => 'matriculas.ampliar']);
 
 		Permission::create(['name' => 'administracion.index']);
 		
@@ -208,3 +236,7 @@ class RolesAndPermissionsSeeder extends Seeder
         ]);
     }
 }
+
+
+
+	

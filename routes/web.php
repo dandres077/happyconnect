@@ -304,4 +304,53 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/profesionales/{id}/active', 'ProfesionalesController@active')->middleware('permiso:profesionales.active'); 
 	Route::post('admin/profesionales/{id}/inactive', 'ProfesionalesController@inactive')->middleware('permiso:profesionales.inactive'); 
 
+
+/*
+|--------------------------------------------------------------------------
+| Alumnos
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/alumnos/store', 'AlumnosController@store')->name('alumnos.store')->middleware('permiso:alumnos.store');
+	Route::get('admin/alumnos', 'AlumnosController@index')->name('alumnos.index')->middleware('permiso:alumnos.index');
+	Route::get('admin/alumnos/create', 'AlumnosController@create')->name('alumnos.create')->middleware('permiso:alumnos.create');
+	Route::post('admin/alumnos/{id}/edit', 'AlumnosController@update')->name('alumnos.update')->middleware('permiso:alumnos.update');
+	Route::get('admin/alumnos/{id}', 'AlumnosController@show')->name('alumnos.show')->middleware('permiso:alumnos.show');
+	Route::delete('admin/alumnos/{id}', 'AlumnosController@destroy')->name('alumnos.destroy')->middleware('permiso:alumnos.destroy');
+	Route::get('admin/alumnos/{id}/edit', 'AlumnosController@edit')->name('alumnos.edit')->middleware('permiso:alumnos.edit');
+	Route::post('admin/alumnos/{id}/active', 'AlumnosController@active')->name('alumnos.active')->middleware('permiso:alumnos.active');
+	Route::post('admin/alumnos/{id}/inactive', 'AlumnosController@inactive')->name('alumnos.inactive')->middleware('permiso:alumnos.inactive');
+	Route::get('admin/alumnos/{id}/view', 'AlumnosController@view')->name('alumnos.view')->middleware('permiso:alumnos.view');
+
+
+	Route::get('admin/alumnos/{id}/padres', 'AlumnosController@padre_alumno')->name('alumnos.padre_alumno')->middleware('permiso:alumnos.padre_alumno');
+	Route::post('admin/alumnos/padres', 'AlumnosController@padres')->name('alumnos.padres')->middleware('permiso:alumnos.padres');
+	Route::get('admin/alumnos/padres/{id}/create', 'AlumnosController@padre_create')->name('alumnos.padre_create')->middleware('permiso:alumnos.padre_create');
+	Route::post('admin/alumnos/padres/store', 'AlumnosController@padres_store')->name('alumnos.padres_store')->middleware('permiso:alumnos.padres_store');
+
+
+/*
+|--------------------------------------------------------------------------
+| Matriculas
+|--------------------------------------------------------------------------
+|
+*/
+	Route::get('admin/matriculas', 'MatriculasController@index')->name('matriculas.index')->middleware('permiso:matriculas.index'); 
+	Route::get('admin/matriculas/create', 'MatriculasController@create')->name('matriculas.create')->middleware('permiso:matriculas.create'); 
+	Route::post('admin/matriculas/store', 'MatriculasController@store')->name('matriculas.store')->middleware('permiso:matriculas.store'); 
+	Route::get('admin/matriculas/{id}/edit', 'MatriculasController@edit')->name('matriculas.edit')->middleware('permiso:matriculas.edit'); 
+	Route::post('admin/matriculas/{id}/edit', 'MatriculasController@update')->name('matriculas.update')->middleware('permiso:matriculas.update'); 
+	Route::post('admin/matriculas/{id}/delete', 'MatriculasController@destroy')->name('matriculas.destroy')->middleware('permiso:matriculas.destroy'); 
+	Route::post('admin/matriculas/{id}/active', 'MatriculasController@active')->name('matriculas.active')->middleware('permiso:matriculas.active'); 
+	Route::post('admin/matriculas/{id}/inactive', 'MatriculasController@inactive')->name('matriculas.inactive')->middleware('permiso:matriculas.inactive');
+	Route::post('admin/matriculas/store2', 'MatriculasController@store2')->name('matriculas.store2')->middleware('permiso:matriculas.store2'); 
+	Route::post('admin/matriculas/store3', 'MatriculasController@store3')->name('matriculas.store3')->middleware('permiso:matriculas.store3'); 
+	Route::get('admin/matriculas/reporte', 'MatriculasController@reporte')->name('matriculas.reporte')->middleware('permiso:matriculas.reporte'); 
+	Route::post('admin/matriculas/validar', 'MatriculasController@validar')->name('matriculas.validar')->middleware('permiso:matriculas.validar');
+	Route::get('admin/matriculas/{id}/ampliar', 'MatriculasController@ampliar')->name('matriculas.ampliar')->middleware('permiso:matriculas.ampliar');
+    Route::post('admin/matriculas/masivo', 'MatriculasController@importarExcel')->name('matriculas.ampliar')->middleware('permiso:matriculas.importarExcel');
+
+
+
+
 });

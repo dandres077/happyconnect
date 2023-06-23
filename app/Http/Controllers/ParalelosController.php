@@ -191,4 +191,27 @@ class ParalelosController extends Controller
 
         return redirect ('admin/paralelos');
     }
+
+/*
+|--------------------------------------------------------------------------
+| Paralelos
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function paralelos($empresa_id, $temporada_id, $grado_id)
+    {
+        $data = DB::table('paralelos')
+            ->select(
+                'id','nombre')
+            ->where('empresa_id', $empresa_id )
+            ->where('temporada_id', $temporada_id )
+            ->where('grado_id', $grado_id )
+            ->where('status', 1 )
+            ->orderByRaw('paralelos.id ASC')
+            ->get();
+
+
+        return $data;
+    }
 }

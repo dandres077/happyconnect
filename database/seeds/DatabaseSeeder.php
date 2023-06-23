@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GradosSeeder::class); 
         $this->call(TemporadasSeeder::class); 
         $this->call(PeriodosSeeder::class); 
+        $this->call(ParalelosSeeder::class); 
     }
 }

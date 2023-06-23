@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/departamentos/{pais_id}/', 'EmpresasController@departamentos'); //Departamentos por país
 Route::get('/ciudades/{departamento_id}/', 'EmpresasController@ciudades'); //ciudades por departamento
+Route::get('/paralelos/{empresa_id}/{temporada_id}/{grado_id}', 'ParalelosController@paralelos'); //Paralelos por empresa, temporada y grado
