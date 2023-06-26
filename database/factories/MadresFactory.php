@@ -9,12 +9,12 @@ $factory->define(Padres::class, function (Faker $faker) {
     return [
         'empresa_id' => 1,
         'temporada_id' => 1,
-        'tipo_familiar' => 47,
+        'tipo_familiar' => 48,
         'alumno_id' => $faker->unique()->numberBetween(1, 300),
         'nombres' => $faker->firstName,
         'apellidos' => $faker->lastName,
         'tipo_doc_id' => 2,
-        'n_documento' => 1015401402,
+        'n_documento' => 1015401478,
         'exp_municipio' => $faker->city,
         'direccion' => $faker->address,
         'telefono' => $faker->phoneNumber,
@@ -30,8 +30,3 @@ $factory->define(Padres::class, function (Faker $faker) {
     ];
 });
 
-
-
-
-
-        

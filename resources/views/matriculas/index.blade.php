@@ -129,7 +129,13 @@
                     <td>{{strtoupper($matriculas->nom_alumno)}}</td>
                     <td>{{$matriculas->tipodoc}}</td>
                     <td>{{$matriculas->n_documento}}</td>
-                    <td>{{$matriculas->estado_elemento}}</td>
+                    <td>
+                        @if($matriculas->estado_elemento == 'Activo')
+                            <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
+                        @else
+                            <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Inactivo</span>
+                        @endif
+                    </td>
                     <td>  
                         <div class="dropdown dropdown-inline">
                             <button type="button" class="btn btn-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -147,7 +153,7 @@
                                 </form>  
                                 @endcan
 
-                                @if ($matriculas->status == 1)
+                                @if ($matriculas->status == 5)
                                     @can('matriculas.inactive')         
                                     <form method="post" action="{{ url('admin/matriculas/'.$matriculas->id.'/inactive')}}">
                                         {{ csrf_field() }}

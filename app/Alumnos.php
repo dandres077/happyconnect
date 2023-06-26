@@ -59,6 +59,12 @@ class Alumnos extends Model
         'user_create',
         'user_update'
     ];
+
+    // protected static function newFactory()
+    // {
+    //     return AlumnosFactory::new();
+    // }
+
 }
 
 

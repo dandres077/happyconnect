@@ -1,14 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
+// use Database\Factories\AlumnosFactory;
+// use App\Alumnos;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+
     public function run()
     {
         $this->call(UsersSeeder::class);
@@ -26,6 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call(GradosSeeder::class); 
         $this->call(TemporadasSeeder::class); 
         $this->call(PeriodosSeeder::class); 
-        $this->call(ParalelosSeeder::class); 
+        $this->call(ParalelosSeeder::class);
+        $this->call(AlumnosSeeder::class); 
+        $this->call(PadresSeeder::class); 
+        $this->call(MatriculasSeeder::class); 
     }
 }

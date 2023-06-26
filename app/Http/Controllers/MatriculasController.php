@@ -57,7 +57,7 @@ class MatriculasController extends Controller
                         'catalogos.nombre AS tipodoc',
                         'paralelos.nombre AS nom_paralelo',
                         'c2.nombre AS nom_jornada',
-                        DB::raw('(CASE WHEN matriculas.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
+                        DB::raw('(CASE WHEN matriculas.status = 5 THEN "Activo" WHEN matriculas.status = 2 THEN "Inactivo" ELSE "Otro" END) AS estado_elemento'))
                 ->where('matriculas.empresa_id', $empresa)
                 ->where('matriculas.status', '<>', 3 )
                 ->orderByRaw('matriculas.id ASC')

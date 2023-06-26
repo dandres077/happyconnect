@@ -89,6 +89,7 @@ class CreateMatriculasTable extends Migration
             $table->foreign('sede_id')->references('id')->on('empresas_sedes')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('temporada_id')->references('id')->on('temporadas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('paralelo_id')->references('id')->on('paralelos')->onDelete('cascade')->onUpdate('cascade');            
             $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('estrato_id')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');
