@@ -92,11 +92,23 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Viudo(a)']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Separado(a)']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Divorciado(a)']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Unión libre']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '19','nombre' => 'Unión libre']);//81
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 1']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 2']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 3']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 4']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 5']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 6', 'status' => '2']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '20','nombre' => 'Día 7', 'status' => '2']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '6:45am | 7:00am']);//89
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '7:00am | 7:55am']);//90
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '7:55am | 8:50am']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '8:50am | 9:45am']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '9:45am | 10:25am']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '10:25am | 11:25am']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '11:25am | 12:20am']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '12:20pm | 1:18pm']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => 'Salida']);
 
     }
 }
-
-
-
-

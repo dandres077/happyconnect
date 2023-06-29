@@ -60,11 +60,11 @@
                    {{ $titulo }}
                 </h3>
             </div>
-            @can('paralelos.create')
+            @can('horarios_paralelos.create')
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        <a href="{{ url ('admin/paralelos/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
+                        <a href="{{ url ('admin/horarios_paralelos/'.$paralelo_id.'/create')}}" class="btn btn-brand btn-elevate btn-icon-sm">
                             <i class="la la-plus"></i>
                             Crear
                         </a>
@@ -78,86 +78,35 @@
             <!--begin: Datatable -->
              <table class="table table-striped table-bordered table-hover dataTables-example" >
                 <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Periodo</th>
-                    <th>Grado</th>
-                    <th>Nombre</th>
-                    <th>Director</th>
-                    <th>Estado</th>
-                    <th>Opciones</th>
-                </tr>
+                    <tr>
+                        <th>Hora</th> <!-- Celda vacía para la esquina superior izquierda de la tabla -->
+                        @foreach($dias as $dia)
+                        <th><div align="center">{{ $dia->nombre }}</div></th>
+                        @endforeach
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($data as $paralelos)
-                <tr class="gradeX">
-                    <td>{{$paralelos->id}}</td>
-                    <td>{{$paralelos->nom_temporada}}</td>
-                    <td>{{$paralelos->nom_grado}}</td>
-                    <td>{{$paralelos->nombre}}</td>
-                    <td>{{$paralelos->nom_director}}</td>
-                    <td>
-                        @if($paralelos->estado_elemento == 'Activo')
-                            <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
-                        @else
-                            <span class="kt-badge  kt-badge--danger kt-badge--inline kt-badge--pill">Inactivo</span>
-                        @endif
-                    </td>
-                    <td>          
-                        <div class="dropdown dropdown-inline">
-                            <button type="button" class="btn btn-brand btn-elevate-hover btn-icon btn-sm btn-icon-md btn-circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="flaticon-more-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                @can('paralelos.edit') 
-                                <a class="dropdown-item" href="{{ url('admin/paralelos/'.$paralelos->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
-                                @endcan
-
-                                @can('paralelos.destroy')       
-                                <form method="post" action="{{ url('admin/paralelos/'.$paralelos->id)}}" class="formulario-eliminar"> 
-                                    {{ csrf_field() }}
-                                    <button type="submit" type="button" class="dropdown-item"> <i class="la la-trash"></i>&nbsp;&nbsp;&nbsp;Eliminar</button>
-                                </form>  
-                                @endcan
-
-                                @if ($paralelos->status == 1)
-                                    @can('paralelos.inactive')         
-                                    <form method="post" action="{{ url('admin/paralelos/'.$paralelos->id.'/inactive')}}">
-                                        {{ csrf_field() }}
-                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Inactivar</button>
-                                    </form>            
-                                    @endcan
-                                @else    
-                                    @can('paralelos.active')       
-                                    <form method="post" action="{{ url('admin/paralelos/'.$paralelos->id.'/active')}}">
-                                        {{ csrf_field() }}
-                                        <button type="submit" type="button" class="dropdown-item"><i class="la la-info-circle"></i>&nbsp;&nbsp;&nbsp;Activar</button>
-                                    </form>
-                                    @endcan
-                                @endif
-
-                                @can('horarios_paralelos.index')       
-                                <a class="dropdown-item" href="{{ url('admin/horarios_paralelos/'.$paralelos->id)}}"><i class="la la-binoculars"></i>Horario</a>
-                                @endcan
-
-                            </div>
-                        </div> 
-                    </td>
-                </tr>
-                @endforeach 
+                    @foreach ($horarios as $bloqueId => $horarioDia)
+                        <tr>
+                            <td>{{ $horarioDia[$dias[0]->id]['nom_bloque'] ?? '' }}</td>
+                        @for ($i = $dias[0]->id; $i <= $ultimoElemento; $i++)
+                            <td>
+                            @if (isset($horarioDia[$i]['horario_id']) ? $horarioDia[$i]['horario_id'] : '')
+                                <a href="{{ url('admin/horarios_paralelos/'.$horarioDia[$i]['horario_id'].'/edit')}}"><i class="la la-cog"></i></a>
+                            @endif
+                                {{ isset($horarioDia[$i]['nom_asignatura']) ? $horarioDia[$i]['nom_asignatura'] : '' }}<br>
+                                <em>@if (isset($horarioDia[$i]['nom_docente']) ? $horarioDia[$i]['nom_docente'] : '')
+                                        Prof. {{ $horarioDia[$i]['nom_docente'] }}
+                                    @endif
+                                </em>
+                            </td>
+                        @endfor
+                        </tr>
+                    @endforeach
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Periodo</th>
-                    <th>Grado</th>
-                    <th>Nombre</th>
-                    <th>Director</th>
-                    <th>Estado</th>
-                    <th>Opciones</th>
-                </tr>
-                </tfoot>
-                </table>
+            </table>
+
+
             </div>
             <!--end: Datatable -->
         </div>
@@ -179,7 +128,7 @@
 <script>
 $(document).ready(function(){
     $('.dataTables-example').DataTable({
-        "order": [[ 0 ,"asc" ]], //or asc 
+        order: [], 
         pageLength: 25,
         responsive: true,
         dom: '<"html5buttons"B>lTfgitp',
@@ -187,7 +136,7 @@ $(document).ready(function(){
             //{ extend: 'copy'},
             //{extend: 'csv'},
             //{extend: 'excel', title: 'ExampleFile'},
-            //{extend: 'pdf', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'Horario'},
 
             /*{extend: 'print',
              customize: function (win){

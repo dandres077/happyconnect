@@ -27,7 +27,8 @@ class ParalelosController extends Controller
                 'temporadas.nombre as nom_temporada',
                 'grados.nombre as nom_grado',
                 'users.name as nom_director',
-                DB::raw('(CASE WHEN paralelos.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
+                DB::raw('(CASE WHEN paralelos.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))            
+            ->where('paralelos.empresa_id', Auth::user()->empresa_id )
             ->where('paralelos.status', '<>', 3 )
             ->orderByRaw('paralelos.id ASC')
             ->get();

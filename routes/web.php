@@ -352,5 +352,20 @@ Route::middleware(['auth'])->group(function(){
 
 
 
+/*
+|--------------------------------------------------------------------------
+| Horarios paralelos
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/horarios_paralelos/store', 'ParalelosHorariosController@store')->middleware('permiso:horarios_paralelos.store'); 
+	Route::get('admin/horarios_paralelos/{id}', 'ParalelosHorariosController@index')->middleware('permiso:horarios_paralelos.index'); 
+	Route::get('admin/horarios_paralelos/{id}/create', 'ParalelosHorariosController@create')->middleware('permiso:horarios_paralelos.create'); 
+	Route::post('admin/horarios_paralelos/{id}/edit', 'ParalelosHorariosController@update')->middleware('permiso:horarios_paralelos.update'); 
+	Route::post('admin/horarios_paralelos/{id}', 'ParalelosHorariosController@destroy')->middleware('permiso:horarios_paralelos.destroy'); 
+	Route::get('admin/horarios_paralelos/{id}/edit', 'ParalelosHorariosController@edit')->middleware('permiso:horarios_paralelos.edit'); 
+	Route::post('admin/horarios_paralelos/{id}/active', 'ParalelosHorariosController@active')->middleware('permiso:horarios_paralelos.active'); 
+	Route::post('admin/horarios_paralelos/{id}/inactive', 'ParalelosHorariosController@inactive')->middleware('permiso:horarios_paralelos.inactive'); 
+
 
 });

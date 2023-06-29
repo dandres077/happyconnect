@@ -11,7 +11,7 @@ class AreasSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {        
         Areas::create(['empresa_id' => '1', 'nombre' => 'AREA DE CIENCIAS NATURALES Y EDUCACION AMBIENTAL']);
         Areas::create(['empresa_id' => '1', 'nombre' => 'CIENCIAS SOCIALES, HISTORIA, GEOGRAFIA, CONSTITUCION POLITICA Y DEMOCRACIA']);
         Areas::create(['empresa_id' => '1', 'nombre' => 'EDUCACION ARTISTICA']);
@@ -21,6 +21,7 @@ class AreasSeeder extends Seeder
         Areas::create(['empresa_id' => '1', 'nombre' => 'HUMANIDADES, LENGUA CASTELLANA E IDIOMAS EXTRANJEROS']);
         Areas::create(['empresa_id' => '1', 'nombre' => 'AREA DE MATEMATICAS']);
         Areas::create(['empresa_id' => '1', 'nombre' => 'AREA DE TECNOLOGIA E INFORMATICA']);
+        Areas::create(['empresa_id' => '1', 'nombre' => 'ESPACIOS']);
     }
 }
 

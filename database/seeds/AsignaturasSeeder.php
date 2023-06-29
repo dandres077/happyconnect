@@ -33,6 +33,8 @@ class AsignaturasSeeder extends Seeder
         Asignaturas::create(['empresa_id' => '1', 'area_id' => '3', 'nombre'=> 'Convivencia']);
         Asignaturas::create(['empresa_id' => '1', 'area_id' => '4', 'nombre'=> 'Desarrollo personal']);
         Asignaturas::create(['empresa_id' => '1', 'area_id' => '5', 'nombre'=> 'Compromisos institucionales']);
+        Asignaturas::create(['empresa_id' => '1', 'area_id' => '10', 'nombre'=> 'Descanso']);
+        Asignaturas::create(['empresa_id' => '1', 'area_id' => '10', 'nombre'=> 'Salida']);
     }
 }
 
