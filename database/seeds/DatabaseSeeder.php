@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PadresSeeder::class); 
         $this->call(MatriculasSeeder::class); 
         $this->call(ParalelosHorariosSeeder::class); 
+        $this->call(ActividadesSeeder::class); 
     }
 }

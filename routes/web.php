@@ -368,4 +368,21 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/horarios_paralelos/{id}/inactive', 'ParalelosHorariosController@inactive')->middleware('permiso:horarios_paralelos.inactive'); 
 
 
+/*
+|--------------------------------------------------------------------------
+| Actividades
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/actividades/store', 'ActividadesController@store')->middleware('permiso:actividades.store'); 
+	Route::get('admin/actividades', 'ActividadesController@index')->middleware('permiso:actividades.index');
+	Route::get('admin/actividades/{reserva_id}/informacion', 'ActividadesController@reserva');
+	Route::get('admin/actividades/create', 'ActividadesController@create')->middleware('permiso:actividades.create'); 
+	Route::post('admin/actividades/update', 'ActividadesController@update')->middleware('permiso:actividades.update'); 
+	Route::get('admin/actividades/{id}/edit', 'ActividadesController@edit')->middleware('permiso:actividades.edit'); 
+	Route::get('admin/actividades/{id}/eliminar', 'ActividadesController@destroy')->middleware('permiso:actividades.destroy'); 
+	Route::get('admin/actividades/general', 'ActividadesController@show')->middleware('permiso:actividades.show'); 
+	Route::get('admin/actividades/{id}/inactive', 'ActividadesController@inactive'); 
+
 });

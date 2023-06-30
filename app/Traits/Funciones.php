@@ -37,4 +37,28 @@ trait Funciones
         }
 
    }
+
+/*
+|--------------------------------------------------------------------------
+| disponibilidad: Funci贸n que valida la disponibilidad de un horario
+| @var sala: Id del recurso
+| @var fecha: fecha
+|--------------------------------------------------------------------------
+*/
+
+ public function verificar($fecha)         
+  {
+    $resultado = DB::select('SELECT * FROM actividades WHERE fecha_fin > "'.$fecha.'"');
+
+    if (count($resultado) == 0) 
+    {
+        return 0; // No existe la fecha solicitada en los registros
+    }else
+    {
+        return 1; // Existe en la bd un registro que coincide con la busqueda
+    }        
+
+  }
+
+
 }

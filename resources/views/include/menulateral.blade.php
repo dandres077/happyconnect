@@ -79,6 +79,10 @@
                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                         <ul class="kt-menu__subnav">
 
+                            @can('actividades.index')
+                            <li class="kt-menu__item {{ request()->is('admin/actividades*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/actividades/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Actividades</span></a></li>            
+                            @endcan
+
                             @can('paises.index')
                             <li class="kt-menu__item {{ request()->is('admin/paises*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/paises/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Países</span></a></li>            
                             @endcan

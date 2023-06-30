@@ -25,6 +25,7 @@ class GradosController extends Controller
                 'niveles.nombre as nom_nivel',
                 DB::raw('(CASE WHEN grados.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
             ->where('grados.status', '<>', 3 )
+            ->where('grados.empresa_id', Auth::user()->empresa_id )
             ->orderByRaw('grados.id ASC')
             ->get();
 

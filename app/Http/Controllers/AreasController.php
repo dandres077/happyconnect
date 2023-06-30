@@ -21,7 +21,7 @@ class AreasController extends Controller
         $data = DB::table('areas')
                     ->select('areas.*', 
                               DB::raw('(CASE WHEN status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))
-                    ->where('empresa_id', Auth::id())
+                    ->where('empresa_id', Auth::user()->empresa_id )
                     ->where('status', '<>', 3 )
                     ->orderByRaw('id ASC')
                     ->get();
