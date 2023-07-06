@@ -227,6 +227,18 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'actividades.show']); 
 		Permission::create(['name' => 'actividades.inactive']); 
 
+	    Permission::create(['name' => 'cobros.index']); 
+	    Permission::create(['name' => 'cobros.alumnos']); 
+	    Permission::create(['name' => 'cobros.inmueble']); 
+	    Permission::create(['name' => 'cobros.create']); 
+	    Permission::create(['name' => 'cobros.store']); 
+	    Permission::create(['name' => 'cobros.edit']); 
+	    Permission::create(['name' => 'cobros.update']); 
+	    Permission::create(['name' => 'cobros.destroy']); 
+	    Permission::create(['name' => 'cobros.active']); 
+	    Permission::create(['name' => 'cobros.inactive']);
+	    Permission::create(['name' => 'cobros.reenvio']);
+
 		Permission::create(['name' => 'administracion.index']);
 		
 

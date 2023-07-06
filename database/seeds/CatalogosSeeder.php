@@ -110,5 +110,26 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '12:20pm | 1:18pm']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => 'Salida']);
 
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Enero']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Febrero']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Marzo']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Abril']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Mayo']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Junio']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Julio']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Agosto']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Septiembre']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Octubre']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Noviembre']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Diciembre']);
+
+
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Mensualidad']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Matricula']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Curso']);
+
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '24','nombre' => 'Banco de Bogotá']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '24','nombre' => 'Banco AVVillas']);
+
     }
 }
