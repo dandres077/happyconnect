@@ -247,6 +247,17 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'faq.inactive']); 
 		Permission::create(['name' => 'faq.show']); 
 
+		Permission::create(['name' => 'comunicados.store']); 
+		Permission::create(['name' => 'comunicados.index']); 
+		Permission::create(['name' => 'comunicados.create']); 
+		Permission::create(['name' => 'comunicados.update']); 
+		Permission::create(['name' => 'comunicados.destroy']); 
+		Permission::create(['name' => 'comunicados.edit']); 
+		Permission::create(['name' => 'comunicados.active']); 
+		Permission::create(['name' => 'comunicados.inactive']); 
+		Permission::create(['name' => 'comunicados.show']);
+		Permission::create(['name' => 'comunicados.view']); 
+
 		Permission::create(['name' => 'administracion.index']);
 
 		

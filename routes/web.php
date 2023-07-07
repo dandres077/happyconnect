@@ -420,6 +420,24 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/faq/{id}/show', 'PreguntasFrecuentesController@show')->middleware('permiso:faq.show'); 
 
 
+/*
+|--------------------------------------------------------------------------
+| Comunicados
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/comunicados/store', 'ComunicadosController@store')->middleware('permiso:comunicados.store'); 
+	Route::get('admin/comunicados', 'ComunicadosController@index')->middleware('permiso:comunicados.index'); 
+	Route::get('admin/comunicados/create', 'ComunicadosController@create')->middleware('permiso:comunicados.create'); 
+	Route::post('admin/comunicados/{id}/edit', 'ComunicadosController@update')->middleware('permiso:comunicados.update'); 
+	Route::post('admin/comunicados/{id}', 'ComunicadosController@destroy')->middleware('permiso:comunicados.destroy'); 
+	Route::get('admin/comunicados/{id}/edit', 'ComunicadosController@edit')->middleware('permiso:comunicados.edit'); 
+	Route::post('admin/comunicados/{id}/active', 'ComunicadosController@active')->middleware('permiso:comunicados.active'); 
+	Route::post('admin/comunicados/{id}/inactive', 'ComunicadosController@inactive')->middleware('permiso:comunicados.inactive'); 
+	Route::get('admin/comunicados/{id}/show', 'ComunicadosController@show')->middleware('permiso:comunicados.show');
+	Route::get('admin/comunicados/{id}/view', 'ComunicadosController@show')->middleware('permiso:comunicados.view'); 
+
+
 
 
 
