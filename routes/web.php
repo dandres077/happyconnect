@@ -402,4 +402,25 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/cobros/{id}/reenvio', 'CobrosController@reenvio')->middleware('permiso:cobros.reenvio');
 	Route::get('admin/cobros/{alumno_id}/reporte/{paralelo_id}', 'CobrosController@reporte')->middleware('permiso:cobros.reporte');
 
+
+/*
+|--------------------------------------------------------------------------
+| FAQ
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/faq/store', 'PreguntasFrecuentesController@store')->middleware('permiso:faq.store'); 
+	Route::get('admin/faq', 'PreguntasFrecuentesController@index')->middleware('permiso:faq.index'); 
+	Route::get('admin/faq/create', 'PreguntasFrecuentesController@create')->middleware('permiso:faq.create'); 
+	Route::post('admin/faq/{id}/edit', 'PreguntasFrecuentesController@update')->middleware('permiso:faq.update'); 
+	Route::post('admin/faq/{id}', 'PreguntasFrecuentesController@destroy')->middleware('permiso:faq.destroy'); 
+	Route::get('admin/faq/{id}/edit', 'PreguntasFrecuentesController@edit')->middleware('permiso:faq.edit'); 
+	Route::post('admin/faq/{id}/active', 'PreguntasFrecuentesController@active')->middleware('permiso:faq.active'); 
+	Route::post('admin/faq/{id}/inactive', 'PreguntasFrecuentesController@inactive')->middleware('permiso:faq.inactive'); 
+	Route::get('admin/faq/{id}/show', 'PreguntasFrecuentesController@show')->middleware('permiso:faq.show'); 
+
+
+
+
+
 });

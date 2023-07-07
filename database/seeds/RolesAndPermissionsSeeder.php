@@ -237,6 +237,16 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'cobros.reenvio']);
 		Permission::create(['name' => 'cobros.reporte']);
 
+		Permission::create(['name' => 'faq.store']); 
+		Permission::create(['name' => 'faq.index']); 
+		Permission::create(['name' => 'faq.create']); 
+		Permission::create(['name' => 'faq.update']); 
+		Permission::create(['name' => 'faq.destroy']); 
+		Permission::create(['name' => 'faq.edit']); 
+		Permission::create(['name' => 'faq.active']); 
+		Permission::create(['name' => 'faq.inactive']); 
+		Permission::create(['name' => 'faq.show']); 
+
 		Permission::create(['name' => 'administracion.index']);
 
 		

@@ -123,13 +123,16 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Noviembre']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Diciembre']);
 
-
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Mensualidad']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Matricula']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Curso']);
 
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '24','nombre' => 'Banco de Bogotá']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '24','nombre' => 'Banco AVVillas']);
+
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '25','nombre' => 'Horarios de atención']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '25','nombre' => 'Ausencias e incapacidades']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '25','nombre' => 'Parqueo de vehículos']);
 
     }
 }

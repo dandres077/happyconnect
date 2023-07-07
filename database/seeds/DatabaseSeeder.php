@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ParalelosHorariosSeeder::class); 
         $this->call(ActividadesSeeder::class); 
         $this->call(CobrosSeeder::class); 
+        $this->call(PreguntasFrecuentesSeeder::class); 
     }
 }

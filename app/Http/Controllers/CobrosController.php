@@ -24,19 +24,19 @@ class CobrosController extends Controller
     { 
 
         $data = DB::table('paralelos')
-            ->leftJoin('temporadas', 'paralelos.temporada_id', '=', 'temporadas.id')
-            ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
-            ->leftJoin('users', 'paralelos.director_id', '=', 'users.id')
-            ->select(
-                'paralelos.*',
-                'temporadas.nombre as nom_temporada',
-                'grados.nombre as nom_grado',
-                'users.name as nom_director',
-                DB::raw('(CASE WHEN paralelos.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))            
-            ->where('paralelos.empresa_id', Auth::user()->empresa_id )
-            ->where('paralelos.status', '<>', 3 )
-            ->orderByRaw('paralelos.id ASC')
-            ->get();
+                ->leftJoin('temporadas', 'paralelos.temporada_id', '=', 'temporadas.id')
+                ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
+                ->leftJoin('users', 'paralelos.director_id', '=', 'users.id')
+                ->select(
+                    'paralelos.*',
+                    'temporadas.nombre as nom_temporada',
+                    'grados.nombre as nom_grado',
+                    'users.name as nom_director',
+                    DB::raw('(CASE WHEN paralelos.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento'))            
+                ->where('paralelos.empresa_id', Auth::user()->empresa_id )
+                ->where('paralelos.status', '<>', 3 )
+                ->orderByRaw('paralelos.id ASC')
+                ->get();
 
 
         $temporadas = DB::table('temporadas')->where('empresa_id', Auth::user()->empresa_id)->where('status', 1)->orderByRaw('nombre ASC')->get();
@@ -50,9 +50,6 @@ class CobrosController extends Controller
 
         return view('cobros.index', compact('data', 'titulo', 'temporadas', 'meses','conceptos', 'grados'));
     }
-
-
-
 
 
 /*
