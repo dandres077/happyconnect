@@ -60,18 +60,6 @@
                    {{ $titulo }}
                 </h3>
             </div>
-            @can('cobros.create')
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-                        <button type="button" class="btn btn-brand btn-elevate btn-icon-sm" data-toggle="modal" data-target="#kt_modal_1">
-                            <i class="la la-plus"></i>
-                            Crear
-                        </button>
-                    </div>
-                </div>
-            </div>
-            @endcan
         </div>
         <div class="kt-portlet__body">
             <div class="table-responsive">

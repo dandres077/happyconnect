@@ -79,12 +79,11 @@
                     <tbody>
                         @foreach ($data as $alumno)
                             <tr>
-                                <td>{{ $alumno->nom_alumno }}</td>
+                                <td><a href="{{ url('admin/cobros/'.$alumno->id.'/reporte/'.$alumno->paralelo_id)}}">{{ $alumno->nom_alumno }}</a></td>
                                 @foreach ($meses as $mes)
                                     <td>
                                         @foreach ($cobros as $cobro)
-                                            @if ($cobro->alumno_id == $alumno->alumno_id && $cobro->mes_id == $mes->id)
-                                                
+                                            @if ($cobro->alumno_id == $alumno->alumno_id && $cobro->mes_id == $mes->id)                                                
                                                 <div class="btn-group">
                                                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         $ {{number_format($cobro->valor,'0', ',','.')}}
@@ -94,6 +93,7 @@
                                                         <a class="dropdown-item formulario-eliminar" href="{{ url('admin/cobros/'.$cobro->id.'/delete')}}" data-cobro-id="{{ $cobro->id }}"><i class="la la-trash"></i>Eliminar</a>
 
                                                         <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item"><span class="kt-font-success">Fecha</span>: {{ $cobro->fecha }}</a>
                                                         <a class="dropdown-item"><span class="kt-font-success">Concepto</span>: {{ $cobro->nombre }}</a>
                                                         <a class="dropdown-item"><span class="kt-font-success">Observación</span>: {{ $cobro->observacion }}</a>
                                                     </div>

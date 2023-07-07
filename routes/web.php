@@ -393,12 +393,13 @@ Route::middleware(['auth'])->group(function(){
 |
 */
 	Route::get('admin/cobros', 'CobrosController@index')->middleware('permiso:cobros.index'); 
-	Route::get('admin/cobros/paralelo/{paralelo_id}', 'CobrosController@alumnos'); //->middleware('permiso:cobros.alumnos'); 
+	Route::get('admin/cobros/paralelo/{paralelo_id}', 'CobrosController@alumnos')->middleware('permiso:cobros.alumnos'); 
 	Route::get('admin/cobros/create', 'CobrosController@create')->middleware('permiso:cobros.create');
 	Route::post('admin/cobros/store', 'CobrosController@store')->middleware('permiso:cobros.store'); 
 	Route::get('admin/cobros/{id}/edit', 'CobrosController@edit')->middleware('permiso:cobros.edit'); 
 	Route::post('admin/cobros/{id}/edit', 'CobrosController@update')->middleware('permiso:cobros.update'); 
 	Route::get('admin/cobros/{id}/delete', 'CobrosController@destroy')->middleware('permiso:cobros.destroy'); 	
 	Route::get('admin/cobros/{id}/reenvio', 'CobrosController@reenvio')->middleware('permiso:cobros.reenvio');
+	Route::get('admin/cobros/{alumno_id}/reporte/{paralelo_id}', 'CobrosController@reporte')->middleware('permiso:cobros.reporte');
 
 });

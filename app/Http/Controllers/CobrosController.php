@@ -80,6 +80,7 @@ class CobrosController extends Controller
                 ->select(
                         'matriculas.id',
                         'matriculas.alumno_id',
+                        'matriculas.paralelo_id',
                         DB::raw('CONCAT(alumnos.nombre1, " ", alumnos.apellido1) AS nom_alumno'))
                 ->where('matriculas.empresa_id', Auth::user()->empresa_id)
                 //->where('matriculas.temporada_id', $temporada_id)
@@ -165,7 +166,7 @@ class CobrosController extends Controller
         $conceptos = DB::table('catalogos')->where('empresa_id', Auth::user()->empresa_id)->where('generalidad_id', 23)->where('status', 1)->orderByRaw('id ASC')->get();
     
         $bancos = DB::table('catalogos')->where('empresa_id', Auth::user()->empresa_id)->where('generalidad_id', 24)->where('status', 1)->orderByRaw('id ASC')->get();
-        $grados = DB::table('grados')->where('empresa_id', Auth::user()->empresa_id)->where('empresa_id', Auth::user()->empresa_id)->where('status', 1)->orderByRaw('id ASC')->get(); 
+        $grados = DB::table('grados')->where('empresa_id', Auth::user()->empresa_id)->where('status', 1)->orderByRaw('id ASC')->get(); 
 
 
         $informacion = DB::table('cobros')
@@ -318,5 +319,57 @@ class CobrosController extends Controller
 
         return redirect ('cobros')->with('success', 'Mensaje ingreso a la programación');
 
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Reporte por alumno
+|--------------------------------------------------------------------------
+|
+*/
+    public function reporte($alumno_id, $paralelo_id)
+    {
+
+        $titulo = 'Cobros';
+
+        $meses = DB::table('catalogos')->where('empresa_id', Auth::user()->empresa_id)->where('generalidad_id', 22)->where('status', 1)->orderByRaw('id ASC')->get();
+
+        $conceptos = DB::table('catalogos')->where('empresa_id', Auth::user()->empresa_id)->where('generalidad_id', 23)->where('status', 1)->orderByRaw('id ASC')->get();
+    
+        $bancos = DB::table('catalogos')->where('empresa_id', Auth::user()->empresa_id)->where('generalidad_id', 24)->where('status', 1)->orderByRaw('id ASC')->get();
+
+        $grados = DB::table('grados')->where('empresa_id', Auth::user()->empresa_id)->where('status', 1)->orderByRaw('id ASC')->get(); 
+
+
+        $data = DB::table('cobros')
+                        ->leftJoin('alumnos', 'cobros.alumno_id', '=', 'alumnos.id')
+                        ->leftJoin('temporadas', 'cobros.temporada_id', '=', 'temporadas.id')
+                        ->leftJoin('catalogos', 'cobros.mes_id', '=', 'catalogos.id')
+                        ->leftJoin('catalogos AS c2', 'cobros.concepto_id', '=', 'c2.id')
+                        ->leftJoin('catalogos AS c3', 'cobros.banco_id', '=', 'c3.id')
+                        ->leftJoin('grados', 'cobros.grado_id', '=', 'grados.id')
+                        ->leftJoin('paralelos', 'cobros.paralelo_id', '=', 'paralelos.id')
+                        ->select(
+                                'cobros.id',
+                                'cobros.fecha',
+                                'cobros.valor',
+                                'cobros.observacion',
+                                DB::raw('CONCAT(alumnos.nombre1, " ", alumnos.apellido1) AS nom_alumno'),
+                                'temporadas.nombre As nom_temporada',
+                                'catalogos.nombre AS nom_mes',
+                                'c2.nombre AS nom_concepto',
+                                'c3.nombre AS nom_banco',
+                                'grados.nombre AS nom_grado',
+                                'paralelos.nombre AS nom_paralelo'
+                        )
+                        ->where('cobros.alumno_id', $alumno_id)
+                        ->where('cobros.paralelo_id', $paralelo_id)
+                        ->where('cobros.empresa_id', Auth::user()->empresa_id)
+                        ->where('cobros.status', 1)
+                        ->orderByRaw('cobros.id ASC')
+                        ->get();
+
+        return view ('cobros.reporte')->with (compact('titulo', 'meses', 'conceptos', 'bancos', 'grados', 'data'));
     }
 }
