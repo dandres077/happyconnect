@@ -17,9 +17,7 @@ class CreateComunicadosTable extends Migration
             $table->id('id');
             $table->unsignedBigInteger('empresa_id')->index()->nullable(); 
             $table->unsignedBigInteger('categoria_id')->index()->nullable();
-            $table->unsignedBigInteger('temporada_id')->index()->nullable(); 
-            $table->unsignedBigInteger('grado_id')->index()->nullable();
-            $table->unsignedBigInteger('paralelo_id')->index()->nullable();
+            $table->unsignedBigInteger('temporada_id')->index()->nullable();             
             $table->string('nombre')->nullable();
             $table->longtext('descripcion')->nullable();
             $table->text('imagen')->nullable();
@@ -32,9 +30,7 @@ class CreateComunicadosTable extends Migration
             $table->timestamps();
 
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('categoria_id')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('paralelo_id')->references('id')->on('paralelos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('categoria_id')->references('id')->on('catalogos')->onDelete('cascade')->onUpdate('cascade');           
             $table->foreign('temporada_id')->references('id')->on('temporadas')->onDelete('cascade')->onUpdate('cascade');
         });
     }

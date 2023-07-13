@@ -80,7 +80,7 @@
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>                     
 
-                <li class="kt-menu__item  kt-menu__item--submenu {{ request()->is('admin/paises*', 'admin/departamentos*', 'admin/ciudades*','admin/roles*','admin/permisos*', 'admin/usuarios*', 'admin/catalogos*') ? 'kt-menu__item kt-menu__item--active kt-menu__item--open kt-menu__item--here' : ''}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url ('/admin/paises/')}}" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                <li class="kt-menu__item  kt-menu__item--submenu {{ request()->is('admin/paises*', 'admin/departamentos*', 'admin/ciudades*','admin/roles*','admin/permisos*', 'admin/usuarios*', 'admin/catalogos*', 'admin/comunicados*') ? 'kt-menu__item kt-menu__item--active kt-menu__item--open kt-menu__item--here' : ''}}" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url ('/admin/paises/')}}" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <rect x="0" y="0" width="24" height="24" />
                                     <path d="M5,5 L5,15 C5,15.5948613 5.25970314,16.1290656 5.6719139,16.4954176 C5.71978107,16.5379595 5.76682388,16.5788906 5.81365532,16.6178662 C5.82524933,16.6294602 15,7.45470952 15,7.45470952 C15,6.9962515 15,6.17801499 15,5 L5,5 Z M5,3 L15,3 C16.1045695,3 17,3.8954305 17,5 L17,15 C17,17.209139 15.209139,19 13,19 L7,19 C4.790861,19 3,17.209139 3,15 L3,5 C3,3.8954305 3.8954305,3 5,3 Z" fill="#000000" fill-rule="nonzero" transform="translate(10.000000, 11.000000) rotate(-315.000000) translate(-10.000000, -11.000000) " />
@@ -176,6 +176,10 @@
 
                             @can('alumnos.index')
                             <li class="kt-menu__item {{ request()->is('admin/alumnos*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/alumnos/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Alumnos</span></a></li>            
+                            @endcan
+
+                            @can('comunicados.index')
+                            <li class="kt-menu__item {{ request()->is('admin/comunicados*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/comunicados/')}}" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Comunicados</span></a></li>            
                             @endcan
                         </ul>
                     </div>

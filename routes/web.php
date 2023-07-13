@@ -436,6 +436,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/comunicados/{id}/inactive', 'ComunicadosController@inactive')->middleware('permiso:comunicados.inactive'); 
 	Route::get('admin/comunicados/{id}/show', 'ComunicadosController@show')->middleware('permiso:comunicados.show');
 	Route::get('admin/comunicados/{id}/view', 'ComunicadosController@show')->middleware('permiso:comunicados.view'); 
+	Route::get('admin/comunicados/{id}/destroy/{archivo}', 'ComunicadosController@destroy_documento')->middleware('permiso:comunicados.destroy_documento'); 
 
 
 

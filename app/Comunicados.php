@@ -12,8 +12,6 @@ class Comunicados extends Model
         'empresa_id',
         'categoria_id',
         'temporada_id',
-        'grado_id',
-        'paralelo_id',
         'nombre',
         'descripcion',
         'imagen',
@@ -31,8 +29,6 @@ class Comunicados extends Model
         'empresa_id',
         'categoria_id',
         'temporada_id',
-        'grado_id',
-        'paralelo_id',
         'nombre',
         'descripcion',
         'imagen',
@@ -44,6 +40,3 @@ class Comunicados extends Model
         'user_update'
     ];
 }
-
-
-            
