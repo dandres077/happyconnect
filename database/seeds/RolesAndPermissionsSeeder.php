@@ -269,6 +269,15 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'tareas.inactive']); 
 		Permission::create(['name' => 'tareas.show']); 
 
+		Permission::create(['name' => 'proveedores.store']); 
+		Permission::create(['name' => 'proveedores.index']); 
+		Permission::create(['name' => 'proveedores.create']); 
+		Permission::create(['name' => 'proveedores.update']); 
+		Permission::create(['name' => 'proveedores.destroy']); 
+		Permission::create(['name' => 'proveedores.edit']); 
+		Permission::create(['name' => 'proveedores.active']); 
+		Permission::create(['name' => 'proveedores.inactive']); 
+
 		Permission::create(['name' => 'administracion.index']);
 
 		

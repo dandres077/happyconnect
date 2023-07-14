@@ -455,4 +455,20 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/tareas/{id}/inactive', 'TareasController@inactive')->middleware('permiso:tareas.inactive'); 
 	Route::get('admin/tareas/{id}', 'TareasController@show')->middleware('permiso:tareas.show'); 
 
+
+/*
+|--------------------------------------------------------------------------
+| Proveedores
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/proveedores/store', 'ProveedoresController@store')->middleware('permiso:proveedores.store'); 
+	Route::get('admin/proveedores', 'ProveedoresController@index')->middleware('permiso:proveedores.index'); 
+	Route::get('admin/proveedores/create', 'ProveedoresController@create')->middleware('permiso:proveedores.create'); 
+	Route::post('admin/proveedores/{id}/edit', 'ProveedoresController@update')->middleware('permiso:proveedores.update'); 
+	Route::post('admin/proveedores/{id}', 'ProveedoresController@destroy')->middleware('permiso:proveedores.destroy'); 
+	Route::get('admin/proveedores/{id}/edit', 'ProveedoresController@edit')->middleware('permiso:proveedores.edit'); 
+	Route::post('admin/proveedores/{id}/active', 'ProveedoresController@active')->middleware('permiso:proveedores.active'); 
+	Route::post('admin/proveedores/{id}/inactive', 'ProveedoresController@inactive')->middleware('permiso:proveedores.inactive'); 
+
 });
