@@ -16,7 +16,7 @@ class Areas extends Model
         'user_update'
     ];
 
-    protected static $logName = 'AREAS';
+    protected static $logName = 'Areas';
 
     protected static $logAttributes = [
         'empresa_id',

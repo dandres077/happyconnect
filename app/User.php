@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasRoles;
     use LogsActivity;
 
-    protected static $logName = 'User';
+    protected static $logName = 'Usuarios';
 
     // protected static $logOnlyDirty = true; Solo actualiza los campos que cambiaron
 
@@ -25,7 +25,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'last', 'email', 'password', 'empresa_id', 'imagen'
     ];
-
 
     protected $hidden = [
         'password', 'remember_token',

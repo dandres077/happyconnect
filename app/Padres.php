@@ -34,7 +34,7 @@ class Padres extends Model
         'user_update',
     ];
 
-    protected static $logName = 'Niveles';
+    protected static $logName = 'Padres';
 
     protected static $logAttributes = [
         'empresa_id',

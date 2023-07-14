@@ -79,7 +79,7 @@ class Matriculas extends Model
         'user_update'
     ];
 
-    protected static $logName = 'AREAS';
+    protected static $logName = 'Matriculas';
 
     protected static $logAttributes = [
         'empresa_id',

@@ -259,6 +259,16 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'comunicados.view']); 
 		Permission::create(['name' => 'comunicados.destroy_documento']); 
 
+		Permission::create(['name' => 'tareas.store']); 
+		Permission::create(['name' => 'tareas.index']); 
+		Permission::create(['name' => 'tareas.create']); 
+		Permission::create(['name' => 'tareas.update']); 
+		Permission::create(['name' => 'tareas.destroy']); 
+		Permission::create(['name' => 'tareas.edit']); 
+		Permission::create(['name' => 'tareas.active']); 
+		Permission::create(['name' => 'tareas.inactive']); 
+		Permission::create(['name' => 'tareas.show']); 
+
 		Permission::create(['name' => 'administracion.index']);
 
 		

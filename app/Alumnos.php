@@ -33,7 +33,7 @@ class Alumnos extends Model
         'user_update'
     ];
 
-    protected static $logName = 'AREAS';
+    protected static $logName = 'Alumnos';
 
     protected static $logAttributes = [
         'empresa_id',

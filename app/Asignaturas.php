@@ -17,7 +17,7 @@ class Asignaturas extends Model
         'user_update'
     ];
 
-    protected static $logName = 'AREAS';
+    protected static $logName = 'Asignaturas';
 
     protected static $logAttributes = [
         'empresa_id',

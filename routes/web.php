@@ -439,7 +439,20 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/comunicados/{id}/destroy/{archivo}', 'ComunicadosController@destroy_documento')->middleware('permiso:comunicados.destroy_documento'); 
 
 
-
-
+/*
+|--------------------------------------------------------------------------
+| Tareas
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/tareas/store', 'TareasController@store')->middleware('permiso:tareas.store'); 
+	Route::get('admin/tareas', 'TareasController@index')->middleware('permiso:tareas.index'); 
+	Route::get('admin/tareas/create', 'TareasController@create')->middleware('permiso:tareas.create'); 
+	Route::post('admin/tareas/{id}/edit', 'TareasController@update')->middleware('permiso:tareas.update'); 
+	Route::post('admin/tareas/{id}', 'TareasController@destroy')->middleware('permiso:tareas.destroy'); 
+	Route::get('admin/tareas/{id}/edit', 'TareasController@edit')->middleware('permiso:tareas.edit'); 
+	Route::post('admin/tareas/{id}/active', 'TareasController@active')->middleware('permiso:tareas.active'); 
+	Route::post('admin/tareas/{id}/inactive', 'TareasController@inactive')->middleware('permiso:tareas.inactive'); 
+	Route::get('admin/tareas/{id}', 'TareasController@show')->middleware('permiso:tareas.show'); 
 
 });
