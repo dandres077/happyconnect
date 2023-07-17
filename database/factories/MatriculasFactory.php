@@ -72,7 +72,8 @@ $factory->define(Matriculas::class, function (Faker $faker) {
         'n_documento_fac'=> 1015879654,
         'direccion_fac' => $faker->address,
         'email_fac' => $faker->email,
-        'celular_fac' => $faker->phoneNumber
+        'celular_fac' => $faker->phoneNumber,
+        'status' => 5
     ];
 });
 

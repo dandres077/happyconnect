@@ -471,4 +471,23 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/proveedores/{id}/active', 'ProveedoresController@active')->middleware('permiso:proveedores.active'); 
 	Route::post('admin/proveedores/{id}/inactive', 'ProveedoresController@inactive')->middleware('permiso:proveedores.inactive'); 
 
+
+/*
+|--------------------------------------------------------------------------
+| Rutas
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/rutas/store', 'RutasController@store')->middleware('permiso:rutas.store'); 
+	Route::get('admin/rutas', 'RutasController@index')->middleware('permiso:rutas.index'); 
+	Route::get('admin/rutas/create', 'RutasController@create')->middleware('permiso:rutas.create'); 
+	Route::post('admin/rutas/{id}/edit', 'RutasController@update')->middleware('permiso:rutas.update'); 
+	Route::post('admin/rutas/{id}', 'RutasController@destroy')->middleware('permiso:rutas.destroy'); 
+	Route::get('admin/rutas/{id}/edit', 'RutasController@edit')->middleware('permiso:rutas.edit'); 
+	Route::post('admin/rutas/{id}/active', 'RutasController@active')->middleware('permiso:rutas.active'); 
+	Route::post('admin/rutas/{id}/inactive', 'RutasController@inactive')->middleware('permiso:rutas.inactive'); 
+
+	Route::get('admin/rutas/{ruta_id}/alumnos', 'RutasController@index_alumnos')->middleware('permiso:rutas.index_alumnos');
+	Route::post('admin/rutas/alumnos/store', 'RutasController@alumnos_store')->middleware('permiso:rutas.alumnos_store');
+
 });

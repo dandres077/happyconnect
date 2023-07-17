@@ -33,5 +33,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CobrosSeeder::class); 
         $this->call(PreguntasFrecuentesSeeder::class); 
         $this->call(ComunicadosSeeder::class); 
+        $this->call(ProveedoresSeeder::class); 
+        $this->call(RutasSeeder::class); 
+        $this->call(RutasAlumnosSeeder::class); 
     }
 }
