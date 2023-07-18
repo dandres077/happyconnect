@@ -490,4 +490,23 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/rutas/{ruta_id}/alumnos', 'RutasController@index_alumnos')->middleware('permiso:rutas.index_alumnos');
 	Route::post('admin/rutas/alumnos/store', 'RutasController@alumnos_store')->middleware('permiso:rutas.alumnos_store');
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Blog
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('admin/blog/store', 'BlogsController@store')->middleware('permiso:blog.store'); 
+	Route::get('admin/blog', 'BlogsController@index')->middleware('permiso:blog.index'); 
+	Route::get('admin/blog/create', 'BlogsController@create')->middleware('permiso:blog.create'); 
+	Route::post('admin/blog/{id}/edit', 'BlogsController@update')->middleware('permiso:blog.update'); 
+	Route::post('admin/blog/{id}', 'BlogsController@destroy')->middleware('permiso:blog.destroy'); 
+	Route::get('admin/blog/{id}/edit', 'BlogsController@edit')->middleware('permiso:blog.edit'); 
+	Route::post('admin/blog/{id}/active', 'BlogsController@active')->middleware('permiso:blog.active'); 
+	Route::post('admin/blog/{id}/inactive', 'BlogsController@inactive')->middleware('permiso:blog.inactive'); 
+	Route::get('admin/blog/{id}/show', 'BlogsController@show')->middleware('permiso:blog.show'); 
+
+
 });

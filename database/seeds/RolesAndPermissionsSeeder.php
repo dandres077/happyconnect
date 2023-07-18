@@ -289,6 +289,16 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'rutas.index_alumnos']); 
 		Permission::create(['name' => 'rutas.alumnos_store']); 
 
+		Permission::create(['name' => 'blog.store']); 
+		Permission::create(['name' => 'blog.index']); 
+		Permission::create(['name' => 'blog.create']); 
+		Permission::create(['name' => 'blog.update']); 
+		Permission::create(['name' => 'blog.destroy']); 
+		Permission::create(['name' => 'blog.edit']); 
+		Permission::create(['name' => 'blog.active']); 
+		Permission::create(['name' => 'blog.inactive']); 
+		Permission::create(['name' => 'blog.show']); 
+
 		Permission::create(['name' => 'administracion.index']);
 
 		

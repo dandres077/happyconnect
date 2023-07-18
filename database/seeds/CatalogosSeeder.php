@@ -137,5 +137,8 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '26','nombre' => 'Circular']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '26','nombre' => 'Comunicados']);
 
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '27','nombre' => 'Bullying']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '27','nombre' => 'Recreación']);
+
     }
 }

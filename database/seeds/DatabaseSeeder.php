@@ -36,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProveedoresSeeder::class); 
         $this->call(RutasSeeder::class); 
         $this->call(RutasAlumnosSeeder::class); 
+        $this->call(BlogsSeeder::class); 
     }
 }

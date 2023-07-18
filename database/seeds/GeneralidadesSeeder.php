@@ -38,5 +38,6 @@ class GeneralidadesSeeder extends Seeder
         Generalidades::create(['empresa_id' => '1', 'nombre' => 'Bancos']);
         Generalidades::create(['empresa_id' => '1', 'nombre' => 'Categorías FAQ']);
         Generalidades::create(['empresa_id' => '1', 'nombre' => 'Tipos de comunicados']);
+        Generalidades::create(['empresa_id' => '1', 'nombre' => 'Categorías del blog']);
     }
 }
