@@ -9,7 +9,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
+/*
+|--------------------------------------------------------------------------
+| Recuperar contraseña
+|--------------------------------------------------------------------------
+|
+*/
+	Route::post('/usuarios/recuperar_pwd', 'UserController@recuperar_envio'); // Envio de correo electrónico para recuperar la contraseña
+	Route::get('/usuarios/recuperar/{token}', 'UserController@recuperar_pwd'); // Formulario para registrar la nueva contraseña
+	Route::post('/usuarios/nueva_pwd', 'UserController@nueva_pwd'); // Actualización de contraseña
 
+
+	
 
 Route::middleware(['auth'])->group(function(){
 

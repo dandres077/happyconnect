@@ -7,14 +7,41 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UsuariosRequest;
 use App\Http\Requests\UsuariosUpdateRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use App\Traits\Funciones;
 use App\User;
 use DB;
+use Hash;
 
 class UserController extends Controller
 {
     use Funciones; //Viene de Traits
-    //Se usa asi $fecha_recurso = $this->hora_bloques($valida_inicio,1); 
+
+
+/*-- ----------------------------
+-- Función Random
+-- ----------------------------*/
+
+    function generarCodigo($longitud) 
+    {
+        $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$';
+        $max = strlen($caracteres) - 1;
+        $codigo = '';
+    
+        for ($i = 0; $i < $longitud; $i++) {
+            $aleatorio = mt_rand(0, $max);
+            $caracter = $caracteres[$aleatorio];
+            $codigo .= $caracter;
+        }
+    
+        return $codigo;
+    }
+    
+    public function eliminarSlash($cadena) 
+    {
+        return str_replace('/', '', $cadena);
+    }
 
 /*-- ----------------------------
 -- Index
@@ -218,5 +245,93 @@ class UserController extends Controller
 
 
         return redirect ('admin/usuarios')->with('success', 'Contraseña actualizada exitosamente');
+    }
+
+/*-- ----------------------------
+-- Recuperar - Vista
+-- ----------------------------*/
+    public function recuperar() 
+    {   
+        return view ('auth.recuperar');
+    }
+
+/*-- ----------------------------
+-- Recuperar: envio de email con token 
+-- ----------------------------*/
+    public function recuperar_envio(Request $request)  
+    {   
+
+        $user = User::where('email', $request->input('email'))->first();
+        
+        $usuario = DB::table('users')->select('name', 'email')->where('email', $request->input('email'))->first();
+
+        if (! $user)
+        return redirect ('login')->with('danger', 'El email ingresado no existe en nuestras bases de datos');
+
+        $codigo =  $this->generarCodigo(6);
+        $token = bcrypt($codigo);
+        $user->remember_token = $this->eliminarSlash($token); // Eliminar los / del hash generado
+        $user->save();
+
+
+        $data = array(
+                    $usuario->name, //Nombre del usuario
+                    $token,         //Token
+                    $usuario->email //Email
+        );
+        
+
+        $empresa = array(
+                        "iDaves Ingeniería",
+                        "https://idaves.com",
+                        "3188482206 - 3186932083",
+                        "comercial@idaves.com"
+        );
+
+        Mail::send('emails/recuperar_pwd', compact('data', 'empresa'), function($message)use ($data){
+            $message->from('notificaciones@idaves.com', 'Sistema de notificaciones iDaves.com');
+            $message->to($data[2])->bcc(['davidcontreras07@gmail.com'])->subject('Recuperación de contraseña');
+
+        });
+        
+        
+
+        return redirect('/login')->with('success', 'Se te ha enviado un email para completar el proceso, valida tu SPAM.');
+    }
+
+
+
+/*-- ----------------------------
+-- Contraseña Nueva - Vista
+-- ----------------------------*/
+    public function recuperar_pwd($token) 
+    {   
+
+        $user = User::where('remember_token', $token)->first();
+
+        if (! $user)
+        return redirect ('login')->with('danger', 'No es posible continuar con el proceso, intentalo de nuevo');
+
+        return view('auth.resetear')->with(compact('token'))->with('success', 'Ingresa una contraseña nueva para tu cuenta');
+
+    }
+
+
+/*-- ----------------------------
+-- Contraseña Nueva - Vista
+-- ----------------------------*/
+    public function nueva_pwd(Request $request) 
+    {   
+
+        $user = User::where('remember_token', $request->input('token'))->first();
+        if (! $user)
+        return redirect ('login')->with('danger', 'No es posible continuar con el proceso, intentalo de nuevo');
+
+        $user->password = bcrypt($request->input('password'));
+        $user->remember_token = null;
+        $user->save();
+    
+        return redirect('/login')->with('success', 'Has cambiado correctamente tu contraseña');
+
     }
 }

@@ -54,13 +54,13 @@
                     <form method="post" class="form-horizontal" action="{{ url('admin/roles/'.$roles->id.'/edit')}}" autocomplete="off">
                     {{ csrf_field()}}
                         <div class="row">
-                            <div class="col-xl-3"></div>
-                            <div class="col-xl-6">
+                            <div class="col-xl-1"></div>
+                            <div class="col-xl-10">
                                 <div class="kt-section kt-section--first">
                                     <div class="kt-section__body">  
                                         <div class="form-group row">
-                                            <label class="col-3 col-form-label">Nombre</label>
-                                            <div class="col-9">
+                                            <label class="col-2 col-form-label">Nombre</label>
+                                            <div class="col-10">
                                             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $roles->name) }}">
                                             </div>
                                         </div>
@@ -68,43 +68,50 @@
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
 
                                         <div class="form-group row">
-                                            <label class="col-3 col-form-label">Permisos</label>
-                                            <div class="col-9">
-                                            @if ($contador == 0)
-                                                @foreach ($permisos as $permiso)         
-                                                <label> <input type="checkbox" value="{{$permiso->id}}" name="permisos[]" id="permisos[]"> {{ $permiso->name }} </label><br>
-                                                @endforeach
-                                            @else
-                                                @foreach ($permisos as $permiso)
-                                                    @foreach ($rol_permisos as $rolp)   
-                                                        @if($permiso->id == $rolp->permission_id)
-                                                            <label> <input type="checkbox" value="{{$permiso->id}}" name="permisos[]" id="permisos[]" checked="checked"> {{ $permiso->name }} </label><br>
-                                                        @break   
+                                            <label class="col-2 col-form-label">Permisos</label>
+                                            <div class="col-10">
+                                                @php $columnCount = 0; @endphp
+                                                <div class="row">
+                                                    @foreach ($permisos as $permiso)
+                                                        <div class="col-md-4">
+                                                            @if ($contador == 0)
+                                                                <label><input type="checkbox" value="{{$permiso->id}}" name="permisos[]" id="permisos[]"> {{ $permiso->name }}</label><br>
+                                                            @else
+                                                                @foreach ($rol_permisos as $rolp)
+                                                                    @if ($permiso->id == $rolp->permission_id)
+                                                                        <label><input type="checkbox" value="{{$permiso->id}}" name="permisos[]" id="permisos[]" checked="checked"> {{ $permiso->name }}</label><br>
+                                                                        @php $columnCount++; @endphp
+                                                                        @break
+                                                                    @endif
+                                                                @endforeach
+                                                                @if ($permiso->id != $rolp->permission_id)
+                                                                    <label><input type="checkbox" value="{{$permiso->id}}" name="permisos[]" id="permisos[]"> {{ $permiso->name }}</label><br>
+                                                                    @php $columnCount++; @endphp
+                                                                @endif
+                                                            @endif
+                                                        </div>
+                                                        @if ($columnCount % 3 === 0 && $columnCount > 0)
+                                                            </div><div class="row">
                                                         @endif
                                                     @endforeach
-
-                                                        @if($permiso->id == $rolp->permission_id)                                                                
-                                                        @else
-                                                            <label> <input type="checkbox" value="{{$permiso->id}}" name="permisos[]" id="permisos[]"> {{ $permiso->name }} </label><br>
-                                                        @endif
-                                                @endforeach 
-                                            @endif
+                                                </div>
                                             </div>
                                         </div>
+
 
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
 
                                         <div class="kt-form__actions">
-                                 
+                                            @can('roles.edit')
                                             <button type="submit" class="btn btn-primary">Actualizar</button>
-                                       
+                                            @endcan
                                             <a href="{{ url ('admin/roles')}}" class="btn btn-secondary">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>
                                 
                             </div>
-                            <div class="col-xl-3"></div>
+                            <div class="col-xl-1"></div>
                         </div>
                     </form>
                 </div>

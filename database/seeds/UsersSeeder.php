@@ -15,7 +15,7 @@ class UsersSeeder extends Seeder
         User::create([
         	'empresa_id' => 1,
             'name' => 'David', 
-        	'last' => 'C', 
+        	'last' => 'Contreras', 
         	'email' => 'admin@gmail.com', 
         	'password' => bcrypt('123456'),
             'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
@@ -24,8 +24,8 @@ class UsersSeeder extends Seeder
         User::create([
         	'empresa_id' => 1,
             'name' => 'Andres', 
-        	'last' => 'C', 
-        	'email' => 'piloto1@gmail.com', 
+        	'last' => 'Cristancho', 
+        	'email' => 'docente1@gmail.com', 
         	'password' => bcrypt('123456'),
             'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
         ]);
@@ -33,9 +33,36 @@ class UsersSeeder extends Seeder
         User::create([
         	'empresa_id' => 1,
             'name' => 'Camilo', 
-        	'last' => 'C', 
-        	'email' => 'piloto2@gmail.com', 
+        	'last' => 'Cuellar', 
+        	'email' => 'docente2@gmail.com', 
         	'password' => bcrypt('123456'),
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+        ]);
+
+        User::create([
+            'empresa_id' => 1,
+            'name' => 'Carolina', 
+            'last' => 'Camargo', 
+            'email' => 'coordinador@gmail.com', 
+            'password' => bcrypt('123456'),
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+        ]);
+
+        User::create([
+            'empresa_id' => 1,
+            'name' => 'Lorena', 
+            'last' => 'Diaz', 
+            'email' => 'secretaria@gmail.com', 
+            'password' => bcrypt('123456'),
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+        ]);
+
+        User::create([
+            'empresa_id' => 1,
+            'name' => 'Gloria Patricia', 
+            'last' => 'Azuero', 
+            'email' => 'director@gmail.com', 
+            'password' => bcrypt('123456'),
             'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
         ]);
 
