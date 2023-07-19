@@ -29,7 +29,10 @@ class RoleController extends Controller
     public function create() //Formulario de registro
     {
 
-        $permisos = Permission::get();
+        $permisos = DB::table('permissions')
+                    ->orderByRaw('name ASC')
+                    ->get();
+
         return view ('roles.create')->with (compact('permisos'));
 
     }
@@ -52,7 +55,9 @@ class RoleController extends Controller
     {
 
         $roles = Role::find($id);
-        $permisos = Permission::get();
+        $permisos = DB::table('permissions')
+                    ->orderByRaw('name ASC')
+                    ->get();
 
         $rol_permisos = DB::table('role_has_permissions')
             ->select('role_has_permissions.*')

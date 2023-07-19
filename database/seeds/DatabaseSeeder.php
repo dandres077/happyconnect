@@ -37,5 +37,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RutasSeeder::class); 
         $this->call(RutasAlumnosSeeder::class); 
         $this->call(BlogsSeeder::class); 
+        $this->call(ProfesionalesSeeder::class); 
     }
 }

@@ -179,6 +179,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'profesionales.edit']); 
 		Permission::create(['name' => 'profesionales.active']); 
 		Permission::create(['name' => 'profesionales.inactive']); 
+		Permission::create(['name' => 'profesionales.show']); 
 
 		Permission::create(['name' => 'alumnos.store']); 
 		Permission::create(['name' => 'alumnos.index']); 

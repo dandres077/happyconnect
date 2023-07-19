@@ -206,4 +206,29 @@ class ProfesionalesController extends Controller
 
         return redirect ('admin/profesionales');
     }
+
+/*
+|--------------------------------------------------------------------------
+| show
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function show()
+    {
+
+        $data = DB::table('profesionales')
+                ->leftJoin('users', 'profesionales.usuario_id', '=', 'users.id')
+                ->select(
+                    'profesionales.*',
+                    DB::raw('CONCAT(users.name, " ", users.last) AS nom_usuario'))
+                ->where('profesionales.status', 1)
+                ->where('profesionales.empresa_id', Auth::user()->empresa_id)
+                ->orderByRaw('users.last ASC')
+                ->get();
+
+        $titulo = 'Profesionales';
+
+        return view('profesionales.show', compact('data',  'titulo'));
+    }
 }

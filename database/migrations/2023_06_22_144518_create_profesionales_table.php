@@ -27,10 +27,10 @@ class CreateProfesionalesTable extends Migration
             $table->string('n_documento')->nullable();
             $table->string('fecha_nacimiento')->nullable();   
             $table->unsignedBigInteger('civil_id')->index()->nullable();         
-            $table->string('estudios')->nullable();
-            $table->string('perfil')->nullable();
-            $table->string('experiencia')->nullable();
-            $table->string('imagen')->nullable();
+            $table->longtext('estudios')->nullable();
+            $table->longtext('perfil')->nullable();
+            $table->longtext('experiencia')->nullable();
+            $table->text('imagen')->nullable();
             $table->integer('status')->default(1); // 1: activo, 2:inactivo: 3: eliminado
             $table->integer('user_create')->nullable();
             $table->integer('user_update')->nullable();

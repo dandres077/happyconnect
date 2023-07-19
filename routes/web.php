@@ -314,6 +314,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/profesionales/{id}/edit', 'ProfesionalesController@edit')->middleware('permiso:profesionales.edit'); 
 	Route::post('admin/profesionales/{id}/active', 'ProfesionalesController@active')->middleware('permiso:profesionales.active'); 
 	Route::post('admin/profesionales/{id}/inactive', 'ProfesionalesController@inactive')->middleware('permiso:profesionales.inactive'); 
+	Route::get('admin/profesionales/show', 'ProfesionalesController@show')->middleware('permiso:profesionales.show'); 
 
 
 /*
