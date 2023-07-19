@@ -145,25 +145,22 @@ class TareasController extends Controller
                         ->orderByRaw('id DESC')
                         ->first();
 
-        $consulta = DB::table('cobros AS c')
-                    ->leftJoin('catalogos AS ca', 'c.concepto_id', '=', 'ca.id')
-                    ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre')
-                    ->where('c.empresa_id', Auth::user()->empresa_id)
-                    ->where('c.alumno_id', Auth::id())
-                    ->where('c.paralelo_id', $info_usuario->paralelo_id)
-                    ->where('c.status', 1 )
-                    ->orderByRaw('c.id ASC')
+        $data = DB::table('tareas')
+                    ->leftJoin('asignaturas', 'tareas.asignatura_id', '=', 'asignaturas.id')
+                    ->leftJoin('users', 'tareas.user_create', '=', 'users.id')
+                    ->select(
+                            'tareas.*',
+                            'asignaturas.nombre AS nom_asignatura',
+                            DB::raw('CONCAT(COALESCE(users.name, ""), " ", COALESCE(users.last, "")) AS nom_docente')
+                            )
+                    ->where('tareas.empresa_id', Auth::user()->empresa_id)
+                    ->where('tareas.paralelo_id', $info_usuario->paralelo_id)
+                    ->where('tareas.status', 1 )
+                    ->orderByRaw('tareas.id ASC')
                     ->get(); 
-            
-        $meses = DB::table('catalogos')
-                ->select('id', 'nombre')
-                ->where('empresa_id', Auth::user()->empresa_id)
-                ->where('generalidad_id', 22)
-                ->where('status', 1)
-                ->orderByRaw('id ASC')
-                ->get();     
 
-        return view ('tareas.show')->with (compact('titulo', 'consulta', 'meses'));
+    
+        return view ('tareas.show')->with (compact('titulo', 'data'));
     }
 
 /*
