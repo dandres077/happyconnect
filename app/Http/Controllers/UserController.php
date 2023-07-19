@@ -262,18 +262,20 @@ class UserController extends Controller
     {   
 
         $user = User::where('email', $request->input('email'))->first();
-        
-        $usuario = DB::table('users')->select('name', 'email')->where('email', $request->input('email'))->first();
 
         if (! $user)
         return redirect ('login')->with('danger', 'El email ingresado no existe en nuestras bases de datos');
 
-        $codigo =  $this->generarCodigo(6);
-        $token = bcrypt($codigo);
-        $user->remember_token = $this->eliminarSlash($token); // Eliminar los / del hash generado
+        $token = $this->generarCodigo(6);
+        $token = bcrypt($token);
+        $token = $this->eliminarSlash($token);
+        
+        $user->remember_token = $token; // Eliminar los / del hash generado
         $user->save();
 
-
+        
+        $usuario = DB::table('users')->select('name', 'email')->where('email', $request->input('email'))->first();
+        
         $data = array(
                     $usuario->name, //Nombre del usuario
                     $token,         //Token
@@ -293,8 +295,6 @@ class UserController extends Controller
             $message->to($data[2])->bcc(['davidcontreras07@gmail.com'])->subject('Recuperación de contraseña');
 
         });
-        
-        
 
         return redirect('/login')->with('success', 'Se te ha enviado un email para completar el proceso, valida tu SPAM.');
     }

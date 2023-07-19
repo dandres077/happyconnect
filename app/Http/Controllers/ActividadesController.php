@@ -52,8 +52,6 @@ class ActividadesController extends Controller
                 ->get();
 
         return $data;
-
-
     }
 
 

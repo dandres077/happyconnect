@@ -186,7 +186,7 @@
 </div>
 
 <!--end::Modal-->
-
+    @can('actividades.edit')
     <div class="modal fade" id="UpdatecreateEventModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -236,10 +236,11 @@
 
 
                      <div class="hr-line-dashed"></div>
-
+                     @can('actividades.destroy')
                       <div class="form-group">                                                                            
                           <button type="submit" class="btn btn-danger btn-block btn-lg" id="deleteButton">Eliminar actividad</button>
                       </div>
+                      @endcan
                   
                 </div>                    
                 @can ('actividades.update')
@@ -252,6 +253,7 @@
          </div>
       </div>
     </div>
+    @endcan
     <!--Modal-->
 
 @endsection

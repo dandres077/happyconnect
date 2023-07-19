@@ -378,5 +378,98 @@ class ComunicadosController extends Controller
         return back()->with('eliminar', 'ok');
     }
 
+/*
+|--------------------------------------------------------------------------
+| Visualización para padres de familia
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function show()
+    {       
+
+        $titulo = 'Comunicados';
+
+        //Se consulta el paralelo del alumno a partir del ID de usuario
+        $info_usuario = DB::table('matriculas')
+                        ->select('paralelo_id')
+                        ->where('empresa_id', Auth::user()->empresa_id)
+                        ->where('alumno_id', Auth::id())
+                        ->where('status', 5)
+                        ->orderByRaw('id DESC')
+                        ->first();
+
+        //Se valida si contiene información
+        if (empty($info_usuario)) 
+        {
+            $paralelo = 0; // No tiene paralelo
+        }else{
+            $paralelo = 1;
+        }
+
+        //Consulta para obtener los documentos por empresa
+        $consulta = DB::table('comunicados_documentos')
+                    ->leftJoin('matriculas', 'comunicados_documentos.paralelo_id', '=', 'matriculas.paralelo_id')
+                    ->leftJoin('alumnos', 'matriculas.alumno_id', '=', 'alumnos.id')
+                    ->leftJoin('comunicados', 'comunicados_documentos.comunicado_id', '=', 'comunicados.id')
+                    ->select(
+                            'comunicados.nombre',
+                            'comunicados.descripcion',
+                            'comunicados.archivo1',
+                            'comunicados.archivo2',
+                            'comunicados.archivo3',
+                            'comunicados.imagen',
+                            DB::raw('DATE_FORMAT(comunicados.created_at, "%d-%m-%Y") AS created_at')
+                        )            
+                    ->where('comunicados_documentos.empresa_id', Auth::user()->empresa_id )
+                    ->where('comunicados.status', 1 )
+                    ->groupBy(
+                            'comunicados.nombre',
+                            'comunicados.descripcion',
+                            'comunicados.archivo1',
+                            'comunicados.archivo2',
+                            'comunicados.archivo3',
+                            'comunicados.imagen',
+                            'comunicados.created_at'
+                        )
+                    ->orderByRaw('comunicados.id DESC');
+            
+        //Se agrega la condición a la consulta para filtrar por el paralelo
+        if($paralelo != 0) 
+        {
+            $consulta->where('comunicados_documentos.paralelo_id', $info_usuario->paralelo_id);
+        }
+
+        //Se ejecuta la consulta
+        $data = $consulta->get();     
+
+        return view ('comunicados.show')->with (compact('titulo', 'data'));
+    }
+
+/*
+|--------------------------------------------------------------------------
+| Visualización para padres de familia
+|--------------------------------------------------------------------------
+|
+*/
+
+    public static function obtenerTipoArchivo($rutaArchivo)
+    {
+        $extension = pathinfo($rutaArchivo, PATHINFO_EXTENSION);
+        
+        switch ($extension) {
+            case 'pdf':
+                return 'PDF';
+            case 'doc':
+            case 'docx':
+                return 'Word';
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+                return 'Imagen';
+            default:
+                return 'Archivo';
+        }
+    }
 
 }
