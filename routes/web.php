@@ -518,7 +518,8 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/blog/{id}/edit', 'BlogsController@edit')->middleware('permiso:blog.edit'); 
 	Route::post('admin/blog/{id}/active', 'BlogsController@active')->middleware('permiso:blog.active'); 
 	Route::post('admin/blog/{id}/inactive', 'BlogsController@inactive')->middleware('permiso:blog.inactive'); 
-	Route::get('admin/blog/{id}/show', 'BlogsController@show')->middleware('permiso:blog.show'); 
+	Route::get('admin/blog/show', 'BlogsController@show')->middleware('permiso:blog.show'); 
+	Route::get('admin/blog/{id}/show', 'BlogsController@show_entrada'); 
 
 
 });

@@ -251,6 +251,64 @@ class BlogsController extends Controller
 
         return redirect ('admin/blog')->with('success', 'Registro inactivado exitosamente');
     }
+
+/*
+|--------------------------------------------------------------------------
+| show
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function show()
+    {
+
+        $data = DB::table('blogs')
+                ->leftJoin('users', 'blogs.user_create', '=', 'users.id')
+                ->leftJoin('catalogos', 'blogs.categoria_id', '=', 'catalogos.id')
+                ->select(
+                    'blogs.*',
+                    'catalogos.nombre AS nom_categoria',
+                    'users.imagen AS img_usuario',
+                    DB::raw('CONCAT(users.name, " ", users.last) AS nom_usuario'),
+                    DB::raw('DATE_FORMAT(blogs.created_at, "%d-%m-%Y") AS created_at'))
+                ->where('blogs.status', 1)
+                ->where('blogs.empresa_id', Auth::user()->empresa_id)
+                ->orderByRaw('blogs.created_at DESC')
+                ->get();
+
+        $titulo = 'Entradas';
+
+        return view('blogs.show', compact('data',  'titulo'));
+    }
+
+/*
+|--------------------------------------------------------------------------
+| Ver entrada
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function show_entrada($id)
+    {
+
+        $data = DB::table('blogs')
+                ->leftJoin('users', 'blogs.user_create', '=', 'users.id')
+                ->leftJoin('catalogos', 'blogs.categoria_id', '=', 'catalogos.id')
+                ->select(
+                    'blogs.*',
+                    'catalogos.nombre AS nom_categoria',
+                    'users.imagen AS img_usuario',
+                    DB::raw('CONCAT(users.name, " ", users.last) AS nom_usuario'),
+                    DB::raw('DATE_FORMAT(blogs.created_at, "%d-%m-%Y") AS created_at'))
+                ->where('blogs.id', $id)
+                ->where('blogs.status', 1)
+                ->where('blogs.empresa_id', Auth::user()->empresa_id)
+                ->first();
+
+        $titulo = 'Entradas';
+
+        return view('blogs.ver', compact('data',  'titulo'));
+    }
 }
 
 
