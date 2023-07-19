@@ -110,18 +110,18 @@ class CatalogosSeeder extends Seeder
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => '12:20pm | 1:18pm']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '21','nombre' => 'Salida']);
 
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Enero']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Febrero']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Marzo']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Abril']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Mayo']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Junio']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Julio']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Agosto']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Septiembre']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Octubre']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Noviembre']);
-        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Diciembre']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Enero',' sigla' => 'En.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Febrero',' sigla' => 'Febr.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Marzo',' sigla' => 'Mzo.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Abril',' sigla' => 'Abr.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Mayo',' sigla' => 'My.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Junio',' sigla' => 'Jun.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Julio',' sigla' => 'Jul.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Agosto',' sigla' => 'Ag.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Septiembre',' sigla' => 'Sept.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Octubre',' sigla' => 'Oct.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Noviembre',' sigla' => 'Nov.']);
+        Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '22','nombre' => 'Diciembre',' sigla' => 'Dic.']);
 
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Mensualidad']);
         Catalogos::create(['empresa_id' => 1, 'generalidad_id' => '23','nombre' => 'Pago Matricula']);

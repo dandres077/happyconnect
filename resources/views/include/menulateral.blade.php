@@ -40,8 +40,8 @@
                     </svg></span><span class="kt-menu__link-text">Inicio</span></a>
                 </li> 
                 
-                @can('tareas.index')
-                <li class="kt-menu__item {{ request()->is('admin/tareas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/tareas/')}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                @can('tareas.show')
+                <li class="kt-menu__item {{ request()->is('admin/tareas*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/tareas/show')}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24"/>
                             <path d="M13.6855025,18.7082217 C15.9113859,17.8189707 18.682885,17.2495635 22,17 C22,16.9325178 22,13.1012863 22,5.50630526 L21.9999762,5.50630526 C21.9999762,5.23017604 21.7761292,5.00632908 21.5,5.00632908 C21.4957817,5.00632908 21.4915635,5.00638247 21.4873465,5.00648922 C18.658231,5.07811173 15.8291155,5.74261533 13,7 C13,7.04449645 13,10.79246 13,18.2438906 L12.9999854,18.2438906 C12.9999854,18.520041 13.2238496,18.7439052 13.5,18.7439052 C13.5635398,18.7439052 13.6264972,18.7317946 13.6855025,18.7082217 Z" fill="#000000"/>
@@ -64,8 +64,8 @@
                 </li> 
                 @endcan
 
-                @can('cobros.index')
-                <li class="kt-menu__item {{ request()->is('admin/cobros*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/cobros/')}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                @can('cobros.show')
+                <li class="kt-menu__item {{ request()->is('admin/cobros*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/cobros/show')}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24"/>
                             <rect fill="#000000" opacity="0.3" x="11.5" y="2" width="2" height="4" rx="1"/>
@@ -136,8 +136,8 @@
                 </li>        
                 @endcan
 
-                @can('profesionales.index')
-                <li class="kt-menu__item {{ request()->is('admin/profesionales*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/profesionales/')}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                @can('profesionales.show')
+                <li class="kt-menu__item {{ request()->is('admin/profesionales*') ? 'kt-menu__item kt-menu__item--active' : ''}}" aria-haspopup="true"><a href="{{ url ('admin/profesionales/show')}}" class="kt-menu__link "><span class="kt-menu__link-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24"/>
                             <path d="M14,13.381038 L14,3.47213595 L7.99460483,15.4829263 L14,13.381038 Z M4.88230018,17.2353996 L13.2844582,0.431083506 C13.4820496,0.0359007077 13.9625881,-0.12427877 14.3577709,0.0733126292 C14.5125928,0.15072359 14.6381308,0.276261584 14.7155418,0.431083506 L23.1176998,17.2353996 C23.3152912,17.6305824 23.1551117,18.1111209 22.7599289,18.3087123 C22.5664522,18.4054506 22.3420471,18.4197165 22.1378777,18.3482572 L14,15.5 L5.86212227,18.3482572 C5.44509941,18.4942152 4.98871325,18.2744737 4.84275525,17.8574509 C4.77129597,17.6532815 4.78556182,17.4288764 4.88230018,17.2353996 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.000087, 9.191034) rotate(-315.000000) translate(-14.000087, -9.191034) "/>

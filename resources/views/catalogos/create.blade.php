@@ -77,6 +77,13 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Sigla </label>
+                                            <div class="col-9">
+                                            <input type="text" class="form-control" id="sigla" name="sigla" value="{{ old('sigla') }}" required="">
+                                            </div>
+                                        </div>
+
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                         <div class="kt-form__actions">
                                             @can('catalogos.store')

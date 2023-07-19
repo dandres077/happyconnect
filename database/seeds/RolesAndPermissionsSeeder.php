@@ -237,6 +237,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'cobros.destroy']); 	
 		Permission::create(['name' => 'cobros.reenvio']);
 		Permission::create(['name' => 'cobros.reporte']);
+		Permission::create(['name' => 'cobros.show']);
 
 		Permission::create(['name' => 'faq.store']); 
 		Permission::create(['name' => 'faq.index']); 

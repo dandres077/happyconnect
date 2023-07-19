@@ -11,7 +11,8 @@ class Catalogos extends Model
     protected $fillable = [
         'empresa_id', 
         'generalidad_id', 
-        'nombre', 
+        'nombre',
+        'sigla', 
         'status', 
         'user_create', 
         'user_update'
@@ -22,7 +23,8 @@ class Catalogos extends Model
     protected static $logAttributes = [
         'empresa_id', 
         'generalidad_id', 
-        'nombre', 
+        'nombre',
+        'sigla', 
         'status', 
         'user_create', 
         'user_update'

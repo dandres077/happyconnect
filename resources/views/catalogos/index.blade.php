@@ -81,6 +81,7 @@
                     <th>Id</th>
                     <th>Generalidad</th>
                     <th>Catálogo</th>
+                    <th>Sigla</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
@@ -91,6 +92,7 @@
                     <td>{{$catalogos->id}}</td>
                     <td>{{$catalogos->nom_generalidad}}</td>
                     <td>{{$catalogos->nombre}}</td>
+                    <td>{{$catalogos->sigla}}</td>
                     <td>
                         @if($catalogos->estado_elemento == 'Activo')
                             <span class="kt-badge  kt-badge--success kt-badge--inline kt-badge--pill">Activo</span>
@@ -142,6 +144,7 @@
                     <th>Id</th>
                     <th>Generalidad</th>
                     <th>Catálogo</th>
+                    <th>Sigla</th>
                     <th>Estado</th>
                     <th>Opciones</th>
                 </tr>

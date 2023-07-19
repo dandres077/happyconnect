@@ -82,7 +82,7 @@ class CobrosController extends Controller
                 ->where('matriculas.empresa_id', Auth::user()->empresa_id)
                 //->where('matriculas.temporada_id', $temporada_id)
                 ->where('matriculas.paralelo_id', $paralelo_id)
-                ->where('matriculas.status', 1 )
+                ->where('matriculas.status', 5 )
                 ->orderByRaw('matriculas.id ASC')
                 ->get(); 
 
@@ -114,7 +114,7 @@ class CobrosController extends Controller
                 ->where('matriculas.empresa_id', Auth::user()->empresa_id)
                 //->where('matriculas.temporada_id', $temporada_id)
                 ->where('matriculas.paralelo_id', $paralelo_id)
-                ->where('matriculas.status', 1 )
+                ->where('matriculas.status', 5 )
                 ->orderByRaw('3 ASC')
                 ->get(); 
 
@@ -182,7 +182,7 @@ class CobrosController extends Controller
                 ->where('matriculas.empresa_id', Auth::user()->empresa_id)
                 ->where('matriculas.temporada_id', $informacion->temporada_id)
                 ->where('matriculas.paralelo_id', $informacion->paralelo_id)
-                ->where('matriculas.status', 1 )
+                ->where('matriculas.status', 5 )
                 ->orderByRaw('3 ASC')
                 ->get(); 
 
@@ -368,5 +368,76 @@ class CobrosController extends Controller
                         ->get();
 
         return view ('cobros.reporte')->with (compact('titulo', 'meses', 'conceptos', 'bancos', 'grados', 'data'));
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Alumnos, visualiza la lista junto con los meses y el detalle del pago
+|--------------------------------------------------------------------------
+|
+*/
+    public function show()
+    { 
+
+        $titulo = 'Cobros';
+
+        //Se consulta el paralelo del alumno a partir del ID de usuario
+        $info_usuario = DB::table('matriculas')
+                        ->select('paralelo_id')
+                        ->where('empresa_id', Auth::user()->empresa_id)
+                        ->where('alumno_id', Auth::id())
+                        ->where('status', 5)
+                        ->orderByRaw('id DESC')
+                        ->first();
+
+        //Se valida si contiene información
+        if (empty($info_usuario)) 
+        {
+            $paralelo = 0; // No tiene paralelo
+
+            return back()->with('danger', 'Vista disponible solo para el alumno');
+
+        }else{
+            $paralelo = 1;
+        }
+
+
+        $meses = DB::table('catalogos')
+                ->select('id', 'sigla AS nombre')
+                ->where('empresa_id', Auth::user()->empresa_id)
+                ->where('generalidad_id', 22)
+                ->where('status', 1)
+                ->orderByRaw('id ASC')
+                ->get();
+
+        $data = DB::table('matriculas')
+                ->leftJoin('alumnos', 'matriculas.alumno_id', '=', 'alumnos.id')
+                ->select(
+                        'matriculas.id',
+                        'matriculas.alumno_id',
+                        'matriculas.paralelo_id',
+                        DB::raw('CONCAT(alumnos.nombre1, " ", alumnos.apellido1) AS nom_alumno'))
+                ->where('matriculas.empresa_id', Auth::user()->empresa_id)
+                ->where('matriculas.alumno_id', Auth::id())
+                ->where('matriculas.paralelo_id', $info_usuario->paralelo_id)
+                ->where('matriculas.status', 5 )
+                ->orderByRaw('matriculas.id ASC')
+                ->get(); 
+
+
+        $cobros = DB::table('cobros AS c')
+                ->leftJoin('catalogos AS ca', 'c.concepto_id', '=', 'ca.id')
+                ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre')
+                ->where('c.empresa_id', Auth::user()->empresa_id)
+                ->where('c.paralelo_id', $info_usuario->paralelo_id)
+                ->where('c.alumno_id', Auth::id())
+                ->where('c.status', 1 )
+                ->orderByRaw('c.id ASC')
+                ->get(); 
+
+
+        return view ('cobros.show')->with (compact('data', 'meses', 'titulo', 'cobros'));
+
     }
 }

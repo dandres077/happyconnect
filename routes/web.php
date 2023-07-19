@@ -412,6 +412,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/cobros/{id}/edit', 'CobrosController@update')->middleware('permiso:cobros.update'); 
 	Route::get('admin/cobros/{id}/delete', 'CobrosController@destroy')->middleware('permiso:cobros.destroy'); 	
 	Route::get('admin/cobros/{id}/reenvio', 'CobrosController@reenvio')->middleware('permiso:cobros.reenvio');
+	Route::get('admin/cobros/show', 'CobrosController@show')->middleware('permiso:cobros.show');
 	Route::get('admin/cobros/{alumno_id}/reporte/{paralelo_id}', 'CobrosController@reporte')->middleware('permiso:cobros.reporte');
 
 

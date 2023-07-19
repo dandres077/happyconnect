@@ -46,7 +46,10 @@
 				</div>
 				<div id="faq1" class="collapse show" aria-labelledby="faqHeading1" data-parent="#faq" style="">
 					<div class="card-body">
-						<div align="center"><img src="{{ $data->imagen }}" width="400px" height="400px"></div>
+						<div class="d-flex justify-content-center">
+						    <img src="{{ $data->imagen }}" class="img-fluid" alt="Entrada" style="max-width: 300px; max-height: 300px;">
+						</div>
+
 						<br><br>
 						{{ $data->texto }}
 						<br><br>

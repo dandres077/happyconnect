@@ -131,9 +131,39 @@ class TareasController extends Controller
 |--------------------------------------------------------------------------
 |
 */
-    public function show(Tareas $tareas)
+    public function show()
     {
-        //
+
+        $titulo = 'Tareas';
+
+        //Se consulta el paralelo del alumno a partir del ID de usuario
+        $info_usuario = DB::table('matriculas')
+                        ->select('paralelo_id')
+                        ->where('empresa_id', Auth::user()->empresa_id)
+                        ->where('alumno_id', Auth::id())
+                        ->where('status', 5)
+                        ->orderByRaw('id DESC')
+                        ->first();
+
+        $consulta = DB::table('cobros AS c')
+                    ->leftJoin('catalogos AS ca', 'c.concepto_id', '=', 'ca.id')
+                    ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre')
+                    ->where('c.empresa_id', Auth::user()->empresa_id)
+                    ->where('c.alumno_id', Auth::id())
+                    ->where('c.paralelo_id', $info_usuario->paralelo_id)
+                    ->where('c.status', 1 )
+                    ->orderByRaw('c.id ASC')
+                    ->get(); 
+            
+        $meses = DB::table('catalogos')
+                ->select('id', 'nombre')
+                ->where('empresa_id', Auth::user()->empresa_id)
+                ->where('generalidad_id', 22)
+                ->where('status', 1)
+                ->orderByRaw('id ASC')
+                ->get();     
+
+        return view ('tareas.show')->with (compact('titulo', 'consulta', 'meses'));
     }
 
 /*
@@ -272,7 +302,7 @@ class TareasController extends Controller
 
 /*
 |--------------------------------------------------------------------------
-| Aisgnaturas por docente por grado por paralelo por periodo por temporada
+| Asignaturas por docente por grado por paralelo por periodo por temporada
 |--------------------------------------------------------------------------
 |
 */
@@ -289,5 +319,6 @@ class TareasController extends Controller
 
         return $asignaturas;
     }
+
 
 }

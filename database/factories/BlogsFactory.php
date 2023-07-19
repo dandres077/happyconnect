@@ -16,7 +16,7 @@ $factory->define(Blogs::class, function (Faker $faker) {
         'titulo' => $faker->text(50),
         'slug' => $faker->slug(10),
         'texto' => $faker->text(500),
-        'imagen' => $faker->imageUrl(500, 500),
+        'imagen' => 'https://st2.depositphotos.com/3662505/6878/i/950/depositphotos_68789187-stock-photo-students.jpg',
         'keywords' => implode(' ', $faker->words(10)),
         'created_at' => $now,
         'updated_at' => $now
