@@ -499,6 +499,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/rutas/{id}/edit', 'RutasController@edit')->middleware('permiso:rutas.edit'); 
 	Route::post('admin/rutas/{id}/active', 'RutasController@active')->middleware('permiso:rutas.active'); 
 	Route::post('admin/rutas/{id}/inactive', 'RutasController@inactive')->middleware('permiso:rutas.inactive'); 
+	Route::get('admin/rutas/show', 'RutasController@show')->middleware('permiso:rutas.show'); 
 
 	Route::get('admin/rutas/{ruta_id}/alumnos', 'RutasController@index_alumnos')->middleware('permiso:rutas.index_alumnos');
 	Route::post('admin/rutas/alumnos/store', 'RutasController@alumnos_store')->middleware('permiso:rutas.alumnos_store');

@@ -323,5 +323,51 @@ class RutasController extends Controller
                 
     }
 
+/*
+|--------------------------------------------------------------------------
+| show
+|--------------------------------------------------------------------------
+|
+*/
+    public function show()
+    { 
+ 
+        $titulo = 'Rutas';
+
+        //Se consulta el paralelo del alumno a partir del ID de usuario
+        $info_usuario = DB::table('matriculas')
+                        ->select('paralelo_id')
+                        ->where('empresa_id', Auth::user()->empresa_id)
+                        ->where('alumno_id', Auth::id())
+                        ->where('status', 5)
+                        ->orderByRaw('id DESC')
+                        ->first();
+
+        $data = DB::table('rutas_alumnos')
+                    ->leftJoin('rutas', 'rutas_alumnos.ruta_id', '=', 'rutas.id')
+                    ->leftJoin('users', 'rutas.user_create', '=', 'users.id')
+                    ->leftJoin('temporadas', 'rutas.temporada_id', '=', 'temporadas.id')
+                    ->leftJoin('proveedores', 'rutas.proveedor_id', '=', 'proveedores.id')
+                    ->select(
+                            'rutas.*', 
+                            'temporadas.nombre AS nom_temporada',
+                            'proveedores.empresa AS nom_proveedor',
+                            'users.imagen AS img_usuario',
+                            DB::raw('CONCAT(COALESCE(users.name, ""), " ", COALESCE(users.last, "")) AS nom_usuario'))
+                    ->where('rutas.status', 1 )
+                    ->where('rutas_alumnos.paralelo_id', $info_usuario->paralelo_id )
+                    ->first();
+
+        $total_alumnos = DB::table('rutas_alumnos')
+                            ->select('rutas_alumnos.id')
+                            ->where('status', 1)
+                            ->where('paralelo_id', $info_usuario->paralelo_id)
+                            ->where('empresa_id', Auth::user()->empresa_id)
+                             ->count();
+
+        
+        return view ('rutas.show')->with (compact('data', 'titulo', 'total_alumnos'));
+    }
+
 }
 

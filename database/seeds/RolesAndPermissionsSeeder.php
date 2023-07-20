@@ -288,6 +288,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'rutas.edit']); 
 		Permission::create(['name' => 'rutas.active']); 
 		Permission::create(['name' => 'rutas.inactive']); 
+		Permission::create(['name' => 'rutas.show']); 
 		Permission::create(['name' => 'rutas.index_alumnos']); 
 		Permission::create(['name' => 'rutas.alumnos_store']); 
 
