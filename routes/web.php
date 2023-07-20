@@ -378,7 +378,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/horarios_paralelos/{id}/edit', 'ParalelosHorariosController@edit')->middleware('permiso:horarios_paralelos.edit'); 
 	Route::post('admin/horarios_paralelos/{id}/active', 'ParalelosHorariosController@active')->middleware('permiso:horarios_paralelos.active'); 
 	Route::post('admin/horarios_paralelos/{id}/inactive', 'ParalelosHorariosController@inactive')->middleware('permiso:horarios_paralelos.inactive'); 
-
+	Route::get('admin/horarios_paralelos/', 'ParalelosHorariosController@show')->middleware('permiso:horarios_paralelos.show'); 
 
 /*
 |--------------------------------------------------------------------------

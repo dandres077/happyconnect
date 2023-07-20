@@ -218,6 +218,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'horarios_paralelos.edit']); 
 		Permission::create(['name' => 'horarios_paralelos.active']); 
 		Permission::create(['name' => 'horarios_paralelos.inactive']); 
+		Permission::create(['name' => 'horarios_paralelos.show']); 
 
 		Permission::create(['name' => 'actividades.store']); 
 		Permission::create(['name' => 'actividades.index']);

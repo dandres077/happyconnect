@@ -92,7 +92,9 @@
                         @for ($i = $dias[0]->id; $i <= $ultimoElemento; $i++)
                             <td>
                             @if (isset($horarioDia[$i]['horario_id']) ? $horarioDia[$i]['horario_id'] : '')
+                                @can('horarios_paralelos.edit')
                                 <a href="{{ url('admin/horarios_paralelos/'.$horarioDia[$i]['horario_id'].'/edit')}}"><i class="la la-cog"></i></a>
+                                @endcan
                             @endif
                                 {{ isset($horarioDia[$i]['nom_asignatura']) ? $horarioDia[$i]['nom_asignatura'] : '' }}<br>
                                 <em>@if (isset($horarioDia[$i]['nom_docente']) ? $horarioDia[$i]['nom_docente'] : '')

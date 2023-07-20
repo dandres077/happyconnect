@@ -293,4 +293,94 @@ class ParalelosHorariosController extends Controller
 
         return $data;
     }
+
+/*
+|--------------------------------------------------------------------------
+| show - Muestra el horario para cada estudiante
+|--------------------------------------------------------------------------
+|
+*/
+
+    public function show()
+    {
+
+        //Se consulta el paralelo del alumno a partir del ID de usuario
+        $info_usuario = DB::table('matriculas')
+                        ->select('paralelo_id')
+                        ->where('empresa_id', Auth::user()->empresa_id)
+                        ->where('alumno_id', Auth::id())
+                        ->where('status', 5)
+                        ->orderByRaw('id DESC')
+                        ->first();
+
+        $data = DB::table('paralelos_horarios')
+                    ->leftJoin('paralelos', 'paralelos_horarios.paralelo_id', '=', 'paralelos.id')
+                    ->leftJoin('catalogos', 'paralelos_horarios.dia_id', '=', 'catalogos.id')
+                    ->leftJoin('catalogos AS c2', 'paralelos_horarios.bloque_id', '=', 'c2.id')
+                    ->leftJoin('asignaturas', 'paralelos_horarios.asignatura_id', '=', 'asignaturas.id')
+                    ->leftJoin('users', 'paralelos_horarios.docente_id', '=', 'users.id')
+                    ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
+                    ->select(
+                        'paralelos_horarios.id',
+                        'paralelos_horarios.bloque_id',
+                        'c2.nombre AS nom_bloque',
+                        'paralelos_horarios.dia_id',
+                        'asignaturas.nombre AS nom_asignatura', 
+                        'grados.nombre AS nom_grado',
+                        'paralelos.nombre AS nom_paralelo',
+                        DB::raw('CONCAT(users.name, " ", users.last) AS nom_usuario'))
+                    ->where('paralelos_horarios.paralelo_id', $info_usuario->paralelo_id)
+                    ->where('paralelos_horarios.status', 1)
+                    ->where('asignaturas.status', 1)
+                    ->where('paralelos.status', 1)
+                    ->where(function($query) {
+                        $query->where('users.status', 1)
+                              ->orWhereNull('users.status');
+                    })
+                    ->orderBy('paralelos_horarios.bloque_id')
+                    ->get();
+
+
+        $horarios = [];
+
+        foreach ($data as $horario) {
+            $horarios[$horario->bloque_id][$horario->dia_id] = [
+                'horario_id' => $horario->id,
+                'nom_bloque' => $horario->nom_bloque,
+                'nom_asignatura' => $horario->nom_asignatura,
+                'nom_docente' => $horario->nom_usuario ? $horario->nom_usuario : ''
+            ];
+
+            ksort($horarios[$horario->bloque_id]);
+        }  
+
+        $dias = DB::table('catalogos')
+                        ->select('id', 'nombre')
+                        ->where('empresa_id', Auth::user()->empresa_id )
+                        ->where('generalidad_id', 20 )
+                        ->where('status', 1 )
+                        ->orderBy('id')
+                        ->get();
+
+
+        $ultimoElemento = null;
+
+        if ($dias->isNotEmpty()) {
+            $ultimoElemento = $dias->last()->id;
+        }
+
+        $titulos = DB::table('paralelos')
+                        ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
+                        ->select('grados.nombre AS nom_grado', 'paralelos.nombre AS nom_paralelo')
+                        ->where('paralelos.empresa_id', Auth::user()->empresa_id )
+                        ->where('paralelos.id', 20 )
+                        ->where('paralelos.status', 1 )
+                        ->first();
+
+        $titulo = 'Grado: '.$titulos->nom_grado.' - Paralelo: '.$titulos->nom_paralelo;
+
+        $paralelo_id = $info_usuario->paralelo_id;
+
+        return view('paraleloshorarios.index', compact('horarios', 'titulo', 'dias', 'paralelo_id', 'ultimoElemento'));
+    }
 }
