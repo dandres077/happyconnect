@@ -43,10 +43,10 @@
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-                <span class="kt-portlet__head-icon">
+                <span class="kt-portlet__head-icon" data-toggle="modal" data-target="#kt_modal_2">
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
-                <h3 class="kt-portlet__head-title">
+                <h3 class="kt-portlet__head-title" >
                    {{ $titulo }}
                 </h3>
             </div>
@@ -85,9 +85,16 @@
                                         @foreach ($cobros as $cobro)
                                             @if ($cobro->alumno_id == $alumno->alumno_id && $cobro->mes_id == $mes->id)                                                
                                                 <div class="btn-group">
-                                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        $ {{number_format($cobro->valor,'0', ',','.')}}
+                                                    @if($cobro->status == '1')
+                                                    <button class="btn btn-success btn-sm dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        $ {{number_format($cobro->valor,'0', ',','.')}} 
                                                     </button>
+                                                    @endif
+                                                    @if($cobro->status == '2')
+                                                    <button class="btn btn-danger btn-sm dropdown-toggle " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        $ {{number_format($cobro->valor,'0', ',','.')}} 
+                                                    </button>
+                                                    @endif
                                                     <div class="dropdown-menu" style="">
                                                         <a class="dropdown-item" href="{{ url('admin/cobros/'.$cobro->id.'/edit')}}"><i class="la la-edit"></i>Editar</a>
                                                         <a class="dropdown-item formulario-eliminar" href="{{ url('admin/cobros/'.$cobro->id.'/delete')}}" data-cobro-id="{{ $cobro->id }}"><i class="la la-trash"></i>Eliminar</a>
@@ -164,6 +171,16 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Pago</label>
+                                    <div class="col-9">
+                                        <select class="form-control" name="status" id="status">
+                                            <option value="1" selected>Realizado</option>                                                
+                                            <option value="2">Pendiente</option>                                                
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-sm-6">
@@ -218,6 +235,32 @@
     </div>
 <!--end::Modal-->
 
+<!--begin::Modal-->
+<div class="modal fade" id="kt_modal_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleccione <a href="https://www.central.gidesco.com/img/CargueExcel_Plantilla.xlsx" target="_blank">(Plantilla)</a></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="form-horizontal" action="{{ url('admin/cobros/masivo')}}" enctype="multipart/form-data">
+                    {{ csrf_field()}}
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Importar:</label>
+                        <input type="file" name="archivo_excel">
+                    </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Importar</button>
+            </div>
+                </form>            
+        </div>
+    </div>
+</div>
+<!--end::Modal-->
 
 @endsection
 

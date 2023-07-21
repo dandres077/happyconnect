@@ -414,6 +414,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/cobros/{id}/reenvio', 'CobrosController@reenvio')->middleware('permiso:cobros.reenvio');
 	Route::get('admin/cobros/show', 'CobrosController@show')->middleware('permiso:cobros.show');
 	Route::get('admin/cobros/{alumno_id}/reporte/{paralelo_id}', 'CobrosController@reporte')->middleware('permiso:cobros.reporte');
+	Route::post('admin/cobros/masivo', 'CobrosController@importarExcel')->middleware('permiso:cobros.masivo');
 
 
 /*

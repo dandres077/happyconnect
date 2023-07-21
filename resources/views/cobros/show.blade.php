@@ -45,18 +45,33 @@
 							<img src="{{ asset('assets/media/bg/bg-4.jpg')}}" alt="">
 							<h3 class="kt-widget27__title">
 								@php
-									$total = 0;
+									$realizado = 0;
+									$pendiente = 0;
 								@endphp
 
 								@foreach($cobros as $cobro)
 
+								@if($cobro->status == 1)
+
 								@php
-									$total = $total + $cobro->valor;
+									$realizado = $realizado + $cobro->valor;
 
 								@endphp
 
+								@endif
+
+								@if($cobro->status == 2)
+
+								@php
+									$pendiente = $pendiente + $cobro->valor;
+
+								@endphp
+								
+								@endif								
+
 								@endforeach
-								<span>$ {{number_format($total,'0', ',','.')}}</span>
+								<span class="kt-font-success kt-font-bold">{{number_format($realizado,'0', ',','.')}}</span><br>
+								<span class="kt-font-danger kt-font-bold">{{number_format($pendiente,'0', ',','.')}}</span>
 							</h3>
 							<div class="kt-widget27__btn">
 								<a href="#" class="btn btn-pill btn-light btn-elevate btn-bold">Pagos</a>
@@ -83,6 +98,7 @@
 													<tr>
 														<td>Concepto</td>
 														<td>Fecha</td>
+														<td>Estado</td>
 														<td class="kt-align-right">Valor</td>
 													</tr>
 												</thead>
@@ -98,7 +114,16 @@
 															<a href="#" class="kt-widget11__title">{{ $cobro->nombre }}</a>
 															<span class="kt-widget11__sub">{{ $cobro->observacion }}</span>
 														</td>
+														
+														@if($cobro->status == 1)
 														<td><span class="kt-badge kt-badge--success kt-badge--inline">{{ $cobro->fecha }}</span></td>
+														<td><span class="kt-badge kt-badge--success kt-badge--inline">Realizado</span></td>
+														@endif
+														@if($cobro->status == 2)
+														<td><span class="kt-badge kt-badge--danger kt-badge--inline">Pendiente</span></td>
+														<td><span class="kt-badge kt-badge--danger kt-badge--inline">Pendiente</span></td>
+														@endif
+
 														<td class="kt-align-right kt-font-brand kt-font-bold">$ {{number_format($cobro->valor,'0', ',','.')}}</td>
 													</tr>
 													@endif

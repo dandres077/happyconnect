@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use App\Traits\Funciones;
 use DB;
 
+//Librerias para importar EXCEL
+use App\Imports\CobrosImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\UploadedFile;
+
+
 class CobrosController extends Controller
 {
     use Funciones;
@@ -89,11 +95,11 @@ class CobrosController extends Controller
 
         $cobros = DB::table('cobros AS c')
                 ->leftJoin('catalogos AS ca', 'c.concepto_id', '=', 'ca.id')
-                ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre')
+                ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre', 'c.status')
                 ->where('c.empresa_id', Auth::user()->empresa_id)
                 //->where('c.temporada_id', $temporada_id)
                 ->where('c.paralelo_id', $paralelo_id)
-                ->where('c.status', 1 )
+                ->where('c.status', '<>', 3)
                 ->orderByRaw('c.id ASC')
                 ->get(); 
 
@@ -169,9 +175,9 @@ class CobrosController extends Controller
         $informacion = DB::table('cobros')
                         ->where('id', $id)
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('status', 1)
+                        ->where('status', '!=', 3)
                         ->orderByRaw('id ASC')
-                        ->first();
+                        ->first(); 
 
         $alumnos = DB::table('matriculas')
                 ->leftJoin('alumnos', 'matriculas.alumno_id', '=', 'alumnos.id')
@@ -202,7 +208,7 @@ class CobrosController extends Controller
                         ->select('paralelo_id')
                         ->where('id', $id)
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('status', 1)
+                        ->where('status', '!=', 3)
                         ->orderByRaw('id ASC')
                         ->first();
 
@@ -428,16 +434,31 @@ class CobrosController extends Controller
 
         $cobros = DB::table('cobros AS c')
                 ->leftJoin('catalogos AS ca', 'c.concepto_id', '=', 'ca.id')
-                ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre')
+                ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre', 'c.status')
                 ->where('c.empresa_id', Auth::user()->empresa_id)
                 ->where('c.paralelo_id', $info_usuario->paralelo_id)
                 ->where('c.alumno_id', Auth::id())
-                ->where('c.status', 1 )
+                ->where('c.status', '!=', 3 )
                 ->orderByRaw('c.id ASC')
                 ->get(); 
 
 
         return view ('cobros.show')->with (compact('data', 'meses', 'titulo', 'cobros'));
 
+    }
+
+
+/*
+|--------------------------------------------------------------------------
+| Cargue de datos masivos a tabla cobros, para manejar estados pendientes y activos
+|--------------------------------------------------------------------------
+|
+*/
+    public function importarExcel(Request $request) 
+    {
+        
+        Excel::import(new CobrosImport, request()->file('archivo_excel'));
+
+       return back()->with('success', 'Usuarios registrados exitosamente.');
     }
 }

@@ -117,7 +117,22 @@
                                             <div class="col-9">
                                             <input type="number" class="form-control" id="valor" name="valor" value="{{ old('valor', $data->valor) }}" required="">
                                             </div>
-                                        </div>                                        
+                                        </div> 
+
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Pago</label>
+                                            <div class="col-9">
+                                                <select class="form-control" name="status" id="status">
+                                                    @if($data->status == 1)
+                                                    <option value="1" selected>Realizado</option>
+                                                    <option value="2">Pendiente</option>
+                                                    @else
+                                                    <option value="1">Realizado</option>
+                                                    <option value="2" selected>Pendiente</option>
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>                                       
 
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Observación</label>
