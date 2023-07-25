@@ -221,6 +221,176 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="kt-portlet">
+				<div class="kt-portlet__head">
+					<div class="kt-portlet__head-label">
+						<span class="kt-portlet__head-icon kt-hidden">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-title">
+							Últimos comunicados
+						</h3>
+					</div>
+				</div>
+				<div class="kt-portlet__body">
+					<div class="tab-content">
+						@foreach ($comunicados as $info)
+						<div class="tab-pane active" id="kt_widget2_tab1_content">
+							<div class="kt-widget2">
+								<div class="kt-widget2__item kt-widget2__item--primary">
+									<div class="kt-widget2__checkbox">
+
+									</div>
+									<div class="kt-widget2__info">
+										<a href="#" class="kt-widget2__title">
+											{{ $info->nombre }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											{{ $info->descripcion }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											{{ $info->created_at }}
+										</a>
+									</div>
+									<div class="kt-widget2__actions">
+										<a href="#" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="false">
+											<i class="flaticon-more-1"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-fit dropdown-menu-right" style="">
+											<ul class="kt-nav">
+												@if($info->imagen)
+												<li class="kt-nav__item">
+													<a href="{{ $info->imagen }}" target="_blank" class="kt-nav__link">
+														<i class="kt-nav__link-icon flaticon-eye"></i>
+														<span class="kt-nav__link-text">Ver {{ \App\Http\Controllers\ComunicadosController::obtenerTipoArchivo($info->imagen) }} </span>
+													</a>
+												</li>
+												@endcan
+												@if($info->archivo1)
+												<li class="kt-nav__item">
+												    <a href="{{ $info->archivo1 }}" target="_blank" class="kt-nav__link">
+												        <i class="kt-nav__link-icon flaticon-eye"></i>
+												        <span class="kt-nav__link-text">Ver {{ \App\Http\Controllers\ComunicadosController::obtenerTipoArchivo($info->archivo1) }}</span>
+												    </a>  
+												</li>
+
+												@endcan
+												@if($info->archivo2)
+												<li class="kt-nav__item">
+													<a href="{{ $info->archivo2 }}" target="_blank" class="kt-nav__link">
+														<i class="kt-nav__link-icon flaticon-eye"></i>
+														<span class="kt-nav__link-text">Ver {{ \App\Http\Controllers\ComunicadosController::obtenerTipoArchivo($info->archivo2) }}</span>
+													</a>
+												</li>
+												@endcan
+												@if($info->archivo3)
+												<li class="kt-nav__item">
+													<a href="{{ $info->archivo3 }}" target="_blank" class="kt-nav__link">
+														<i class="kt-nav__link-icon flaticon-eye"></i>
+														<span class="kt-nav__link-text">Ver {{ \App\Http\Controllers\ComunicadosController::obtenerTipoArchivo($info->archivo3) }}</span>
+													</a>
+												</li>
+												@endcan
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="kt-portlet">
+				<div class="kt-portlet__head">
+					<div class="kt-portlet__head-label">
+						<span class="kt-portlet__head-icon kt-hidden">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-title">
+							Próximas actividades
+						</h3>
+					</div>
+				</div>
+				<div class="kt-portlet__body">
+					<div class="tab-content">
+						@foreach ($actividadesGenerales as $info)
+						<div class="tab-pane active" id="kt_widget2_tab1_content">
+							<div class="kt-widget2">
+								<div class="kt-widget2__item kt-widget2__item--success">
+									<div class="kt-widget2__checkbox">
+
+									</div>
+									<div class="kt-widget2__info">
+										<a href="#" class="kt-widget2__title">
+											{{ $info->nombre }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											<strong>Observación: </strong>{{ $info->observaciones }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											<strong>Inicio: </strong>{{ $info->fecha_inicio }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											<strong>Fin: </strong>{{ $info->fecha_fin }}
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="kt-portlet">
+				<div class="kt-portlet__head">
+					<div class="kt-portlet__head-label">
+						<span class="kt-portlet__head-icon kt-hidden">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-title">
+							Últimas entradas (Blog)
+						</h3>
+					</div>
+				</div>
+				<div class="kt-portlet__body">
+					<div class="tab-content">
+						@foreach ($publicacionesBlog as $info)
+						<div class="tab-pane active" id="kt_widget2_tab1_content">
+							<div class="kt-widget2">
+								<div class="kt-widget2__item kt-widget2__item--danger">
+									<div class="kt-widget2__checkbox">
+
+									</div>
+									<div class="kt-widget2__info">
+										<a href="{{ url('admin/blog/'.$info->id.'/show')}}" class="kt-widget2__title">
+											{{ $info->titulo }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											{{ Str::limit($info->texto, 150) }}
+										</a>
+										<a href="#" class="kt-widget2__username">
+											{{ $info->created_at }}
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <!-- end:: Content -->

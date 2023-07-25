@@ -6,42 +6,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Matriculas;
 use App\Traits\Funciones;
+use Carbon\Carbon;
 use DB;
 
 class HomeController extends Controller
 {
 
     use Funciones;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+/*
+|--------------------------------------------------------------------------
+| Constructor
+|--------------------------------------------------------------------------
+|
+*/
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+/*
+|--------------------------------------------------------------------------
+| Dashborad colegio
+|--------------------------------------------------------------------------
+|
+*/
     public function index()
     {
 
-
-        return view('home');
-    }
-
-
-
-
-    public function d1()
-    {
-
         $temporada_id = 1;
-
 
         $total_alumnos_paralelos = DB::table('matriculas')
                                     ->leftJoin('grados', 'matriculas.grado_id', '=', 'grados.id')
@@ -74,8 +66,6 @@ class HomeController extends Controller
             ];
         }
 
-
-        //dd($total_alumnos_paralelos);
 
         //---------------------------------------------------------------------------------------------------------------------------------
         //Cantidad de hombres y mujeres en el colegio
@@ -163,17 +153,6 @@ class HomeController extends Controller
 
         //---------------------------------------------------------------------------------------------------------------------------------
 
- 
-        // Total pendiente por paralelo
-        $totalPendientePorParalelo = DB::table('cobros')
-                                    ->selectRaw('paralelo_id, SUM(valor) as total_pendiente')
-                                    ->where('empresa_id', Auth::user()->empresa_id)
-                                    ->where('temporada_id', $temporada_id)
-                                    ->where('status', 2)
-                                    ->groupBy('paralelo_id')
-                                    ->get(); 
-
-
         //Cantida de alumnos por genero y edad
         $cantidadHMPorEdad = DB::select("
                                         SELECT 
@@ -213,21 +192,74 @@ class HomeController extends Controller
                         ->count();
 
 
+        //---------------------------------------------------------------------------------------------------------------------------------
+
+        // Obtenemos la fecha de ayer
+        $ayer = Carbon::yesterday();
+
+        // Consulta de las últimas actividades
+        $actividadesGenerales = DB::table('actividades')
+                                ->where('empresa_id', Auth::user()->empresa_id)
+                                ->where('temporada_id', $temporada_id)
+                                ->where('status', 1)
+                                ->where('fecha_inicio', '>', $ayer)
+                                ->orderBy('fecha_inicio', 'ASC')
+                                ->limit(3)
+                                ->get();
+
+        //---------------------------------------------------------------------------------------------------------------------------------
+        //Consulta para obtener los documentos por empresa
+        $comunicados = DB::table('comunicados_documentos')
+                    ->leftJoin('comunicados', 'comunicados_documentos.comunicado_id', '=', 'comunicados.id')
+                    ->select(
+                            'comunicados.nombre',
+                            'comunicados.descripcion',
+                            'comunicados.archivo1',
+                            'comunicados.archivo2',
+                            'comunicados.archivo3',
+                            'comunicados.imagen',
+                            DB::raw('DATE_FORMAT(comunicados.created_at, "%d-%m-%Y") AS created_at')
+                        )            
+                    ->where('comunicados_documentos.empresa_id', Auth::user()->empresa_id )
+                    ->where('comunicados.status', 1 )
+                    ->where('comunicados.created_at', '>', $ayer)
+                    ->groupBy(
+                            'comunicados.nombre',
+                            'comunicados.descripcion',
+                            'comunicados.archivo1',
+                            'comunicados.archivo2',
+                            'comunicados.archivo3',
+                            'comunicados.imagen',
+                            'comunicados.created_at'
+                        )
+                    ->orderByRaw('comunicados.id DESC')
+                    ->limit(3)
+                    ->get();
+
+
+        //---------------------------------------------------------------------------------------------------------------------------------
+
+        // Consulta de las últimas actividades
+        $publicacionesBlog = DB::table('blogs')
+                                ->where('empresa_id', Auth::user()->empresa_id)
+                                ->where('status', 1)
+                                ->orderBy('id', 'DESC')
+                                ->limit(3)
+                                ->get();
 
         return view('dashboard.home1')->with (compact(
                                             'total_h_m',
                                             'total_alumnos_paralelos',
                                             'totalRecaudadoPorMes',
-                                            'totalPendientePorParalelo',
                                             'cantidadHMPorEdad',
                                             'cantidadAlumnosEdad',
                                             'alumnosActivos',
                                             'profesionalesActivos',
                                             'totalGrados',
-                                            'totalRutas'
-            ));
-
-             
-
+                                            'totalRutas',
+                                            'actividadesGenerales',
+                                            'comunicados',
+                                            'publicacionesBlog'
+        ));
     }
 }
