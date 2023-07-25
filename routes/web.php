@@ -24,9 +24,9 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function(){
 
-	Route::get('admin/home', 'HomeController@index')->name('home');
-	Route::get('home', 'HomeController@index')->name('home');
-	Route::get('home', 'HomeController@index')->name('home');
+	Route::get('admin/home', 'HomeController@index');
+	Route::get('home', 'HomeController@index');
+	Route::get('home', 'HomeController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -524,5 +524,14 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('admin/blog/show', 'BlogsController@show')->middleware('permiso:blog.show'); 
 	Route::get('admin/blog/{id}/show', 'BlogsController@show_entrada'); 
 
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Colegio
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::get('admin/dashboard', 'HomeController@d1'); 
 
 });

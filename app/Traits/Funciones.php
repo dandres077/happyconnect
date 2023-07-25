@@ -8,33 +8,27 @@ use DB;
 
 trait Funciones
 {
-    public function permisos($id)
+    public function permisos()
     {
 
-        $rol = DB::table('model_has_roles')
+        $admin = DB::table('model_has_roles')
                 ->select('id')
                 ->where('role_id', 1)  //Administrador general
-                ->where('model_id', $id)
+                ->where('model_id', Auth::id())
                 ->count();
 
-        $rol2 = DB::table('model_has_roles')
+        $docente = DB::table('model_has_roles')
                 ->select('id')
-                ->where('role_id', 2)  //Piloto
-                ->where('model_id', $id)
+                ->where('role_id', 2)  //Docente
+                ->where('model_id', Auth::id())
                 ->count();
 
-        if ($rol>0) {
-
-           return 1;
-
-        }elseif($rol2>0){
-
+        if ($docente >= 1) 
+        {
             return 2;
-
-        }else{
-            
-            return 3;
         }
+
+
 
    }
 

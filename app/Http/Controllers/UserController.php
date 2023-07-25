@@ -83,6 +83,7 @@ class UserController extends Controller
     {
 
     	$user = new User();
+        $user->empresa_id = Auth::user()->empresa_id;
         $user->name = $request->input('name');
         $user->last = $request->input('last');
         $user->email = $request->input('email');

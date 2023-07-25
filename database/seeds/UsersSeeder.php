@@ -66,5 +66,14 @@ class UsersSeeder extends Seeder
             'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
         ]);
 
+        User::create([
+            'empresa_id' => 1,
+            'name' => 'Juan David', 
+            'last' => 'Contreras ', 
+            'email' => 'alumno@gmail.com', 
+            'password' => bcrypt('123456'),
+            'imagen' => 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png'
+        ]);
+
     }
 }

@@ -156,7 +156,8 @@ class TareasController extends Controller
                     ->where('tareas.empresa_id', Auth::user()->empresa_id)
                     ->where('tareas.paralelo_id', $info_usuario->paralelo_id)
                     ->where('tareas.status', 1 )
-                    ->orderByRaw('tareas.id ASC')
+                    ->orderByRaw('tareas.id DESC')
+                    ->limit(8)
                     ->get(); 
 
     

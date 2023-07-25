@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Matriculas;
 use App\Alumnos;
 use App\Padres;
+use App\User;
 use App\MatriculasDocumentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -145,7 +146,7 @@ class MatriculasController extends Controller
 |
 */
     public function store(Request $request)
-    {
+    {   
 
         $validacion = DB::table('alumnos')
                       ->select('id')
@@ -237,12 +238,26 @@ class MatriculasController extends Controller
         $request['tipo_doc_id'] = $request->input('tipo_doc_acu_id');
         $request['telefono_est'] = $request->input('celular_est');
         $request['user_create'] = Auth::id(); 
-
-        
+        $request['status'] = 5;         
         $data = Matriculas::create($request->all());
 
+        //Creación del alumno para que pueda ingresar al sistema
+        $user = new User();
+        $user->empresa_id = Auth::user()->empresa_id;
+        $user->name = $request->input('nombre1');
+        $user->last = $request->input('apellido1');
+        $user->email = $request->input('email_est');
+        $user->password = bcrypt($request->input('n_documento'));
+        $user->imagen = 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png';
+        $user->save();
 
-        //return redirect ('admin/matriculas');
+        //Creacíón del rol 
+        DB::table('model_has_roles')->insert([
+            'role_id' => 6,
+            'model_type' => 'App\User',
+            'model_id' => $user->id
+        ]);
+
     }
 
 
@@ -411,7 +426,19 @@ class MatriculasController extends Controller
         $request['telefono_est'] = $request->input('celular_est');
         $datos = Matriculas::find($id)->update($request->all());
 
+        //Actualización del alumno en la tabla usuarios
 
+        $datos_usuario = DB::table('users')
+                            ->select('id')
+                            ->where('email', $request->input('email_est'))
+                            ->where('empresa_id', Auth::user()->empresa_id )
+                            ->first();
+
+
+        $user = User::find($datos_usuario->id);
+        $user->name = $request->input('nombre1');
+        $user->last = $request->input('apellido1');
+        $user->save();
         
         return redirect ('admin/matriculas');
     }
@@ -742,6 +769,7 @@ class MatriculasController extends Controller
         $matricula->direccion_fac = $request->input('direccion_fac');
         $matricula->email_fac = $request->input('email_fac');
         $matricula->celular_fac = $request->input('celular_fac');
+        $matricula->status = 5;
         $matricula->save(); 
 
         $estado = DB::table('matriculas')
@@ -756,7 +784,7 @@ class MatriculasController extends Controller
 
 /*
 |--------------------------------------------------------------------------
-| Matricula ligera, es decir, la que se realiza por medio de la modal
+| Matricula ligera, es decir, la que se realiza por medio de la modal y la finaliza el padre de familia
 |--------------------------------------------------------------------------
 |
 */
@@ -839,6 +867,24 @@ class MatriculasController extends Controller
             $madre->tipo_doc_id = 2;
             $madre->user_create = Auth::id();
             $madre->save();
+
+            //Se crea el usuario para que pueda acceder al sistema
+            $user = new User();
+            $user->name = $request->input('nombre1');
+            $user->last = $request->input('apellido1');
+            $user->email = $request->input('email_est');
+            $user->password = bcrypt($request->input('n_documento'));
+            $user->imagen = 'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-128.png';
+            $user->save();
+
+            //Creacíón del rol 
+            DB::table('model_has_roles')->insert([
+                'role_id' => 6,
+                'model_type' => 'App\User',
+                'model_id' => $user->id
+            ]);
+
+
 
             $id_alumno = $alumno->id;
         }else{
@@ -1722,15 +1768,6 @@ class MatriculasController extends Controller
     {
         
         Excel::import(new UsersImport, request()->file('archivo_excel'));
-        //Excel::import($request->file('archivo_excel'),new UsersImport());
-
-        //$archivo = public_path('CargueExcel.xlsx');
-        /*$archivo = $request->file('archivo_excel')->getPathName();
-        $importador = new UsersImport();
-        $disk = null;
-        $readerType = null;
-
-        Excel::import($importador, $archivo, $disk, $readerType);*/
          
        return back()->with('success', 'Usuarios registrados exitosamente.');
     }

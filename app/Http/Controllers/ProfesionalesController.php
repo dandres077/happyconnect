@@ -7,11 +7,13 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\Funciones;
 use DB;
 
 
 class ProfesionalesController extends Controller
 {
+    use Funciones;
 /*
 |--------------------------------------------------------------------------
 | index
@@ -22,7 +24,9 @@ class ProfesionalesController extends Controller
     public function index()
     {
 
-        $data = DB::table('profesionales')
+        $permiso = $this->permisos(); 
+
+        $consulta = DB::table('profesionales')
                 ->leftJoin('users', 'profesionales.usuario_id', '=', 'users.id')
                 ->select(
                     'profesionales.*',
@@ -31,8 +35,16 @@ class ProfesionalesController extends Controller
                 ->where('profesionales.status', 1)
                 ->where('users.status', 1)
                 ->where('profesionales.empresa_id', Auth::user()->empresa_id)
-                ->orderByRaw('users.last ASC')
-                ->get();
+                ->orderByRaw('users.last ASC');
+              
+
+        if ($permiso == 2) //Docente 
+        {
+            $consulta->where('users.id', Auth::id());
+        }
+
+        //Se compila la consulta
+        $data = $consulta->get();
 
         $titulo = 'Profesionales';
 
@@ -50,14 +62,27 @@ class ProfesionalesController extends Controller
     public function create()
     {
 
-        $users = DB::select('SELECT id, CONCAT(name, " " , last) AS nombre
-                                FROM users t1
-                                WHERE empresa_id = ? AND
-                                status = 1
-                                AND NOT EXISTS (SELECT NULL
-                                                    FROM profesionales t2
-                                                    WHERE t2.usuario_id = t1.id) ORDER BY name', [Auth::user()->empresa_id]);
+        $permiso = $this->permisos(); 
 
+        $consulta = DB::table('users as t1')
+                ->select('id', DB::raw('CONCAT(name, " ", last) AS nombre'))
+                ->where('empresa_id', Auth::user()->empresa_id)
+                ->where('status', 1)
+                ->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('profesionales as t2')
+                        ->whereRaw('t2.usuario_id = t1.id');
+                })
+                ->orderBy('name');
+                
+
+        if ($permiso == 2) //Docente 
+        {
+            $consulta->where('users.id', Auth::id());
+        }
+
+        //Se compila la consulta
+        $users = $consulta->get();
 
         $civiles = DB::table('catalogos')->select('id', 'nombre')->where('status', 1 )->where('generalidad_id', 19 )->orderByRaw('nombre ASC')->get();
         $generos = DB::table('catalogos')->select('id', 'nombre')->where('status', 1 )->where('generalidad_id', 4 )->orderByRaw('nombre ASC')->get();
@@ -85,6 +110,7 @@ class ProfesionalesController extends Controller
              $path = Storage::disk('public')->put('images',$request->file('imagen'));
              $data->fill(['imagen'=>asset($path)])->save();
         }
+
 
         return redirect ('admin/profesionales')->with('success', 'Registro creado exitosamente');
     }

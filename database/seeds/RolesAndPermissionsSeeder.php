@@ -303,6 +303,7 @@ class RolesAndPermissionsSeeder extends Seeder
 		Permission::create(['name' => 'blog.active']); 
 		Permission::create(['name' => 'blog.inactive']); 
 		Permission::create(['name' => 'blog.show']); 
+		Permission::create(['name' => 'blog.show_entrada']); 
 
 		Permission::create(['name' => 'administracion.index']);
 
@@ -490,6 +491,7 @@ class RolesAndPermissionsSeeder extends Seeder
 				'blog.active',
 				'blog.inactive',
 				'blog.show',
+				'blog.show_entrada',
 				'administracion.index',
 			]);
 
@@ -862,6 +864,24 @@ class RolesAndPermissionsSeeder extends Seeder
 				'administracion.index',
 
 			]);
+	
+
+		$role = Role::create(['name' => 'Alumno'])
+            ->givePermissionTo([
+            					'horarios_paralelos.index',
+								'tareas.show',
+								'actividades.show',
+								'comunicados.show',
+								'cobros.show',
+								'rutas.show',
+								'faq.show',
+								'profesionales.show',
+								'blog.show',
+								'blog.show_entrada',
+								'usuarios.show',
+								'usuarios.editarperfil',
+								'usuarios.updateperfil'
+			]);
 
         // SuperAdministrador
 		DB::table('model_has_roles')->insert([
@@ -903,6 +923,13 @@ class RolesAndPermissionsSeeder extends Seeder
             'role_id' => 5,
             'model_type' => 'App\User',
             'model_id' => 6
+        ]);
+
+        //Alumno - Padre de familia
+        DB::table('model_has_roles')->insert([
+            'role_id' => 6,
+            'model_type' => 'App\User',
+            'model_id' => 7
         ]);
     }
 }
