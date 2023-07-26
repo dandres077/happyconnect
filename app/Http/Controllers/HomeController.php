@@ -35,6 +35,11 @@ class HomeController extends Controller
 
         $temporada_id = 1;
 
+        $validar_rol = DB::table('model_has_roles')
+                        ->where('role_id', 6)
+                        ->where('model_id', Auth::id())
+                        ->count();
+
         $total_alumnos_paralelos = DB::table('matriculas')
                                     ->leftJoin('grados', 'matriculas.grado_id', '=', 'grados.id')
                                     ->leftJoin('paralelos', 'matriculas.paralelo_id', '=', 'paralelos.id')
@@ -137,7 +142,7 @@ class HomeController extends Controller
 
         //---------------------------------------------------------------------------------------------------------------------------------
 
-        $totalRecaudadoPorMes = DB::table('cobros')
+        $consultaCobros = DB::table('cobros')
                                 ->leftJoin('catalogos', 'cobros.mes_id', '=', 'catalogos.id')
                                 ->select(
                                     'cobros.mes_id',
@@ -148,8 +153,18 @@ class HomeController extends Controller
                                 )
                                 ->where('cobros.empresa_id', Auth::user()->empresa_id)
                                 ->where('cobros.temporada_id', $temporada_id)
-                                ->groupBy('cobros.mes_id', 'catalogos.nombre')
-                                ->get();
+                                ->groupBy('cobros.mes_id', 'catalogos.nombre');
+
+        //Se agrega la condición a la consulta para filtrar por el paralelo
+        if($validar_rol == 1) 
+        {
+            $consultaCobros->where('cobros.alumno_id', Auth::id());
+        }
+
+        //Se ejecuta la consulta
+        $totalRecaudadoPorMes = $consultaCobros->get();
+
+
 
         //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -247,19 +262,64 @@ class HomeController extends Controller
                                 ->limit(3)
                                 ->get();
 
-        return view('dashboard.home1')->with (compact(
-                                            'total_h_m',
-                                            'total_alumnos_paralelos',
-                                            'totalRecaudadoPorMes',
-                                            'cantidadHMPorEdad',
-                                            'cantidadAlumnosEdad',
-                                            'alumnosActivos',
-                                            'profesionalesActivos',
-                                            'totalGrados',
-                                            'totalRutas',
-                                            'actividadesGenerales',
-                                            'comunicados',
-                                            'publicacionesBlog'
-        ));
+
+
+        if ($validar_rol == 1) // Rol de alumno 
+        {
+
+            //Se consulta el paralelo del alumno a partir del ID de usuario
+            $info_usuario = DB::table('matriculas')
+                            ->select('paralelo_id')
+                            ->where('empresa_id', Auth::user()->empresa_id)
+                            ->where('alumno_id', Auth::id())
+                            ->where('status', 5)
+                            ->orderByRaw('id DESC')
+                            ->first();
+
+
+            // Consulta para visualizas las tareas activas
+            $consultaTareas = DB::table('tareas')
+                                ->leftJoin('asignaturas', 'tareas.asignatura_id', '=', 'asignaturas.id')
+                                ->leftJoin('users', 'tareas.user_create', '=', 'users.id')
+                                ->select(
+                                        'tareas.*',
+                                        'asignaturas.nombre AS nom_asignatura',
+                                        DB::raw('CONCAT(COALESCE(users.name, ""), " ", COALESCE(users.last, "")) AS nom_docente')
+                                        )
+                                ->where('tareas.empresa_id', Auth::user()->empresa_id)
+                                ->where('tareas.paralelo_id', $info_usuario->paralelo_id)
+                                ->where('tareas.status', 1 )
+                                ->orderByRaw('tareas.id DESC')
+                                ->limit(8)
+                                ->get(); 
+
+            
+            return view('dashboard.home2')->with (compact(
+                                                        'totalRecaudadoPorMes',
+                                                        'actividadesGenerales',
+                                                        'comunicados',
+                                                        'publicacionesBlog',
+                                                        'consultaTareas'
+            )); 
+
+        }else{
+
+           return view('dashboard.home1')->with (compact(
+                                                        'total_h_m',
+                                                        'total_alumnos_paralelos',
+                                                        'totalRecaudadoPorMes',
+                                                        'cantidadHMPorEdad',
+                                                        'cantidadAlumnosEdad',
+                                                        'alumnosActivos',
+                                                        'profesionalesActivos',
+                                                        'totalGrados',
+                                                        'totalRutas',
+                                                        'actividadesGenerales',
+                                                        'comunicados',
+                                                        'publicacionesBlog'
+            )); 
+        }
+
+        
     }
 }
