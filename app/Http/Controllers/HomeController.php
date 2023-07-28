@@ -158,7 +158,7 @@ class HomeController extends Controller
         //Se agrega la condición a la consulta para filtrar por el paralelo
         if($validar_rol == 1) 
         {
-            $consultaCobros->where('cobros.alumno_id', Auth::id());
+            $consultaCobros->where('cobros.alumno_id', Auth::user()->alumno_id);
         }
 
         //Se ejecuta la consulta
@@ -271,7 +271,7 @@ class HomeController extends Controller
             $info_usuario = DB::table('matriculas')
                             ->select('paralelo_id')
                             ->where('empresa_id', Auth::user()->empresa_id)
-                            ->where('alumno_id', Auth::id())
+                            ->where('alumno_id', Auth::user()->alumno_id)
                             ->where('status', 5)
                             ->orderByRaw('id DESC')
                             ->first();

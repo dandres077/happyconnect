@@ -534,4 +534,22 @@ Route::middleware(['auth'])->group(function(){
 
 	Route::get('admin/dashboard', 'HomeController@d1'); 
 
+
+/*
+|--------------------------------------------------------------------------
+| Observaciones
+|--------------------------------------------------------------------------
+|
+*/
+
+	Route::post('admin/observaciones/store', 'ObservacionesController@store')->middleware('permiso:observaciones.store'); 
+	Route::get('admin/observaciones', 'ObservacionesController@index')->middleware('permiso:observaciones.index'); 
+	Route::get('admin/observaciones/create', 'ObservacionesController@create')->middleware('permiso:observaciones.create'); 
+	Route::post('admin/observaciones/{id}/edit', 'ObservacionesController@update')->middleware('permiso:observaciones.update'); 
+	Route::post('admin/observaciones/{id}', 'ObservacionesController@destroy')->middleware('permiso:observaciones.destroy'); 
+	Route::get('admin/observaciones/{id}/edit', 'ObservacionesController@edit')->middleware('permiso:observaciones.edit'); 
+	Route::post('admin/observaciones/{id}/active', 'ObservacionesController@active')->middleware('permiso:observaciones.active'); 
+	Route::post('admin/observaciones/{id}/inactive', 'ObservacionesController@inactive')->middleware('permiso:observaciones.inactive'); 
+	Route::get('admin/observaciones/{id}', 'ObservacionesController@show')->middleware('permiso:observaciones.show'); 
+
 });

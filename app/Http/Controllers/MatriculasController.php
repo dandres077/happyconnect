@@ -244,6 +244,7 @@ class MatriculasController extends Controller
         //Creación del alumno para que pueda ingresar al sistema
         $user = new User();
         $user->empresa_id = Auth::user()->empresa_id;
+        $user->alumno_id = $alumno_id;
         $user->name = $request->input('nombre1');
         $user->last = $request->input('apellido1');
         $user->email = $request->input('email_est');
@@ -870,6 +871,8 @@ class MatriculasController extends Controller
 
             //Se crea el usuario para que pueda acceder al sistema
             $user = new User();
+            $user->empresa_id = $empresa_id;
+            $user->alumno_id = $alumno_id;
             $user->name = $request->input('nombre1');
             $user->last = $request->input('apellido1');
             $user->email = $request->input('email_est');

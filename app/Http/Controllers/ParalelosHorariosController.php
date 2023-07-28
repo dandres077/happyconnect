@@ -308,10 +308,15 @@ class ParalelosHorariosController extends Controller
         $info_usuario = DB::table('matriculas')
                         ->select('paralelo_id')
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('alumno_id', Auth::id())
+                        ->where('alumno_id', Auth::user()->alumno_id)
                         ->where('status', 5)
                         ->orderByRaw('id DESC')
                         ->first();
+
+        //Si hay registros retorna a la página interior  
+        if (!$info_usuario) {
+            return back()->with('error', 'No se encontraron registros.');
+        }
 
         $data = DB::table('paralelos_horarios')
                     ->leftJoin('paralelos', 'paralelos_horarios.paralelo_id', '=', 'paralelos.id')
@@ -373,13 +378,14 @@ class ParalelosHorariosController extends Controller
                         ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
                         ->select('grados.nombre AS nom_grado', 'paralelos.nombre AS nom_paralelo')
                         ->where('paralelos.empresa_id', Auth::user()->empresa_id )
-                        ->where('paralelos.id', 20 )
+                        ->where('paralelos.id', $info_usuario->paralelo_id )
                         ->where('paralelos.status', 1 )
                         ->first();
+        
+        $paralelo_id = $info_usuario->paralelo_id;
 
         $titulo = 'Grado: '.$titulos->nom_grado.' - Paralelo: '.$titulos->nom_paralelo;
-
-        $paralelo_id = $info_usuario->paralelo_id;
+        
 
         return view('paraleloshorarios.index', compact('horarios', 'titulo', 'dias', 'paralelo_id', 'ultimoElemento'));
     }

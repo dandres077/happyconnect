@@ -3,7 +3,7 @@
 @section('title',  $titulo  .' | '.config('app.name'))
 
 @section('style')
-
+<link href="{{ asset('assets/css/pages/tables/style.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -27,133 +27,131 @@
 
 <!-- begin:: Content -->
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-	<div class="row">
-		<div class="col-xl-12">
-
-			<!--begin:: Widgets/Personal Income-->
-			<div class="kt-portlet kt-portlet--fit kt-portlet--head-lg kt-portlet--head-overlay kt-portlet--height-fluid">
-				<div class="kt-portlet__head kt-portlet__space-x">
-					<div class="kt-portlet__head-label">
-						<h3 class="kt-portlet__head-title kt-font-light">
-							{{ $data[0]->nom_alumno }}
+	<div class="row">	
+		<div class="col-xl-4">
+			<!--begin:: Widgets/Blog-->
+			<div class="kt-portlet kt-portlet--height-fluid kt-widget19">
+				<div class="kt-portlet__body kt-portlet__body--fit kt-portlet__body--unfill">
+					<div class="kt-widget19__pic kt-portlet-fit--top kt-portlet-fit--sides" style="min-height: 300px; background-image: url({{ isset($data->imagen) ? $data->imagen : '' }})">
+						<h3 class="kt-widget19__title kt-font-light">
+						    {{ isset($data->nombre) ? $data->nombre : '' }}
 						</h3>
+						<div class="kt-widget19__shadow"></div>
+						<div class="kt-widget19__labels">
+							<a href="#" class="btn btn-label-light-o2 btn-bold ">Ruta</a>
+						</div>
 					</div>
 				</div>
 				<div class="kt-portlet__body">
-					<div class="kt-widget27">
-						<div class="kt-widget27__visual">
-							<img src="{{ asset('assets/media/bg/bg-4.jpg')}}" alt="">
-							<h3 class="kt-widget27__title">
-								@php
-									$realizado = 0;
-									$pendiente = 0;
-								@endphp
-
-								@foreach($cobros as $cobro)
-
-								@if($cobro->status == 1)
-
-								@php
-									$realizado = $realizado + $cobro->valor;
-
-								@endphp
-
-								@endif
-
-								@if($cobro->status == 2)
-
-								@php
-									$pendiente = $pendiente + $cobro->valor;
-
-								@endphp
-								
-								@endif								
-
-								@endforeach
-								<span class="kt-font-success kt-font-bold">{{number_format($realizado,'0', ',','.')}}</span><br>
-								<span class="kt-font-danger kt-font-bold">{{number_format($pendiente,'0', ',','.')}}</span>
-							</h3>
-							<div class="kt-widget27__btn">
-								<a href="#" class="btn btn-pill btn-light btn-elevate btn-bold">Pagos</a>
+					<div class="kt-widget19__wrapper">
+						<div class="kt-widget19__content">
+							<div class="kt-widget19__userpic">
+								<img src="{{ isset($data->img_usuario) ? $data->img_usuario : '' }}" alt="">
+							</div>
+							<div class="kt-widget19__info">
+								<span class="kt-widget19__time">Publicado por:</span>
+								<a href="#" class="kt-widget19__username">
+									{{ isset($data->nom_usuario) ? $data->nom_usuario : '' }}
+								</a>								
 							</div>
 						</div>
-						<div class="kt-widget27__container kt-portlet__space-x">
-							<ul class="nav nav-pills nav-fill" role="tablist">
-							@foreach($meses as $index => $mes)
-							    <li class="nav-item">
-							        <a class="nav-link{{ ($index === 0) ? ' active' : '' }}" data-toggle="pill" href="#kt_personal_income_quater_{{ $mes->id }}">{{ $mes->nombre }}</a>
-							    </li>
-							@endforeach
-
-							</ul>
-							<div class="tab-content">
-								@foreach($meses as $index => $mes)
-    							<div id="kt_personal_income_quater_{{ $mes->id }}" class="tab-pane{{ ($index === 0) ? ' active' : '' }}">
-									<div class="kt-widget11">
-										<div class="table-responsive">
-											<!--begin::Table-->
-											<table class="table">
-												<!--begin::Thead-->
-												<thead>
-													<tr>
-														<td>Concepto</td>
-														<td>Fecha</td>
-														<td>Estado</td>
-														<td class="kt-align-right">Valor</td>
-													</tr>
-												</thead>
-
-												<!--end::Thead-->
-
-												<!--begin::Tbody-->
-												<tbody>
-													@foreach($cobros as $cobro)
-													@if($mes->id == $cobro->mes_id)
-													<tr>
-														<td>
-															<a href="#" class="kt-widget11__title">{{ $cobro->nombre }}</a>
-															<span class="kt-widget11__sub">{{ $cobro->observacion }}</span>
-														</td>
-														
-														@if($cobro->status == 1)
-														<td><span class="kt-badge kt-badge--success kt-badge--inline">{{ $cobro->fecha }}</span></td>
-														<td><span class="kt-badge kt-badge--success kt-badge--inline">Realizado</span></td>
-														@endif
-														@if($cobro->status == 2)
-														<td><span class="kt-badge kt-badge--danger kt-badge--inline">Pendiente</span></td>
-														<td><span class="kt-badge kt-badge--danger kt-badge--inline">Pendiente</span></td>
-														@endif
-
-														<td class="kt-align-right kt-font-brand kt-font-bold">$ {{number_format($cobro->valor,'0', ',','.')}}</td>
-													</tr>
-													@endif
-													@endforeach
-												</tbody>
-												<!--end::Tbody-->
-											</table>
-											<!--end::Table-->
-										</div>
-									</div>
+						<div class="kt-widget19__text">
+							{{ isset($data->observaciones) ? $data->observaciones : '' }}
+							<br><br>
+							<div class="kt-widget__item">
+								<div class="kt-widget__contact">
+									<span class="kt-widget__label">Empresa:</span>
+									<a href="#" class="kt-widget__data">{{ isset($data->nom_proveedor) ? $data->nom_proveedor : '' }}</a>
 								</div>
-								@endforeach
+								<div class="kt-widget__contact">
+									<span class="kt-widget__label">Marca:</span>
+									<a href="#" class="kt-widget__data">{{ isset($data->marca) ? $data->marca : '' }}</a>
+								</div>
+								<div class="kt-widget__contact">
+									<span class="kt-widget__label">Modelo:</span>
+									<a href="#" class="kt-widget__data">{{ isset($data->modelo) ? $data->modelo : '' }}</a>
+								</div>
+								<div class="kt-widget__contact">
+									<span class="kt-widget__label">Placa:</span>
+									<a href="#" class="kt-widget__data">{{ isset($data->placa) ? $data->placa : '' }}</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!--end:: Widgets/Blog-->
+		</div>
+		<div class="col-xl-8">
 
-			<!--end:: Widgets/Personal Income-->
+			<!--begin:: Widgets/Company Summary-->
+			<div class="kt-portlet kt-portlet--height-fluid">
+				<div class="kt-portlet__head">
+					<div class="kt-portlet__head-label">
+						<h3 class="kt-portlet__head-title">
+							Información de contacto
+						</h3>
+					</div>
+				</div>
+				<div class="kt-portlet__body">
+					<div class="kt-widget13">
+						<div class="kt-widget13__item">
+							<span class="kt-widget13__desc">
+								Conductor(es)
+							</span>
+							<span class="kt-widget13__text kt-widget13__text--bold">
+								{{ isset($data->conductor) ? $data->conductor : '' }}
+							</span>
+						</div>
+						<div class="kt-widget13__item">
+							<span class="kt-widget13__desc kt-align-right">
+								Teléfono conductor(es):
+							</span>
+							<span class="kt-widget13__text  kt-font-brand kt-widget13__text--bold">
+								{{ isset($data->tel_conductor) ? $data->tel_conductor : '' }}
+							</span>
+						</div>
+						<div class="kt-widget13__item">
+							<span class="kt-widget13__desc">
+								Monitor(es):
+							</span>
+							<span class="kt-widget13__text">
+								{{ isset($data->monitor) ? $data->monitor : '' }}
+							</span>
+						</div>
+						<div class="kt-widget13__item">
+							<span class="kt-widget13__desc">
+								Teléfono monitores:
+							</span>
+							<span class="kt-widget13__text  kt-font-brand kt-widget13__text--bold">
+								{{ isset($data->tel_monitor) ? $data->tel_monitor : '' }}
+							</span>
+						</div>
+						<div class="kt-widget13__item">
+							<span class="kt-widget13__desc">
+								Total de alumnos:
+							</span>
+							<span class="kt-widget13__text">
+								{{ isset($data->total_alumnos) ? $data->total_alumnos : '' }}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--end:: Widgets/Company Summary-->
 		</div>
 	</div>
 </div>
 
 <!-- end:: Content -->
-
+                        
 
 
 @endsection
 
    
 @section('scripts')
+
 
 @endsection

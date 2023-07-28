@@ -38,7 +38,7 @@ class RutasController extends Controller
                     ->orderByRaw('rutas.id ASC');
         
 
-        if($permiso == 2)
+        if($permiso == 2) //Es docente
         {
             $consulta->where('rutas.empresa_id', Auth::user()->empresa_id);
 
@@ -313,7 +313,7 @@ class RutasController extends Controller
                 }
             }
 
-            // Redireccionar o realizar cualquier acción adicional después de guardar o eliminar los datos
+            // Redireccionar o realizar cualquier acci贸n adicional despu茅s de guardar o eliminar los datos
         
             return redirect()->back()->with('success', 'Los alumnos han sido asignados correctamente.');
 
@@ -332,16 +332,21 @@ class RutasController extends Controller
     public function show()
     { 
  
-        $titulo = 'Rutas';
+        $titulo = 'Rutas'; 
 
         //Se consulta el paralelo del alumno a partir del ID de usuario
         $info_usuario = DB::table('matriculas')
                         ->select('paralelo_id')
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('alumno_id', Auth::id())
+                        ->where('alumno_id', Auth::user()->alumno_id)
                         ->where('status', 5)
                         ->orderByRaw('id DESC')
-                        ->first();
+                        ->first(); 
+        
+        //Si hay registros retorna a la página interior  
+        if (!$info_usuario) {
+            return back()->with('error', 'No se encontraron registros.');
+        }
 
         $data = DB::table('rutas_alumnos')
                     ->leftJoin('rutas', 'rutas_alumnos.ruta_id', '=', 'rutas.id')

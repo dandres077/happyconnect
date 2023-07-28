@@ -22,3 +22,4 @@ Route::get('/departamentos/{pais_id}/', 'EmpresasController@departamentos'); //D
 Route::get('/ciudades/{departamento_id}/', 'EmpresasController@ciudades'); //ciudades por departamento
 Route::get('/paralelos/{empresa_id}/{temporada_id}/{grado_id}', 'ParalelosController@paralelos'); //Paralelos por empresa, temporada y grado
 Route::get('/actividades/{empresa_id}/empresa', 'ActividadesController@consulta');  //Actividades por empresa
+Route::get('/alumnos/{paralelo_id}', 'ObservacionesController@alumnos');  //Alumnos por paralelo

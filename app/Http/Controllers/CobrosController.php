@@ -148,7 +148,7 @@ class CobrosController extends Controller
         $request['temporada_id'] = $datos->temporada_id;
         $request['empresa_id'] = Auth::user()->empresa_id;
         $request['grado_id'] = $datos->grado_id;
-        $request['user_create'] = Auth::id();
+        $request['user_create'] = Auth::user()->alumno_id;
         $data = Cobros::create($request->all());
 
         return back()->with('success', 'Registro creado exitosamente');
@@ -392,7 +392,7 @@ class CobrosController extends Controller
         $info_usuario = DB::table('matriculas')
                         ->select('paralelo_id')
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('alumno_id', Auth::id())
+                        ->where('alumno_id', Auth::user()->alumno_id)
                         ->where('status', 5)
                         ->orderByRaw('id DESC')
                         ->first();
@@ -425,7 +425,7 @@ class CobrosController extends Controller
                         'matriculas.paralelo_id',
                         DB::raw('CONCAT(alumnos.nombre1, " ", alumnos.apellido1) AS nom_alumno'))
                 ->where('matriculas.empresa_id', Auth::user()->empresa_id)
-                ->where('matriculas.alumno_id', Auth::id())
+                ->where('matriculas.alumno_id', Auth::user()->alumno_id)
                 ->where('matriculas.paralelo_id', $info_usuario->paralelo_id)
                 ->where('matriculas.status', 5 )
                 ->orderByRaw('matriculas.id ASC')
@@ -437,7 +437,7 @@ class CobrosController extends Controller
                 ->select('c.id', 'c.alumno_id', 'c.mes_id', 'c.fecha', 'c.valor','c.observacion', 'ca.nombre', 'c.status')
                 ->where('c.empresa_id', Auth::user()->empresa_id)
                 ->where('c.paralelo_id', $info_usuario->paralelo_id)
-                ->where('c.alumno_id', Auth::id())
+                ->where('c.alumno_id', Auth::user()->alumno_id)
                 ->where('c.status', '!=', 3 )
                 ->orderByRaw('c.id ASC')
                 ->get(); 

@@ -329,7 +329,7 @@
           events: "{{env('APP_URL')}}/api/actividades/{{$empresa_id}}/empresa/?view=1",            
 
 
-          eventColor: '#1ab394',                                  //Color de los Events Display
+          eventColor: '#FE192F',                                  //Color de los Events Display
 
 
           // Visualiza una modal pequeña con la información del evento

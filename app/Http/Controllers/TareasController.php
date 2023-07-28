@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
+use App\Traits\Funciones;
 use DB;
 
 class TareasController extends Controller
 {
+    use Funciones;
 /*
 |--------------------------------------------------------------------------
 | index
@@ -19,9 +21,12 @@ class TareasController extends Controller
 */
     public function index()
     {
+
+        $permiso = $this->permisos(Auth::id());  
+
         $titulo = 'Tareas';
 
-        $data = DB::table('tareas')
+        $consulta = DB::table('tareas')
                     ->leftJoin('temporadas', 'tareas.temporada_id', '=', 'temporadas.id')
                     ->leftJoin('periodos', 'tareas.periodo_id', '=', 'periodos.id')
                     ->leftJoin('grados', 'tareas.grado_id', '=', 'grados.id')
@@ -36,11 +41,16 @@ class TareasController extends Controller
                             'asignaturas.nombre AS nom_asignatura',
                             DB::raw('(CASE WHEN tareas.status = 1 THEN "Activo" ELSE "Inactivo" END) AS estado_elemento')
                     )
-                    ->where('tareas.empresa_id', Auth::user()->empresa_id )
-                    ->where('tareas.user_create', Auth::id())
+                    ->where('tareas.empresa_id', Auth::user()->empresa_id )                    
                     ->where('tareas.status','!=', 3 )
-                    ->orderByRaw('tareas.id DESC')
-                    ->get();
+                    ->orderByRaw('tareas.id DESC');
+        
+        if($permiso == 2) //Es docente
+        {
+            $consulta->where('tareas.user_create', Auth::id());
+        }
+
+        $data = $consulta->get(); 
 
         return view('tareas.index', compact('data', 'titulo'));
     }
@@ -114,7 +124,7 @@ class TareasController extends Controller
     public function store(Request $request)
     {
         $request['empresa_id'] = Auth::user()->empresa_id;
-        $request['user_create'] = Auth::id();
+        $request['user_create'] = Auth::user()->alumno_id;
         $data = Tareas::create($request->all());
 
         if ($request->file('imagen')) {
@@ -140,10 +150,15 @@ class TareasController extends Controller
         $info_usuario = DB::table('matriculas')
                         ->select('paralelo_id')
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('alumno_id', Auth::id())
+                        ->where('alumno_id', Auth::user()->alumno_id)
                         ->where('status', 5)
                         ->orderByRaw('id DESC')
                         ->first();
+        
+        //Si hay registros retorna a la página interior  
+        if (!$info_usuario) {
+            return back()->with('error', 'No se encontraron registros.');
+        }
 
         $data = DB::table('tareas')
                     ->leftJoin('asignaturas', 'tareas.asignatura_id', '=', 'asignaturas.id')
@@ -264,7 +279,7 @@ class TareasController extends Controller
 
 /*
 |--------------------------------------------------------------------------
-| Activar publicación
+| Activar publicaci贸n
 |--------------------------------------------------------------------------
 |
 */
@@ -283,7 +298,7 @@ class TareasController extends Controller
 
 /*
 |--------------------------------------------------------------------------
-| Desactivar publicación
+| Desactivar publicaci贸n
 |--------------------------------------------------------------------------
 |
 */

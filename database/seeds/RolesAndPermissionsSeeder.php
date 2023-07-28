@@ -307,6 +307,16 @@ class RolesAndPermissionsSeeder extends Seeder
 
 		Permission::create(['name' => 'administracion.index']);
 
+		Permission::create(['name' => 'observaciones.store']); 
+		Permission::create(['name' => 'observaciones.index']); 
+		Permission::create(['name' => 'observaciones.create']); 
+		Permission::create(['name' => 'observaciones.update']); 
+		Permission::create(['name' => 'observaciones.destroy']); 
+		Permission::create(['name' => 'observaciones.edit']); 
+		Permission::create(['name' => 'observaciones.active']); 
+		Permission::create(['name' => 'observaciones.inactive']); 
+		Permission::create(['name' => 'observaciones.show']); 
+
 		
 
         // create roles and assign created permissions       

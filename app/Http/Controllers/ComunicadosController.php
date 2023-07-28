@@ -46,16 +46,7 @@ class ComunicadosController extends Controller
                 ->where('comunicados.status', '<>', 3)
                 ->where('comunicados_documentos.status', 1)
                 ->groupBy(
-                        'comunicados.id', 
-                        'comunicados.nombre', 
-                        'comunicados.descripcion', 
-                        'comunicados.archivo1',
-                        'comunicados.archivo2',
-                        'comunicados.archivo3',
-                        'comunicados.created_at', 
-                        'catalogos.nombre', 
-                        'temporadas.nombre',
-                        'comunicados.status')
+                        'comunicados.id')
                 ->orderByRaw('id ASC')
                 ->get();
 
@@ -394,7 +385,7 @@ class ComunicadosController extends Controller
         $info_usuario = DB::table('matriculas')
                         ->select('paralelo_id')
                         ->where('empresa_id', Auth::user()->empresa_id)
-                        ->where('alumno_id', Auth::id())
+                        ->where('alumno_id', Auth::user()->alumno_id)
                         ->where('status', 5)
                         ->orderByRaw('id DESC')
                         ->first();

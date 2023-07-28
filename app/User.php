@@ -19,11 +19,11 @@ class User extends Authenticatable
     // protected static $logOnlyDirty = true; Solo actualiza los campos que cambiaron
 
     protected static $logAttributes = [
-        'name', 'last', 'email', 'empresa_id', 'imagen'
+        'name', 'last', 'email', 'empresa_id', 'alumno_id','imagen'
     ];
 
     protected $fillable = [
-        'name', 'last', 'email', 'password', 'empresa_id', 'imagen'
+        'name', 'last', 'email', 'password', 'empresa_id', 'alumno_id','imagen'
     ];
 
     protected $hidden = [

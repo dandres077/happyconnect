@@ -101,7 +101,7 @@
                     <td>{{$tareas->nom_paralelo}}</td>
                     <td>{{$tareas->nom_asignatura}}</td>
                     <td>{{$tareas->tarea}}</td>
-                    <td><a href="{{$tareas->imagen}}" target="_blank"><i class="flaticon-eye"></i></a></td>
+                    <td>@if ($tareas->imagen != null) <a href="{{$tareas->imagen}}" target="_blank"><i class="flaticon-eye"></i></a>@endif</td> 
                     <td>{{$tareas->fecha_entrega}}</td>
                     <td>
                         @if($tareas->estado_elemento == 'Activo')
