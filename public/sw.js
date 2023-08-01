@@ -1,5 +1,5 @@
 // Nombre del cache
-const CACHE_NAME = 'mi-sitio-cache-v1';
+const CACHE_NAME = 'mi-sitio-cache-v2';
 
 // Archivos a cachear (puedes agregar más recursos aquí)
 const urlsToCache = [
@@ -85,3 +85,61 @@ function fetchAndUpdateCache(request) {
       console.error('Error al hacer la petición:', error);
     });
 }
+
+
+// --------------------------------------------------------------------------------
+
+// Variable para definir el tiempo en milisegundos antes de que expire el token (por ejemplo, 5 minutos)
+// AuthController - API (view)
+const TOKEN_EXPIRATION_THRESHOLD = 5 * 60 * 1000; // 5 minutos
+
+// Función para renovar el token
+function renewToken() {
+  // Realiza una petición al servidor para renovar el token
+  fetch('/api/renew-token', {
+    method: 'POST',
+    credentials: 'include', // Incluir cookies de autenticación
+    // Puedes incluir cualquier información adicional necesaria para la renovación del token
+    // body: JSON.stringify({}),
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Guarda el nuevo token en el almacenamiento local
+      localStorage.setItem('authToken', data.token);
+    })
+    .catch(error => {
+      console.error('Error al renovar el token:', error);
+    });
+}
+
+// Evento para renovar automáticamente el token antes de que expire
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          // Recurso encontrado en cache, lo retornamos
+          return response;
+        }
+
+        // Verificar si el token está almacenado en el almacenamiento local
+        const authToken = localStorage.getItem('authToken');
+        if (authToken) {
+          // Verificar si el token está próximo a expirar
+          const tokenData = JSON.parse(atob(authToken.split('.')[1]));
+          const expirationTime = tokenData.exp * 1000; // Convertir a milisegundos
+
+          if (expirationTime - Date.now() < TOKEN_EXPIRATION_THRESHOLD) {
+            // El token está próximo a expirar, renovarlo
+            renewToken();
+          }
+        }
+
+        // Recurso no encontrado en cache, hacemos la petición al servidor
+        return fetch(event.request);
+      })
+  );
+});
