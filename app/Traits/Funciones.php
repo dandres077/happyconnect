@@ -23,9 +23,25 @@ trait Funciones
                 ->where('model_id', Auth::id())
                 ->count();
 
+        $alumno = DB::table('model_has_roles')
+                ->select('id')
+                ->where('role_id', 6)  //Alumno
+                ->where('model_id', Auth::id())
+                ->count();
+
         if ($docente >= 1) 
         {
             return 2;
+        }
+
+        if ($alumno >= 1) 
+        {
+            return 5;
+        }
+
+        if ($admin >= 1) 
+        {
+            return 1;
         }
 
 

@@ -77,12 +77,11 @@ class TareasController extends Controller
                     ->where('status', 1 )
                     ->get();
 
-        $grados = DB::table('paralelos_horarios')
-                    ->leftJoin('paralelos', 'paralelos_horarios.paralelo_id', '=', 'paralelos.id')
+        $grados = DB::table('paralelos')
                     ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
                     ->select('grados.id', 'grados.nombre')
-                    ->where('paralelos_horarios.empresa_id', Auth::user()->empresa_id )
-                    ->where('paralelos_horarios.status', 1 )
+                    ->where('paralelos.empresa_id', Auth::user()->empresa_id )
+                    ->where('paralelos.status', 1 )
                     ->groupBy('grados.id', 'grados.nombre')
                     ->get();
 
@@ -201,12 +200,11 @@ class TareasController extends Controller
                     ->where('status', 1 )
                     ->get();
 
-        $grados = DB::table('paralelos_horarios')
-                    ->leftJoin('paralelos', 'paralelos_horarios.paralelo_id', '=', 'paralelos.id')
+        $grados = DB::table('paralelos')
                     ->leftJoin('grados', 'paralelos.grado_id', '=', 'grados.id')
                     ->select('grados.id', 'grados.nombre')
-                    ->where('paralelos_horarios.empresa_id', Auth::user()->empresa_id )
-                    ->where('paralelos_horarios.status', 1 )
+                    ->where('paralelos.empresa_id', Auth::user()->empresa_id )
+                    ->where('paralelos.status', 1 )
                     ->groupBy('grados.id', 'grados.nombre')
                     ->get();
 

@@ -1,74 +1,87 @@
-const CACHE_STATIC_NAME = 'static-v3';
-const CACHE_DYNAMIC_NAME = 'dynamic-v2';
-const CACHE_INMUTABLE_NAME = 'inmutable-v3';
-const CACHE_DYNAMIC_LIMIT = 50;
+// Nombre del cache
+const CACHE_NAME = 'mi-sitio-cache-v1';
 
-self.addEventListener('install', e => {
+// Archivos a cachear (puedes agregar más recursos aquí)
+const urlsToCache = [
+  '/',
+  'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Asap+Condensed:500',
+  'assets/css/pages/login/login-3.css',
+  'assets/plugins/global/plugins.bundle.css',
+  'assets/css/style.bundle.css',
+  'assets/media/logos/favicon.png',
+  'assets/media/logos/logo-5.png',
+  'assets/media/bg/bg-3.jpg',
+  'img/icons/icon-192x192.png',
+  'assets/css/skins/header/base/light.css',
+  'assets/css/skins/header/menu/light.css',
+  'assets/css/skins/brand/light.css',
+  'assets/css/skins/aside/light.css'
+];
 
-	const cacheProm = caches.open( CACHE_STATIC_NAME )
-		.then( cache => {
-			return cache.addAll([	
-					'assets/media/flags/177-colombia.svg',
-				]);
-		});
+// Variable para forzar la revisión de todos los recursos
+const forceCacheUpdate = false;
 
-	const cacheInmutable = caches.open( CACHE_INMUTABLE_NAME )
-		.then( cache => {
-			return cache.addAll([	
-					'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Asap+Condensed:500',
-					'assets/plugins/custom/fullcalendar/fullcalendar.bundle.css',
-					'assets/plugins/global/plugins.bundle.css',
-					'assets/css/style.bundle.css',
-					'assets/css/skins/header/base/light.css',
-					'assets/css/skins/header/menu/light.css',
-					'assets/css/skins/brand/light.css',
-					'assets/css/skins/aside/light.css',
-					'inspinia/js/plugins/dataTables/datatables.min.js',
-					'assets/css/pages/tables/style.css'
-				]);
-		});
-
-	e.waitUntil( Promise.all([cacheProm, cacheInmutable]) );
+// Instalación del Service Worker y cacheo inicial
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
 });
 
+// Activación del Service Worker y eliminación de caches antiguos
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
 
-function limpiarCache( cacheName, numeroItems ){
+// Intercepta las peticiones y responde con recursos cacheados
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          // Recurso encontrado en cache, lo retornamos
+          return response;
+        }
 
-	caches.open( cacheName )
-		.then( cache => {
+        // Si la variable forceCacheUpdate es true, forzamos la actualización de todos los recursos
+        if (forceCacheUpdate) {
+          return fetchAndUpdateCache(event.request);
+        }
 
-			return cache.keys()
-				.then( keys => {
-					//console.log(keys);
-					if (keys.lengh > numeroItems ) {
-						cache.delete( keys[0])
-						.then( limpiarCache(cacheName, numeroItems) );
-					}
-				});
+        // Recurso no encontrado en cache, hacemos la petición al servidor
+        return fetch(event.request);
+      })
+  );
+});
 
-		});
-
+// Función para hacer una petición al servidor, actualizar el cache y retornar la respuesta
+function fetchAndUpdateCache(request) {
+  return fetch(request)
+    .then(response => {
+      // Si la petición fue exitosa, actualizamos el cache
+      if (response && response.status === 200) {
+        const clonedResponse = response.clone();
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(request, clonedResponse);
+          });
+      }
+      return response;
+    })
+    .catch(error => {
+      console.error('Error al hacer la petición:', error);
+    });
 }
-
-
-self.addEventListener('fetch', e => {
-
-	const respuesta = fetch( e.request).then( res => {
-
-		if ( !res) return caches.match( e.request );
-
-		//console.log('Fetch', res );
-		caches.open( CACHE_DYNAMIC_NAME )
-			.then( cache => {
-				cache.put( e.request, res );
-				limpiarCache( CACHE_DYNAMIC_NAME, CACHE_DYNAMIC_LIMIT );
-			});
-		return res.clone();
-	}).catch( err => {
-		return caches.match( e.request );
-	});
-
-	e.respondWith( respuesta );
-
-
-});

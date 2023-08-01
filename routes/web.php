@@ -552,4 +552,24 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('admin/observaciones/{id}/inactive', 'ObservacionesController@inactive')->middleware('permiso:observaciones.inactive'); 
 	Route::get('admin/observaciones/{id}', 'ObservacionesController@show')->middleware('permiso:observaciones.show'); 
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Mensajes
+|--------------------------------------------------------------------------
+|
+*/
+	Route::get('admin/mensajes', 'MensajesController@index')->middleware('permiso:mensajes.index');  // Lista de correos
+	Route::get('admin/mensajes/create', 'MensajesController@create')->middleware('permiso:mensajes.create'); // Crear mensaje nuevo
+	Route::post('admin/mensajes/store', 'MensajesController@store')->middleware('permiso:mensajes.store'); // Guardar mensaje nuevo
+	Route::post('admin/mensajes/store_response', 'MensajesController@store_response')->middleware('permiso:mensajes.store_response');; // Guardar mensaje nuevo
+	Route::get('admin/mensajes/{id}/view', 'MensajesController@show')->middleware('permiso:mensajes.show'); // Ver correo
+	Route::get('admin/mensajes/{id}/edit', 'MensajesController@edit')->middleware('permiso:mensajes.edit'); // Vista responder correo
+	Route::post('admin/mensajes/{id}/edit', 'MensajesController@update')->middleware('permiso:mensajes.update'); // Guardar mensaje respondido
+	Route::get('admin/mensajes/{id}/delete', 'MensajesController@destroy')->middleware('permiso:mensajes.destroy'); // Eliminar mensaje
+	Route::get('admin/mensajes/{id}/important/{estado}', 'MensajesController@important')->middleware('permiso:mensajes.important'); // Eliminar mensaje
+	Route::get('admin/mensajes/eliminados', 'MensajesController@trash')->middleware('permiso:mensajes.trash');  // Lista de correos
+	Route::get('admin/mensajes/importantes', 'MensajesController@importantes')->middleware('permiso:mensajes.importantes');  // Lista de correos
+	Route::get('admin/mensajes/enviados', 'MensajesController@enviados')->middleware('permiso:mensajes.enviados');  // Lista de correos
 });

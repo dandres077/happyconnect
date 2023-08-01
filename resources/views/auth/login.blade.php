@@ -36,7 +36,7 @@
         <!--begin::Layout Skins(used by all pages) -->
 
         <!--end::Layout Skins -->
-        <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
+        <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.png')}}" />
 
         <link rel="manifest" href="{{asset('manifest.json')}}">
 
@@ -224,8 +224,22 @@
 
         <!--begin::Page Scripts(used by this page) -->
         <script src="{{asset('assets/js/pages/custom/login/login-general.js')}}" type="text/javascript"></script>
-
         <!--end::Page Scripts -->
+
+        <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('sw.js')
+                .then(registration => {
+                  console.log('Service Worker registrado con éxito:', registration);
+                })
+                .catch(error => {
+                  console.error('Error al registrar el Service Worker:', error);
+                });
+            });
+          }
+        </script>
+
     </body>
 
     <!-- end::Body -->
