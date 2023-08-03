@@ -1,9 +1,8 @@
 // Nombre del cache
-const CACHE_NAME = 'mi-sitio-cache-v2';
+const CACHE_NAME = 'mi-sitio-cache-v6';
 
 // Archivos a cachear (puedes agregar más recursos aquí)
 const urlsToCache = [
-  '/',
   'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Asap+Condensed:500',
   'assets/css/pages/login/login-3.css',
   'assets/plugins/global/plugins.bundle.css',
